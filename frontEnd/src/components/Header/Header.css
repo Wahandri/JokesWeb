@@ -1,0 +1,56 @@
+.img {
+    width: 100px;
+    margin-right: 40px
+}.img:hover {
+        
+    animation-name: gift;
+    animation-duration: 1.9s; 
+    animation-iteration-count: 1;
+}
+@keyframes gift {
+
+from {
+
+
+}
+to {
+    rotate: -180deg;
+    }
+}
+
+.img2 {
+    width: 60px;
+    margin-right: 40px
+}.img2:hover {
+        
+    animation-name: gift;
+    animation-duration: 1.5s; 
+    animation-iteration-count: 1;
+}
+@keyframes gift {
+
+from {
+
+
+}
+to {
+    rotate: -360deg;
+    }
+}
+
+.header {
+    /* border-radius: 10px;
+    background-color:rgb(194, 193, 193); */
+    display: flex;
+    justify-content:space-between;
+    color: rgb(255, 255, 255);
+    /* border: 1px solid rgba(95, 95, 95, 0.315); */
+    color: rgb(103, 173, 46);
+    align-items: center;
+
+}
+
+.between {
+    width: 33vh;
+}
+

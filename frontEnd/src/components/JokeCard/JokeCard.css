@@ -1,0 +1,27 @@
+.card {
+    background-color: rgb(231, 248, 214);
+    margin-top: 50px;
+    /* border: 10px solid rgb(103, 173, 46); */
+    border-radius: 20px;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+    align-items: center;
+}
+
+.chiste {
+    margin: 10vh;
+}
+
+.random {
+    width: 50px;
+}
+
+.flechas {
+    width:max-content;
+    display:flex;
+
+ 
+}
+

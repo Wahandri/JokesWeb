@@ -1,0 +1,30 @@
+.background {
+    /* content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-size: cover;
+    background-repeat: no-repeat; */
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(177, 252, 152, 0.695);
+}
+
+
+
+.body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hr {
+    color: rgb(143, 250, 124);
+    margin-top:5px;
+    margin-bottom:5px;
+    margin-left: 10vh;
+    margin-right: 10vh;
+    
+}
