@@ -1,0 +1,37 @@
+.loginBox {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.formLogin {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 50%;
+}
+
+.buttonLogin {
+    display: inline-block;
+    padding: 5px 10px;
+    position: relative;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid #909090;
+    border-radius: 4px;
+    background-color: #7b7974fd;
+    color: #f4f4f4;
+    cursor: pointer;
+    box-shadow: -2px 2px 2px rgb(79, 78, 78);
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.buttonLogin:hover {
+    background-color: #4d4c4c;
+    right: 2px;
+    top: 2px;
+    box-shadow: none;
+    
+}

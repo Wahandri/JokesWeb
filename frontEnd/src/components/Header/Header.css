@@ -54,3 +54,17 @@ to {
     width: 33vh;
 }
 
+.boxNav {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+.btNav {
+    padding: 10px 20px;
+    background-color: rgb(148, 173, 46);
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 2px;
+}

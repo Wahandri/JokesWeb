@@ -7,7 +7,7 @@ const Joke = require("../models/joke");
 // Recibir lista de Chistes
 router.get("/", async (req, res) => {
   try {
-    const PAGE_SIZE = 2;
+    const PAGE_SIZE = 5;
     const page = req.query.page || 1;
 
     const jokes = await Joke.find({})
@@ -25,16 +25,17 @@ router.get("/", async (req, res) => {
 router.post("/create", async (req, res) => {
   try {
     const joke = new Joke({
-      title: req.body.title,
       text: req.body.text,
-      author: req.body.author,
+      author: req.body.author
     });
+
+    
 
     const savedJoke = await joke.save();
 
     res.status(201).json({ ok: true, savedJoke });
   } catch (error) {
-    res.status(400).json({ ok: false, error });
+    res.status(400).json({ ok: false, error});
   }
 });
 

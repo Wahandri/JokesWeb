@@ -1,27 +1,15 @@
-.card {
-    background-color: rgb(231, 248, 214);
-    margin-top: 50px;
-    /* border: 10px solid rgb(103, 173, 46); */
-    border-radius: 20px;
-    
+.jokeCard {
     display: flex;
     flex-direction: column;
-    justify-content:space-between;
+    justify-content: center;
     align-items: center;
+    height: 100%;
+    width: 100%;
 }
 
 .chiste {
-    margin: 10vh;
+    /* max-height: 200px;
+    /* overflow-y: auto; */
+    /* width: 100%; */
+    margin-left: 15%;
 }
-
-.random {
-    width: 50px;
-}
-
-.flechas {
-    width:max-content;
-    display:flex;
-
- 
-}
-

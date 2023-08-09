@@ -1,0 +1,51 @@
+.ul {
+    list-style-type: disc;
+    list-style-position: outside;
+    border: 8px solid rgb(91, 153, 40);
+    border-radius: 50px;
+    padding: 20px;
+    width: 60%;
+}
+
+.jokesContent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid greenyellow;
+    border-radius: 10px;
+}
+
+.buttonBox {
+    width: auto;
+    display: flex;
+    justify-content: space-between;
+    margin: 15px;
+
+}
+
+.bt {
+    position: relative;
+    padding: 10px 20px;
+    background-color: rgb(103, 173, 46);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: 3px 3px  #2e7930;;
+}.bt:hover {
+    box-shadow: 0px 0px;
+    background-color: rgb(103, 173, 46); 
+    left: 3px;
+    top: 3px;
+    
+    
+}

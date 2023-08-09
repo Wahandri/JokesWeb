@@ -2,10 +2,6 @@ const mongoose = require("mongoose");
 let Schema = mongoose.Schema;
 
 let jokeSchema = new Schema({
-    title: {
-        type: String,
-        default: "Sin titulo"
-    },
     text: {
         type: String,
         required: [true, "Text of joke is required"],

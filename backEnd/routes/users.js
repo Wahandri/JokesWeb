@@ -1,43 +1,72 @@
 const express = require("express");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 const User = require("../models/user");
 const verifyToken = require("../middleweres/auth");
 
+// Verificación de password encriptada
+router.post("/login", async (req, res) => {
+  try {
+    const body = req.body;
 
-// --GRECIBIR LISTA DE USUAROS [ GET ]
+    const userDB = await User.findOne({ email: body.email });
+
+    if (!userDB) {
+      return res.status(400).json({
+        ok: false,
+        error: "Email not found",
+      });
+    }
+
+    if (!bcrypt.compareSync(body.password, userDB.password)) {
+      return res.status(400).json({
+        ok: false,
+        error: "Invalid password",
+      });
+    }
+
+    const token = jwt.sign(
+      { user: userDB },
+      process.env.SEED,
+      { expiresIn: "2h" }
+    );
+
+    res.status(200).json({ ok: true, token, user: userDB });
+  } catch (error) {
+    res.status(500).json({ ok: false, error });
+  }
+});
+
+// Recibir lista de usuarios
 router.get("/", verifyToken, async (req, res) => {
   try {
-
     const PAGE_SIZE = 2;
     const page = req.query.page || 1;
 
-    //  Se añade                    "skip()" [saltos que devuelve] "limit()" [ documentos que devolverá]
-    const users = await User.find({active: true}).skip(PAGE_SIZE * (page-1)).limit(PAGE_SIZE).exec();
+    const users = await User.find({ active: true })
+      .skip(PAGE_SIZE * (page - 1))
+      .limit(PAGE_SIZE)
+      .exec();
 
-
-    res.status(200).json({ ok: true, users })
+    res.status(200).json({ ok: true, users });
   } catch (error) {
     res.status(400).json({ ok: false, error });
   }
-
 });
-// -----------
 
-// CAMBIAR USUARIO: [ PUT ]
+// Cambiar usuario
 router.put("/change/:id", verifyToken, async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Buscar el usuario por su ID
     const user = await User.findById(id);
 
     if (!user) {
-      return res.status(404).json({ ok: false, message: "Usuario no encontrado" });
+      return res.status(404).json({ ok: false, message: "User not found" });
     }
 
-    // Actualizar los campos del usuario
     if (req.body.username) {
       user.username = req.body.username;
     }
@@ -45,10 +74,9 @@ router.put("/change/:id", verifyToken, async (req, res) => {
       user.email = req.body.email;
     }
     if (req.body.password) {
-      user.password = req.body.password;
+      user.password = bcrypt.hashSync(req.body.password, 10);
     }
 
-    // Guardar los cambios en la base de datos
     const updatedUser = await user.save();
 
     res.status(200).json({ ok: true, updatedUser });
@@ -56,16 +84,14 @@ router.put("/change/:id", verifyToken, async (req, res) => {
     res.status(400).json({ ok: false, error });
   }
 });
-//------------
 
-// CREAR USUARIO: [ POST ]
-router.post("/create", verifyToken, async (req, res) => {
+// Crear usuario
+router.post("/create", async (req, res) => {
   try {
     const user = new User({
       username: req.body.username,
       email: req.body.email,
-      // Utilizamos "bcrypt" para encriptar la password 
-      password: bcrypt.hashSync(req.body.password, 10)
+      password: bcrypt.hashSync(req.body.password, 10),
     });
 
     const savedUser = await user.save();
@@ -75,26 +101,22 @@ router.post("/create", verifyToken, async (req, res) => {
     res.status(400).json({ ok: false, error });
   }
 });
-// ------------
 
-// --BORRAR USUARIO:  [ DELETE ]
+// Borrar usuario
 router.delete("/:id", verifyToken, async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Buscar el usuario por su ID
     const user = await User.findById(id);
 
     if (!user) {
-      return res.status(404).json({ ok: false, message: "Usuario no encontrado" });
+      return res.status(404).json({ ok: false, message: "User not found" });
     }
 
-    // Actualizar los campos del usuario
     if (req.body.active !== undefined) {
       user.active = req.body.active;
     }
 
-    // Guardar los cambios en la base de datos
     const updatedUser = await user.save();
 
     res.status(200).json({ ok: true, updatedUser });
@@ -102,7 +124,5 @@ router.delete("/:id", verifyToken, async (req, res) => {
     res.status(400).json({ ok: false, error });
   }
 });
-// ------------
-
 
 module.exports = router;
