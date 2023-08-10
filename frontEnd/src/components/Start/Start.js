@@ -8,6 +8,7 @@ export default function Index({ setIsLoggedIn }) {
   return (
     <div className='base'>
       <div className='logoContainer'>
+        
         <img className='img' src={logotipo} alt="" />
       </div>
       <div className='indexBox'>

@@ -7,9 +7,16 @@
     width: 100%;
 }
 
+
 .chiste {
     /* max-height: 200px;
     /* overflow-y: auto; */
     /* width: 100%; */
     margin-left: 15%;
+}
+
+.h4 {
+    font-family: 'Comic Sans MS', cursive;
+    /* font-family: 'Indie Flower', cursive; */
+    
 }

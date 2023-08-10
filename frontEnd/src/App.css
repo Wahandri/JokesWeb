@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Sans+MS&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
+Body {
+    background-image: url(./images/fondook.png);
+    height: 100vh;
+    font-weight: bold;
+    
+}

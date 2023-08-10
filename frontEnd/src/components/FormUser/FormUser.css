@@ -2,7 +2,7 @@
     display: flex;
     width: 100%;
     justify-content: center;
-    background-color: #fff6c9;
+    
     height: 90vh;
 }
 
@@ -17,7 +17,7 @@
     width: 40%;
     height: 60%;
     border-radius: 10px;
-    margin-top: 20%;
+    margin-top: 100px;
     box-shadow: 30px 20px #7b7974fd;
 }
 

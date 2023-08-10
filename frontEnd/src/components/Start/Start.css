@@ -1,8 +1,10 @@
-.base {
-    background-color: #fff6c9;
+/* .base {
+    background-image: url(../../images/fondook.png);
     height: 100vh;
     font-weight: bold;
-}
+    /* background-size: 100%; */
+  /* background-repeat: no-repeat; */
+/* }  */
 
 .indexBox {
     background-color: #7b7974fd;
@@ -23,4 +25,9 @@
     border-radius: 10px;
     padding-left: 20%;
     box-shadow: -2px 2px 5px rgb(52, 54, 51);
+}
+
+.logoContainer {
+    display: flex;
+    justify-content: center;
 }

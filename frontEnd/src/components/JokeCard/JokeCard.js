@@ -42,7 +42,7 @@ const JokeCard = () => {
     <div className='jokeCard'>
       <p>Chiste aleatorio</p>
       <div className='chiste'>
-        <h4 lang='es'>{chiste}</h4>
+        <h4 className='h4' lang='es'>{chiste}</h4>
         <div>
           <h3>{funny}</h3>
         </div>
