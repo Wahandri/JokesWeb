@@ -11,6 +11,14 @@ let jokeSchema = new Schema({
         type: String,
         default: "Anonymous"
     },
+    createdAt: { 
+        type: Date, 
+        default: Date.now 
+    }, 
+    updatedAt: { 
+        type: Date, 
+        default: Date.now 
+    },
     funny: {
         type: Number,
         default: 0

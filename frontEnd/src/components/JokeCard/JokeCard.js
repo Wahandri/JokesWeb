@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import "./JokeCard.css";
+import iconAudio from "../../images/btAudio.png";
+import iconUpdate from "../../images/btUpdate.png";
 
 const JokeCard = () => {
   const [chiste, setChiste] = useState('');
-  const [funny, setFunny] = useState('');
+  // const [funny, setFunny] = useState('');
   const [isReading, setIsReading] = useState(false); // Estado para controlar si el chiste está siendo leído
 
   const obtenerChisteAleatorio = async () => {
@@ -11,7 +13,7 @@ const JokeCard = () => {
       const respuesta = await fetch('http://localhost:3001/jokes/random');
       const data = await respuesta.json();
       setChiste(data.joke.text);
-      setFunny(data.joke.funny);
+      // setFunny(data.joke.funny);
     } catch (error) {
       console.error('Error al obtener el chiste:', error);
     }
@@ -21,6 +23,10 @@ const JokeCard = () => {
     if (!isReading) {
       const utterance = new SpeechSynthesisUtterance(chiste);
       speechSynthesis.speak(utterance);
+
+      utterance.onend = () => {
+        setIsReading(false);
+      };
       setIsReading(true);
     } else {
       speechSynthesis.cancel();
@@ -40,21 +46,26 @@ const JokeCard = () => {
 
   return (
     <div className='jokeCard'>
-      <p>Chiste aleatorio</p>
+      <div className="h4Title">
+        <h2 >Tu chiste del día</h2>
+      </div>
+      <hr className='hr'></hr>
       <div className='chiste'>
         <h4 className='h4' lang='es'>{chiste}</h4>
-        <div>
-          <h3>{funny}</h3>
-        </div>
       </div>
 
-      <div>
-        <button className='random' onClick={obtenerChisteAleatorio}>
-          Otro chiste
-        </button>
-        <button className='read' onClick={leerChiste}>
-          {isReading ? 'Detener lectura' : 'Leer chiste'}
-        </button>
+      <div className='buttons'>
+        <img 
+          src={iconUpdate} 
+          alt="" 
+          className=' imgAudio random' 
+          onClick={obtenerChisteAleatorio}
+        />
+        <img 
+        alt=''
+        className='imgAudio'
+          src={iconAudio}  
+          onClick={leerChiste}/>
       </div>
     </div>
   );

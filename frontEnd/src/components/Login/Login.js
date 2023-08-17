@@ -1,12 +1,13 @@
-// frontend/components/Login/Login.js
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import "./Login.css";
+import { useUserContext } from '../../UserContext';
 
-const Login = ({ setIsLoggedIn }) => {
+const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { setUser } = useUserContext();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -25,10 +26,13 @@ const Login = ({ setIsLoggedIn }) => {
         localStorage.setItem('token', data.token);
         console.log('Inicio de sesión exitoso');
         alert('¡Bienvenido!');
-        setIsLoggedIn(true); // Actualizamos el estado para mostrar el encabezado
-        navigate('/jokes'); // Redirigimos a la página de chistes
+
+        setUser(data.user); // Establece el usuario en el contexto
+        onLogin(data.user); // Llama a la función onLogin para actualizar el estado en Start.js
+
+        navigate('/user'); // Redirigimos a la página de usuario
       } else {
-        const data = await response.json(); // Parseamos el mensaje de error
+        const data = await response.json();
         console.error('Error al iniciar sesión:', data.error);
       }
     } catch (error) {

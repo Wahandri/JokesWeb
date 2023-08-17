@@ -22,7 +22,7 @@ export default function FormUser() {
     try {
       const token = localStorage.getItem('token'); // Obtén el token almacenado en localStorage
 
-      const response = await fetch('http://localhost:3003/users/create', {
+      const response = await fetch('http://localhost:3001/users/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -88,9 +88,9 @@ export default function FormUser() {
               required
             />
           </div>
-          <Link to="/">
-            <button className='button-login bt'  type="submit">Create</button>
-          </Link>
+          {/* <Link to="/"> */}
+            <button onClick={handleSubmit} className='button-login bt'  type="submit">Create</button>
+          {/* </Link> */}
         </form>
         <Link to="/">
           <p>Entrar con usuario existente</p>

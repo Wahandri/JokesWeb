@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "./Jokes.css";
+import iconoAudio from "../../images/btAudio.png"
 
 export default function Jokes() {
   const [chistes, setChistes] = useState([]);
@@ -53,11 +54,6 @@ export default function Jokes() {
 
   // Función para escuchar el chiste en audio
   const escucharChiste = (chiste) => {
-    // Aquí debes implementar la lógica para reproducir el audio del chiste
-    // Puedes utilizar librerías o APIs de síntesis de voz para realizar esta tarea
-    // Por ejemplo, la Web Speech API de JavaScript puede ser una opción para reproducir el texto en voz.
-
-    // Ejemplo de cómo usar la Web Speech API (Es posible que necesites adaptar esto según tu implementación y necesidades)
     const speechSynthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(chiste);
     speechSynthesis.speak(utterance);
@@ -71,16 +67,14 @@ export default function Jokes() {
           {chistes.map((chiste) => (
             <li className='li' key={chiste.id}>
               {chiste.text}
-              <button  onClick={() => escucharChiste(chiste.text)} className='audioButton'>
-                Escuchar
-              </button>
+              <img key={chiste.id} className='imgAudio' src={iconoAudio}  onClick={() => escucharChiste(chiste.text)} alt="" />
             </li>
           ))}
           <div className='buttonBox'>
-            <button onClick={prevPage} className='bt' disabled={currentPage === 1}>
+            <button onClick={prevPage} className='buttonLogin' disabled={currentPage === 1}>
               ANTERIOR
             </button>
-            <button onClick={nextPage} className='bt'>
+            <button onClick={nextPage} className='buttonLogin'>
               SIGUIENTE
             </button>
           </div>

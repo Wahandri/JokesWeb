@@ -14,7 +14,7 @@
     margin-left: 15%;
     margin-right: 15%;
     border-radius: 15px;
-    height: 50vh;
+    
     align-items: center;
     color: aliceblue;
 }
@@ -25,6 +25,7 @@
     border-radius: 10px;
     padding-left: 20%;
     box-shadow: -2px 2px 5px rgb(52, 54, 51);
+    
 }
 
 .logoContainer {
