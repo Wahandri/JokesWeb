@@ -43,6 +43,7 @@
     position: relative;
     height: 40px;
     cursor:pointer;
+    margin-left: 20px;
   }
   
   .imgAudio:hover {

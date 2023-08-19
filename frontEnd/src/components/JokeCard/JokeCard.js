@@ -35,10 +35,10 @@ const JokeCard = () => {
   };
 
   useEffect(() => {
-    // Obtener un chiste aleatorio al montar el componente
+    
     obtenerChisteAleatorio();
 
-    // Detener la lectura al desmontar el componente
+ 
     return () => {
       speechSynthesis.cancel();
     };

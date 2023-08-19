@@ -19,15 +19,12 @@ function App() {
     <UserProvider>
       <BrowserRouter>
         <>
-          {/* Muestra el encabezado solo si el usuario ha iniciado sesión */}
           {isLoggedIn && <Header title="WAHAHA" />}
 
           <div >
             <Routes>
-              {/* Página de inicio */}
               <Route path="/" element={<Start setIsLoggedIn={setIsLoggedIn} />} />
 
-              {/* Resto de las rutas */}
               <Route path="/login/create" element={<FormUser />} />
               <Route path="/jokes" element={<Jokes />} />
               <Route path="/user" element={<User />} />

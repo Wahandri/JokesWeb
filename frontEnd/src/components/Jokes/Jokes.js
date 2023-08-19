@@ -20,7 +20,7 @@ export default function Jokes() {
   };
 
   useEffect(() => {
-    // Obtener lista de chistes al montar el componente (página 1 por defecto)
+    
     getJokesList(1);
   }, []);
 

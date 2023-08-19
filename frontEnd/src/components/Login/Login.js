@@ -27,8 +27,8 @@ const Login = ({ onLogin }) => {
         console.log('Inicio de sesión exitoso');
         alert('¡Bienvenido!');
 
-        setUser(data.user); // Establece el usuario en el contexto
-        onLogin(data.user); // Llama a la función onLogin para actualizar el estado en Start.js
+        setUser(data.user); 
+        onLogin(data.user); 
 
         navigate('/user'); // Redirigimos a la página de usuario
       } else {

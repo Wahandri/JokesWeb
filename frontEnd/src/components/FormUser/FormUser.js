@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import "./FormUser.css";
 import logotipo from "../../images/logotipo.png";
 
@@ -8,6 +8,7 @@ export default function FormUser() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
  
 
   const handleSubmit = async (event) => {
@@ -37,12 +38,14 @@ export default function FormUser() {
         console.log('Usuario creado exitosamente');
         console.log('Nuevo Usuario:', data.savedUser);
 
+        navigate("/");
+
         
 
-        // Puedes mostrar un mensaje de éxito, redirigir a otra página, etc.
+        
       } else {
         console.error('Error al crear el usuario:', data.error);
-        // Puedes mostrar un mensaje de error o tomar acciones específicas en caso de error.
+        
       }
     } catch (error) {
       console.error('Error al enviar el formulario:', error);
