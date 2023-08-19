@@ -9,8 +9,9 @@ export default function Index({ setIsLoggedIn }) {
   const { setUser } = useUserContext(); 
 
   const handleSuccessfulLogin = (user) => {
-    setUser(user); 
-    setIsLoggedIn(true); 
+    setUser(user); // Establece el usuario en el contexto
+    setIsLoggedIn(true); // Actualiza el estado de inicio de sesión
+  };
 
   return (
     <div className='base'>
