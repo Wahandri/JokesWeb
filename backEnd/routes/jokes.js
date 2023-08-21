@@ -7,7 +7,7 @@ const Joke = require("../models/joke");
 // Recibir lista de Chistes
 router.get("/", async (req, res) => {
   try {
-    const PAGE_SIZE = 10;
+    const PAGE_SIZE = 5;
     const page = req.query.page || 1;
 
     const jokes = await Joke.find({})
