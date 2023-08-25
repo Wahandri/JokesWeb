@@ -1,0 +1,15 @@
+.flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tusChistes {
+    border: 2px solid green;
+    width: 60%;
+}
+
+.h2TusChistes {
+    background-color: aquamarine;
+}

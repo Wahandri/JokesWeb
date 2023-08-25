@@ -17,8 +17,8 @@ export default function Header(props) {
       </div>
       <div > 
         <nav className='boxNav'> 
-          <Link to="/"> 
-            <p className='btNav'>INICIO</p>
+          <Link to="/jokes/create"> 
+            <p className='btNav'>Subir Chiste</p>
           </Link>
           <Link to="/jokes"> 
             <p className='btNav'>CHISTES</p>

@@ -94,6 +94,11 @@ router.post("/create", async (req, res) => {
       password: bcrypt.hashSync(req.body.password, 10),
     });
 
+    const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+    if (existingUser) {
+      return res.status(400).json({ ok: false, error: "El nombre de usuario o correo electrónico ya está en uso." });
+    }
+
     const savedUser = await user.save();
 
     res.status(201).json({ ok: true, savedUser });

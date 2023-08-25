@@ -1,3 +1,4 @@
+// Login.js
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import "./Login.css";
@@ -24,19 +25,18 @@ const Login = ({ onLogin }) => {
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem('token', data.token);
-        console.log('Inicio de sesión exitoso');
+        setUser(data.user);
+        onLogin(data.user);
         alert('¡Bienvenido!');
-
-        setUser(data.user); 
-        onLogin(data.user); 
-
-        navigate('/user'); // Redirigimos a la página de usuario
+        navigate('/jokes');
       } else {
         const data = await response.json();
         console.error('Error al iniciar sesión:', data.error);
+        alert('Datos no válidos');
       }
     } catch (error) {
       console.error('Error al enviar el formulario:', error);
+      alert('Error al enviar el formulario');
     }
   };
 

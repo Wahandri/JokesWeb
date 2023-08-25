@@ -19,7 +19,7 @@ let jokeSchema = new Schema({
         type: Date, 
         default: Date.now 
     },
-    funny: {
+    score: {
         type: Number,
         default: 0
     }

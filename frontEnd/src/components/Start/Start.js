@@ -5,12 +5,11 @@ import "./Start.css";
 import JokeCard from '../JokeCard/JokeCard';
 import logotipo from "../../images/logotipo.png";
 
-export default function Index({ setIsLoggedIn }) {
-  const { setUser } = useUserContext(); 
+export default function Start() {
+  const { setUser } = useUserContext();
 
   const handleSuccessfulLogin = (user) => {
-    setUser(user); // Establece el usuario en el contexto
-    setIsLoggedIn(true); // Actualiza el estado de inicio de sesión
+    setUser(user);
   };
 
   return (
@@ -23,7 +22,6 @@ export default function Index({ setIsLoggedIn }) {
           <JokeCard />
         </div>
         <div className="loginCard">
-          
           <Login onLogin={handleSuccessfulLogin} />
         </div>
       </div>

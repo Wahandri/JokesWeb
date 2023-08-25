@@ -38,6 +38,8 @@ export default function FormUser() {
         console.log('Usuario creado exitosamente');
         console.log('Nuevo Usuario:', data.savedUser);
 
+        alert('Usuario creado correctamente');
+
         navigate("/");
 
         
@@ -45,7 +47,7 @@ export default function FormUser() {
         
       } else {
         console.error('Error al crear el usuario:', data.error);
-        
+        alert('Error al ingresar datos');
       }
     } catch (error) {
       console.error('Error al enviar el formulario:', error);

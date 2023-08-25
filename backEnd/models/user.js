@@ -10,6 +10,7 @@ const validRoles = {
     let userSchema = new Schema({
         username: {
             type: String,
+            unique: true,
             required: [true, "Username is required"],
         },
         email: {
@@ -29,7 +30,11 @@ const validRoles = {
         active: {
             type: Boolean,
             default: true
-        }
+        },
+        // Chistes favoritos
+        favoriteJokes: [
+            { type: mongoose.Schema.Types.ObjectId, ref: 'Joke' }
+        ] 
     });
 // --------------
 
