@@ -36,7 +36,7 @@ Este proyecto es el resultado de mi aprendizaje y esfuerzo. Si tienes sugerencia
 
 ## Contacto
 
-Si tienes alguna pregunta o comentario, no dudes en contactarme en [tu@email.com](mailto:tu@email.com).
+Si tienes alguna pregunta o comentario, no dudes en contactarme en [wahandricode@gmail.com](mailto:wahandricode@gmail.com).
 
 Espero que disfrutes riendo con los chistes y que esta aplicación te ayude a aprender y practicar nuevas habilidades. ¡Diviértete explorando y riendo a carcajadas!
 
