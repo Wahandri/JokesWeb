@@ -63,7 +63,7 @@ export default function Jokes() {
         alert('Debes iniciar sesión para dar "Me gusta"');
         return;
       }
-
+  
       const response = await fetch(`http://localhost:3001/jokes/${jokeId}/like`, {
         method: 'POST',
         headers: {
@@ -71,11 +71,17 @@ export default function Jokes() {
         },
         body: JSON.stringify({ userId: user._id }),
       });
-
+  
       if (response.ok) {
         setChistes(prevChistes =>
           prevChistes.map(chiste =>
-            chiste._id === jokeId ? { ...chiste, likedByUser: !chiste.likedByUser } : chiste
+            chiste._id === jokeId
+              ? {
+                  ...chiste,
+                  likedByUser: !chiste.likedByUser,
+                  score: chiste.score + (chiste.likedByUser ? -1 : 1)
+                }
+              : chiste
           )
         );
       } else {
@@ -103,20 +109,25 @@ export default function Jokes() {
             <li className='li' key={chiste._id}>
               {chiste.text}
               <div>
-              <img
-                className='imgStar'
-                src={chiste.likedByUser ? filledStarIcon : emptyStarIcon}
-                onClick={() => handleLike(chiste._id)}
-                alt=""
-                title={chiste.likedByUser ? "Eliminar de favoritos" : "Añadir a favoritos"}
-              />
-              <img
-                className='imgAudio'
-                src={audioIcon}
-                onClick={() => escucharChiste(chiste.text)}
-                alt=""
-                title='Escuchar'
-              />
+              <div>
+                <img
+                  className='imgStar'
+                  src={chiste.likedByUser ? filledStarIcon : emptyStarIcon}
+                  onClick={() => handleLike(chiste._id)}
+                  alt=""
+                  title={chiste.likedByUser ? "Eliminar de favoritos" : "Añadir a favoritos"}
+                />
+                <h4>{chiste.score}</h4>
+              </div>
+              <div>
+                <img
+                  className='imgAudio'
+                  src={audioIcon}
+                  onClick={() => escucharChiste(chiste.text)}
+                  alt=""
+                  title='Escuchar'
+                />
+              </div>
               </div>
               
             </li>
