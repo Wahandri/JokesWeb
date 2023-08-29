@@ -1,10 +1,11 @@
 import React from "react";
-// import Header from "./components/Header/Header";
+import Header from "./components/Header/Header";
 import { UserProvider } from './UserContext'; // Importar el contexto de usuario
 import "./App.css";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import FormUser from "./components/FormUser/FormUser";
 import Jokes from "./components/Jokes/Jokes";
+// import JokesList from "./components/JokesList/JokesList";
 import Start from "./components/Start/Start";
 import User from "./components/User/User";
 import CreateJoke from "./components/CreateJoke/CreateJoke";

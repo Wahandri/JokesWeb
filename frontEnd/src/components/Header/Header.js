@@ -23,7 +23,9 @@ export default function Header(props) {
           <Link to="/jokes"> 
             <p className='btNav'>CHISTES</p>
           </Link>
-          
+          <Link to="/user"> 
+            <p className='btNav'>USUARIO</p>
+          </Link>
         </nav>
       </div>
       <hr></hr>

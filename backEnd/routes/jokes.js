@@ -7,7 +7,7 @@ const User = require("../models/user");
 // Recibir lista de Chistes
 router.get("/", async (req, res) => {
   try {
-    const PAGE_SIZE = 3;
+    const PAGE_SIZE = 5;
     const page = req.query.page || 1;
 
     const jokes = await Joke.find({})
@@ -15,11 +15,15 @@ router.get("/", async (req, res) => {
       .limit(PAGE_SIZE)
       .exec();
 
-    res.status(200).json({ ok: true, jokes });
+    const totalJokes = await Joke.countDocuments(); // Total de chistes en la base de datos
+
+    res.status(200).json({ ok: true, jokes, totalJokes });
   } catch (error) {
     res.status(400).json({ ok: false, error });
   }
 });
+
+
 
 // CREAR CHISTE (Joke)
 router.post("/create", async (req, res) => {
