@@ -7,7 +7,7 @@ import payaso2 from "./payaso2.png";
 
 export default function Header(props) {
   return (
-    <div>
+    <div className='baseHeader'>
       <div className='header'>
         <div className=""><img className='img' src={logotipo} alt='' /></div>
         <div><h1>{props.title}</h1></div>

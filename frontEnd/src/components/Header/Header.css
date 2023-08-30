@@ -1,3 +1,9 @@
+.baseHeader {
+    background-color: #7b7974c6;
+    border-radius: 15px;
+    border: 3px solid #6ba95d;
+}
+
 .img {
     width: 100px;
     margin-right: 40px
@@ -45,7 +51,7 @@ to {
     justify-content:space-between;
     color: rgb(255, 255, 255);
     /* border: 1px solid rgba(95, 95, 95, 0.315); */
-    color: rgb(103, 173, 46);
+    
     align-items: center;
 
 }
@@ -62,9 +68,10 @@ to {
 
 .btNav {
     padding: 10px 20px;
-    background-color: rgb(148, 173, 46);
+    background-color: #80cb70;
+    border: 3px solid #6ba95d;
     color: #fff;
     cursor: pointer;
     text-align: center;
-    border-radius: 2px;
+    border-radius: 10px;
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useUserContext } from '../../UserContext';
 import "./CreateJoke.css";
+import Header from '../Header/Header';
 
 const CreateJoke = () => {
   const { user } = useUserContext(); // Obtén el usuario actual del contexto
@@ -38,19 +39,21 @@ const CreateJoke = () => {
   };
 
   return (
-    
-    <div className='createJokeForm'>
+    <div>
+      <Header title="Añadir chiste" />
+      <div className='createJokeForm'>
       <h2>Añadir Nuevo Chiste</h2>
-      <form onSubmit={handleSubmit}>
-        <textarea
-          id="textAreaCreate"
-          placeholder='Escribe el chiste aquí'
-          value={jokeText}
-          onChange={(e) => setJokeText(e.target.value)}
-          required
-        />
-        <button  className='bt buttonSubmit' type='submit'>Añadir Chiste</button>
-      </form>
+        <form onSubmit={handleSubmit}>
+          <textarea
+            id="textAreaCreate"
+            placeholder='Escribe el chiste aquí'
+            value={jokeText}
+            onChange={(e) => setJokeText(e.target.value)}
+            required
+          />
+          <button  className='bt buttonSubmit' type='submit'>Añadir Chiste</button>
+        </form>
+      </div>
     </div>
   );
 };

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-
+const Joke = require("../models/joke");
 const User = require("../models/user");
 const verifyToken = require("../middleweres/auth");
 
@@ -38,6 +38,32 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ ok: false, error });
   }
 });
+
+
+// Recibir Chistes Favoritos
+router.get("/:userId/favorite-jokes", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    console.log("User ID:", userId);
+
+    const user = await User.findById(userId);
+    console.log("User:", user);
+
+    if (!user) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+
+    const favoriteJokes = await Joke.find({ _id: { $in: user.favoriteJokes } });
+    console.log("Favorite Jokes:", favoriteJokes);
+
+    res.status(200).json({ favoriteJokes });
+  } catch (error) {
+    console.error('Error al obtener los chistes favoritos:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
 
 // Recibir lista de usuarios
 router.get("/", verifyToken, async (req, res) => {

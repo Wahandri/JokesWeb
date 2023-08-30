@@ -24,7 +24,6 @@ router.get("/", async (req, res) => {
 });
 
 
-
 // CREAR CHISTE (Joke)
 router.post("/create", async (req, res) => {
   try {

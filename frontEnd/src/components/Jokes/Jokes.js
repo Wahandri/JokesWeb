@@ -4,7 +4,7 @@ import "./Jokes.css";
 import emptyStarIcon from "../../images/emptyStarIcon.png";
 import filledStarIcon from "../../images/filledStarIcon.png";
 import audioIcon from "../../images/btAudio.png";
-import addJoke from "../../images/addJoke.png";
+// import addJoke from "../../images/addJoke.png";
 import { useUserContext } from '../../UserContext';
 
 export default function Jokes() {
