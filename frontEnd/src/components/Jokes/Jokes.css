@@ -18,6 +18,27 @@
   
 }
 
+.author {
+  width: 100%;
+  display: flex;
+  color: #7b7974fd;
+
+  
+  text-decoration: underline;
+  text-decoration-color: #6ba95d; /* Cambiar el color del subrayado */
+  text-decoration-thickness: 1px; /* Cambiar el grosor del subrayado */
+  text-decoration-style:double; /* Cambiar el estilo del subrayado */
+  
+  
+}
+
+.filters {
+  margin-left:  15px;
+}
+.textoBusqueda {
+  margin: 15px;
+}
+
 .li {
   font-family: 'Comic Sans MS', cursive;
   background-color:  #80cb70;
@@ -32,7 +53,20 @@
   border-radius: 20px;
   font-size:larger;
   width: 60%;
-  height: 200px;
+  min-height: 200px;
+}
+
+.btAddJoke{
+  width: 50px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
 }
 
 .h3Joke {

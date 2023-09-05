@@ -66,7 +66,7 @@ to {
     gap: 10px;
 }
 
-.btNav {
+.btnNav {
     padding: 10px 20px;
     background-color: #80cb70;
     border: 3px solid #6ba95d;
@@ -74,4 +74,12 @@ to {
     cursor: pointer;
     text-align: center;
     border-radius: 10px;
+}.btnNav:hover{
+    border: 3px solid #8dde7b;
 }
+
+.btnNav p a {
+    text-decoration: none;
+    ;
+}
+    

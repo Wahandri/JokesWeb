@@ -120,7 +120,7 @@ router.post("/create", async (req, res) => {
       password: bcrypt.hashSync(req.body.password, 10),
     });
 
-    const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+    const existingUser = await User.findOne({ $or: [{ username: req.body.username }, { email: req.body.email }] });
     if (existingUser) {
       return res.status(400).json({ ok: false, error: "El nombre de usuario o correo electrónico ya está en uso." });
     }
@@ -132,6 +132,7 @@ router.post("/create", async (req, res) => {
     res.status(400).json({ ok: false, error });
   }
 });
+
 
 // Borrar usuario
 router.delete("/:id", verifyToken, async (req, res) => {

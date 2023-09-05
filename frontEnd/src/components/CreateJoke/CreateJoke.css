@@ -1,7 +1,39 @@
-.CreateJoke {
-    background-color: rgb(0, 255, 0);
+.boxCreateJoke{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.jokeForm{
+    /* font-family: 'Comic Sans MS', cursive; */
+    background-color: #80cb70;
+    border: 3px solid #6ba95d;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 80%;
+}
+
+.textAreaCreateJoke{
+    border: 3px solid #6ba95d;
+    border-radius: 10px;
+    background-color: #dff7d6;
+    color:rgb(49, 129, 44);
+    font-family: 'Comic Sans MS', cursive;
+  font-size: 16px;
+}.textAreaCreateJoke:focus{
+    outline: none;
+    border: 4px dotted #6ba95d;
+}
+
+.imgAudio {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.buttonSubmit {
+    margin-bottom: 20px;
 }

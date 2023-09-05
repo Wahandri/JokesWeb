@@ -9,13 +9,30 @@ router.get("/", async (req, res) => {
   try {
     const PAGE_SIZE = 5;
     const page = req.query.page || 1;
+    const filter = req.query.filter || ''; // Nuevo filtro de texto
+    const sortByScore = req.query.sortByScore === 'true'; // Nuevo filtro de ordenación
 
-    const jokes = await Joke.find({})
+    let query = {};
+
+    // Aplicar filtro de texto si se proporciona
+    if (filter) {
+      query.$or = [
+        { text: { $regex: filter, $options: 'i' } }, // Filtrar por texto del chiste (insensible a mayúsculas y minúsculas)
+        { author: { $regex: filter, $options: 'i' } }, // Filtrar por autor del chiste (insensible a mayúsculas y minúsculas)
+      ];
+    }
+
+    // Aplicar ordenación si es necesario
+    if (sortByScore) {
+      query = { ...query, score: -1 }; // Ordenar por puntuación descendente
+    }
+
+    const jokes = await Joke.find(query)
       .skip(PAGE_SIZE * (page - 1))
       .limit(PAGE_SIZE)
       .exec();
 
-    const totalJokes = await Joke.countDocuments(); // Total de chistes en la base de datos
+    const totalJokes = await Joke.countDocuments(query); // Total de chistes en la base de datos con filtros
 
     res.status(200).json({ ok: true, jokes, totalJokes });
   } catch (error) {
@@ -27,18 +44,22 @@ router.get("/", async (req, res) => {
 // CREAR CHISTE (Joke)
 router.post("/create", async (req, res) => {
   try {
+    // Crear un nuevo chiste
     const joke = new Joke({
       text: req.body.text,
-      author: req.body.author,
+      author: req.body.author, // Aquí se almacena el nombre de usuario
     });
 
+    // Guardar el chiste en la base de datos
     const savedJoke = await joke.save();
 
     res.status(201).json({ ok: true, savedJoke });
   } catch (error) {
-    res.status(400).json({ ok: false, error });
+    console.error('Error al crear el chiste:', error);
+    res.status(500).json({ ok: false, error: 'Error interno del servidor' });
   }
 });
+
 
 // Obtener un chiste aleatorio
 router.get("/random", async (req, res) => {

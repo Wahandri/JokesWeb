@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useUserContext } from '../../UserContext';
 import { useJokeContext } from '../../JokeContext';
-
 import Header from '../Header/Header';
 import "./User.css";
+import filledStarIcon from "../../images/filledStarIcon.png";
 
 export default function User() {
-  const { user } = useUserContext();
-  const { jokes, handleLikeJoke } = useJokeContext(); // Agrega handleLikeJoke desde el contexto de chistes
+  const { user, updateUser } = useUserContext();
+  const { handleLikeJoke } = useJokeContext();
   const [favoriteJokes, setFavoriteJokes] = useState([]);
 
   useEffect(() => {
@@ -20,6 +20,32 @@ export default function User() {
         console.error('Error al obtener los chistes favoritos:', error);
       });
   }, [user._id]);
+
+  const handleRemoveFromFavorites = (chisteId) => {
+    if (window.confirm('¿Estás seguro de eliminar el chiste de favoritos?')) {
+      // Filtra los IDs de los chistes favoritos para eliminar el chiste seleccionado
+      const updatedFavoriteJokes = user.favoriteJokes.filter(id => id !== chisteId);
+
+      // Realiza una solicitud para actualizar los chistes favoritos del usuario en el servidor
+      fetch(`http://localhost:3001/users/${user._id}/update-favorites`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ favoriteJokes: updatedFavoriteJokes }),
+      })
+        .then(response => response.json())
+        .then(data => {
+          setFavoriteJokes(data.favoriteJokes);
+
+          // Actualiza el contexto del usuario con los chistes favoritos actualizados
+          updateUser({ ...user, favoriteJokes: updatedFavoriteJokes });
+        })
+        .catch(error => {
+          console.error('Error al actualizar los chistes favoritos:', error);
+        });
+    }
+  };
 
   return (
     <div>
@@ -35,7 +61,13 @@ export default function User() {
               <li key={chiste._id}>
                 {chiste.text}
                 <button onClick={() => handleLikeJoke(chiste._id)}>Escuchar</button>
-                <button onClick={() => handleLikeJoke(chiste._id, true)}>Quitar de favoritos</button>
+                <img
+                  className="imgStar"
+                  src={filledStarIcon}
+                  alt="Quitar de favoritos"
+                  title="Quitar de favoritos"
+                  onClick={() => handleRemoveFromFavorites(chiste._id)}
+                />
               </li>
             ))}
           </ul>

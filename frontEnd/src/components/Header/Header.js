@@ -16,19 +16,19 @@ export default function Header(props) {
         </Link>
       </div>
       <div > 
-        <nav className='boxNav'> 
+        <div className=' boxNav'> 
           <Link to="/jokes/create"> 
-            <p className='btNav'>Subir Chiste</p>
+            <h4 className='btnNav'>SUBIR CHISTE</h4>
           </Link>
           <Link to="/jokes"> 
-            <p className='btNav'>CHISTES</p>
+            <h4 className='btnNav'>CHISTES</h4>
           </Link>
           <Link to="/user"> 
-            <p className='btNav'>USUARIO</p>
+            <h4 className='btnNav'>USUARIO</h4>
           </Link>
-        </nav>
+        </div>
       </div>
-      <hr></hr>
+      
     </div>
   )
 }
