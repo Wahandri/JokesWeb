@@ -109,8 +109,10 @@
 
 
 .imgStar {
+  height: 20px;
   width: 20px;
   cursor: pointer;
+  margin-left: 10px;
 }
 
 .imgAudio {
@@ -176,7 +178,10 @@
     
 }
 
-
+.score-start {
+  display: flex;
+  align-items: center;
+}
 
 /* ----------------------- */
 

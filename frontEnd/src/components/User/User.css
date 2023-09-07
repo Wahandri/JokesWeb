@@ -5,11 +5,36 @@
     align-items: center;
 }
 
+.baseUser {
+    background-color: #7b7974fd;
+    height: 100%;
+    border-radius: 15px;
+    margin-top: 10px;
+    padding: 10px;
+    color: aliceblue;
+    /* border: 2px solid #6ba95d; */
+    
+}
+
+.helloUser {
+
+}
+
+
+
+.totalScore {
+
+}
+
 .tusChistes {
+    background-color: #80cb70;
     border: 2px solid green;
     width: 60%;
+    border-radius: 10px;
+    margin-top: 15px;
+    box-shadow: ;
 }
 
 .h2TusChistes {
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
 }

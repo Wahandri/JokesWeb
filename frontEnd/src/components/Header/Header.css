@@ -1,5 +1,5 @@
 .baseHeader {
-    background-color: #7b7974c6;
+    background-color: #7b7974fd;
     border-radius: 15px;
     border: 3px solid #6ba95d;
 }
@@ -74,6 +74,7 @@ to {
     cursor: pointer;
     text-align: center;
     border-radius: 10px;
+    box-shadow: 2px 2px 2px rgb(93, 92, 92);
 }.btnNav:hover{
     border: 3px solid #8dde7b;
 }

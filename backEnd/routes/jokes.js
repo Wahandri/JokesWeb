@@ -40,6 +40,17 @@ router.get("/", async (req, res) => {
   }
 });
 
+// Recibir TODOS lo chistes
+router.get("/alljokes", async (req, res) => {
+  try {
+    const jokes = await Joke.find(); 
+
+    res.status(200).json({ ok: true, jokes });
+  } catch (error) {
+    res.status(400).json({ ok: false, error });
+  }
+});
+
 
 // CREAR CHISTE (Joke)
 router.post("/create", async (req, res) => {

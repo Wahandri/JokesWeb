@@ -120,27 +120,28 @@ export default function Jokes() {
                 <div className='author'>
                   <p>{chiste.author}</p>
                 </div>
-                {chiste.text}
+
                 <div>
-                  <div>
-                    <img
-                      className="imgStar"
-                      src={chiste.likedByUser ? filledStarIcon : emptyStarIcon}
-                      onClick={() => handleLike(chiste._id)}
-                      alt={chiste.likedByUser ? 'Favorito' : 'No favorito'}
-                      title={chiste.likedByUser ? 'Eliminar de favoritos' : 'Añadir a favoritos'}
-                    />
-                    <h4>{chiste.score}</h4>
-                  </div>
-                  <div>
-                    <img
-                      className="imgAudio"
-                      src={audioIcon}
-                      onClick={() => escucharChiste(chiste.text)}
-                      alt="Icono de audio"
-                      title="Escuchar"
-                    />
-                  </div>
+                  {chiste.text}
+                </div>
+                <div>
+                  <img
+                    className="imgAudio"
+                    src={audioIcon}
+                    onClick={() => escucharChiste(chiste.text)}
+                    alt="Icono de audio"
+                    title="Escuchar"
+                  />
+                </div>
+                <div className='score-start'>
+                  <h4>{chiste.score}</h4>
+                  <img
+                    className="imgStar"
+                    src={chiste.likedByUser ? filledStarIcon : emptyStarIcon}
+                    onClick={() => handleLike(chiste._id)}
+                    alt={chiste.likedByUser ? 'Favorito' : 'No favorito'}
+                    title={chiste.likedByUser ? 'Eliminar de favoritos' : 'Añadir a favoritos'}
+                  />
                 </div>
               </li>
             ))}
