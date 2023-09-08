@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Header from '../Header/Header';
 import { Link } from 'react-router-dom';
 import './Jokes.css';
@@ -7,30 +7,45 @@ import filledStarIcon from '../../images/filledStarIcon.png';
 import addJoke from "../../images/addJoke.png"
 import audioIcon from '../../images/btAudio.png';
 import { useUserContext } from '../../UserContext';
-import JokesFilters from './JokesFilters'; // Importa el componente de filtros
+import JokesFilters from './JokesFilters';
 
 export default function Jokes() {
   const [chistes, setChistes] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [filters, setFilters] = useState({ filter: '' }); // Agrega el estado de los filtros
+  const [filters, setFilters] = useState({ filter: '' });
   const { user } = useUserContext();
+  const loadingRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getJokesList(currentPage, filters); // Pasa los filtros a la función de obtención de chistes
+      const data = await getJokesList(currentPage, filters);
       if (data.ok) {
-        const filteredChistes = data.jokes.map(chiste => ({
-          ...chiste,
-          likedByUser: user.favoriteJokes.includes(chiste._id),
-        }));
-        setChistes(filteredChistes);
+        setChistes(prevChistes => [...prevChistes, ...data.jokes]); // Agrega los nuevos chistes al estado existente
         setTotalPages(Math.ceil(data.totalJokes / 5));
       }
     };
 
     fetchData();
-  }, [currentPage, user.favoriteJokes, filters]); // Agrega filters a las dependencias
+  }, [currentPage, filters]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        loadingRef.current &&
+        loadingRef.current.getBoundingClientRect().bottom <= window.innerHeight
+      ) {
+        if (currentPage < totalPages) {
+          setCurrentPage(currentPage + 1);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [currentPage, totalPages]);
 
   const handleLike = async (jokeId) => {
     try {
@@ -75,16 +90,10 @@ export default function Jokes() {
     speechSynthesis.speak(utterance);
   };
 
-  const handlePageChange = (newPage) => {
-    if (newPage >= 1 && newPage <= totalPages) {
-      setCurrentPage(newPage);
-    }
-  };
-
   const getJokesList = async (page, filters) => {
     try {
       const response = await fetch(`http://localhost:3001/jokes?page=${page}&filter=${filters.filter}`, {
-        method: 'GET', // Cambia a GET para obtener los chistes con filtros
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -98,7 +107,6 @@ export default function Jokes() {
   };
 
   const handleFilterChange = (newFilters) => {
-    // Actualiza los filtros y reinicia la página a la primera al aplicar un nuevo filtro
     setFilters(newFilters);
     setCurrentPage(1);
   };
@@ -106,13 +114,8 @@ export default function Jokes() {
   return (
     <div>
       <Header title="Chistes" />
-      <JokesFilters onFilterChange={handleFilterChange} /> {/* Agrega los filtros */}
+      <JokesFilters onFilterChange={handleFilterChange} />
       <div className="jokesContent">
-        <div className="pagination">
-          <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>Anterior</button>
-          <span>Página {currentPage} de {totalPages}</span>
-          <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>Siguiente</button>
-        </div>
         <div className="boxJokes">
           <ul className="ul">
             {chistes.map((chiste) => (
@@ -120,11 +123,10 @@ export default function Jokes() {
                 <div className='author'>
                   <p>{chiste.author}</p>
                 </div>
-
                 <div>
                   {chiste.text}
                 </div>
-                <div>
+                <div className='score-start'>
                   <img
                     className="imgAudio"
                     src={audioIcon}
@@ -132,8 +134,6 @@ export default function Jokes() {
                     alt="Icono de audio"
                     title="Escuchar"
                   />
-                </div>
-                <div className='score-start'>
                   <h4>{chiste.score}</h4>
                   <img
                     className="imgStar"
@@ -147,17 +147,15 @@ export default function Jokes() {
             ))}
           </ul>
         </div>
-        <div className="pagination">
-          <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>Anterior</button>
-          <span>Página {currentPage} de {totalPages}</span>
-          <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>Siguiente</button>
+        <div ref={loadingRef} className="loading">
+          {currentPage < totalPages && <p>Cargando más chistes...</p>}
         </div>
       </div>
       <div>
         <Link to="/jokes/create">
-          <img 
+          <img
             className='floatingIcon btAddJoke'
-            src={addJoke} alt="" 
+            src={addJoke} alt=""
           />
         </Link>
       </div>

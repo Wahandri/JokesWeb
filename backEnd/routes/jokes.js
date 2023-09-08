@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-
 const Joke = require("../models/joke");
 const User = require("../models/user");
 
-// Recibir lista de Chistes
+
+// Recibir lista de Chistes (orden inverso)
 router.get("/", async (req, res) => {
   try {
     const PAGE_SIZE = 5;
@@ -28,6 +28,7 @@ router.get("/", async (req, res) => {
     }
 
     const jokes = await Joke.find(query)
+      .sort({ _id: -1 }) // Ordenar por _id en orden inverso (último chiste primero)
       .skip(PAGE_SIZE * (page - 1))
       .limit(PAGE_SIZE)
       .exec();
@@ -39,6 +40,7 @@ router.get("/", async (req, res) => {
     res.status(400).json({ ok: false, error });
   }
 });
+
 
 // Recibir TODOS lo chistes
 router.get("/alljokes", async (req, res) => {

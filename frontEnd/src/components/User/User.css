@@ -16,6 +16,26 @@
     
 }
 
+.btsUser {
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    width: 50%;
+    
+}
+
+.jokesUser {
+    background-color: #7b7974fd;
+    width: 80%;
+    padding: 10px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 2px 2px 2px rgb(47, 47, 47);
+    margin-bottom: 10px;
+}
+
 .helloUser {
 
 }
@@ -38,3 +58,9 @@
 .h2TusChistes {
     /* background-color: aquamarine; */
 }
+
+.desplegar {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out; 
+  }

@@ -1,7 +1,6 @@
 import React from "react";
-// import Header from "./components/Header/Header";
 import { UserProvider } from './UserContext';
-import { JokeProvider } from './JokeContext'; // Importar el contexto de chistes
+import { JokeProvider } from './JokeContext';
 import "./App.css";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import FormUser from "./components/FormUser/FormUser";
@@ -22,15 +21,13 @@ function App() {
     <UserProvider>
       <JokeProvider> 
         <BrowserRouter>
-          <>
-            <Routes>
-              <Route path="/" element={<Start />} />
-              <Route path="/login/create" element={<FormUser />} />
-              <Route path="/jokes" element={<PrivateRoute element={(<Jokes />)} path="/jokes" />} />
-              <Route path="/jokes/create" element={<PrivateRoute element={<CreateJoke />} path="/jokes/create" />} />
-              <Route path="/user" element={<PrivateRoute element={<User />} path="/user" />} />
-            </Routes>
-          </>
+          <Routes>
+            <Route path="/" element={<Start />} />
+            <Route path="/login/create" element={<FormUser />} />
+            <Route path="/jokes" element={<PrivateRoute element={<Jokes />} />} />
+            <Route path="/jokes/create" element={<PrivateRoute element={<CreateJoke />} />} />
+            <Route path="/user" element={<PrivateRoute element={<User />} />} />
+          </Routes>
         </BrowserRouter>
       </JokeProvider>
     </UserProvider>

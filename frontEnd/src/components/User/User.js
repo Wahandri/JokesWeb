@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useUserContext } from '../../UserContext';
-import { useJokeContext } from '../../JokeContext';
 import Header from '../Header/Header';
 import "./User.css";
-import filledStarIcon from "../../images/filledStarIcon.png";
+import filledStarIcon from "../../images/deleteFavorite.png";
 import audioIcon from '../../images/btAudio.png';
-
+import btDelete from '../../images/delete.png';
 
 export default function User() {
   const { user, updateUser } = useUserContext();
-  const { handleLikeJoke } = useJokeContext();
   const [favoriteJokes, setFavoriteJokes] = useState([]);
   const [yourJokes, setYourJokes] = useState([]);
   const [showFavoriteJokes, setShowFavoriteJokes] = useState(false);
@@ -18,9 +16,11 @@ export default function User() {
 
   // Recibir chistes favoritos
   useEffect(() => {
-    fetch(`http://localhost:3001/users/${user._id}/favorite-jokes`)
+    console.log("Fetching favorite jokes...");
+    fetch(`/users/${user._id}/favorite-jokes`)
       .then(response => response.json())
       .then(data => {
+        console.log("Favorite jokes data:", data);
         setFavoriteJokes(data.favoriteJokes);
       })
       .catch(error => {
@@ -30,9 +30,11 @@ export default function User() {
 
   // Recibir y filtrar chistes propios
   useEffect(() => {
-    fetch('http://localhost:3001/jokes/alljokes')
+    console.log("Fetching your jokes...");
+    fetch('/jokes/alljokes')
       .then(response => response.json())
       .then(data => {
+        console.log("All jokes data:", data);
         // Filtrar los chistes por autor
         const filteredJokes = data.jokes.filter(chiste => chiste.author === user.username);
         console.log("Tus chistes propios:", filteredJokes);
@@ -41,20 +43,15 @@ export default function User() {
         setYourJokes(filteredJokes);
 
         // Calcular la suma de los scores de los chistes filtrados
-      const totalScore = filteredJokes.reduce((acumulador, chiste) => {
-        return acumulador + chiste.score;
-      }, 0);
-      setTotalScore(totalScore);
-
+        const totalScore = filteredJokes.reduce((acumulador, chiste) => {
+          return acumulador + chiste.score;
+        }, 0);
+        setTotalScore(totalScore);
       })
       .catch(error => {
         console.error('Error al obtener todos los chistes:', error);
       });
-  }, []);
-
-
-  
-  
+  }, [user.username]);
 
   const escucharChiste = (chiste) => {
     const speechSynthesis = window.speechSynthesis;
@@ -64,26 +61,24 @@ export default function User() {
 
   const handleRemoveFromFavorites = (chisteId) => {
     if (window.confirm('¿Estás seguro de eliminar el chiste de favoritos?')) {
-      // Filtra los IDs de los chistes favoritos para eliminar el chiste seleccionado
-      const updatedFavoriteJokes = user.favoriteJokes.filter(id => id !== chisteId);
-
+      console.log("Removing joke from favorites...");
       // Realiza una solicitud para actualizar los chistes favoritos del usuario en el servidor
-      fetch(`http://localhost:3001/users/${user._id}/update-favorites`, {
-        method: 'POST',
+      fetch(`/users/${user._id}/favorite-jokes/${chisteId}`, {
+        method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ favoriteJokes: updatedFavoriteJokes }),
       })
         .then(response => response.json())
         .then(data => {
+          console.log("Updated favorite jokes data:", data);
           setFavoriteJokes(data.favoriteJokes);
 
           // Actualiza el contexto del usuario con los chistes favoritos actualizados
-          updateUser({ ...user, favoriteJokes: updatedFavoriteJokes });
+          updateUser({ ...user, favoriteJokes: data.favoriteJokes });
         })
         .catch(error => {
-          console.error('Error al actualizar los chistes favoritos:', error);
+          console.error('Error al eliminar el chiste de favoritos:', error);
         });
     }
   };
@@ -99,30 +94,32 @@ export default function User() {
           <h3>Tu puntuación total:  {totalScore}</h3>
         </div>
         <div className='tusChistes flex'>
-          <h2 className='h2TusChistes' onClick={() => setShowFavoriteJokes(!showFavoriteJokes)}>
+          <h2 className='h2TusChistes ' onClick={() => setShowFavoriteJokes(!showFavoriteJokes)}>
             Tus chistes favoritos
           </h2>
+          <hr className='hr'/>
           {showFavoriteJokes && (
             <ul>
               {favoriteJokes.map(chiste => (
-                <li key={chiste._id}>
+                <li className='jokesUser' key={chiste._id}>
                   {chiste.text}
-                  <div>
-                  <img
-                    className="imgAudio"
-                    src={audioIcon}
-                    onClick={() => escucharChiste(chiste.text)}
-                    alt="Icono de audio"
-                    title="Escuchar"
-                  />
-                </div>
-                  <img
-                    className="imgStar"
-                    src={filledStarIcon}
-                    alt="Quitar de favoritos"
-                    title="Quitar de favoritos"
-                    onClick={() => handleRemoveFromFavorites(chiste._id)}
-                  />
+                  <div className='btsUser'>
+                    <img
+                      className="imgAudio"
+                      src={audioIcon}
+                      onClick={() => escucharChiste(chiste.text)}
+                      alt="Icono de audio"
+                      title="Escuchar"
+                    />
+                  
+                    <img
+                      className="imgStar"
+                      src={filledStarIcon}
+                      alt="Quitar de favoritos"
+                      title="Quitar de favoritos"
+                      onClick={() => handleRemoveFromFavorites(chiste._id)}
+                    />
+                  </div> 
                 </li>
               ))}
             </ul>
@@ -132,18 +129,27 @@ export default function User() {
           <h2 className='h2TusChistes' onClick={() => setShowYourJokes(!showYourJokes)}>
             Tus chistes propios
           </h2>
+          <hr className='hr'/>
           {showYourJokes && (
             <ul>
               {yourJokes.map(chiste => (
-                <li key={chiste._id}>
+                <li className='jokesUser' key={chiste._id}>
                   {chiste.text}
-                  <div>
+                  <div className='btUser'>
                     <img
                       className="imgAudio"
                       src={audioIcon}
                       onClick={() => escucharChiste(chiste.text)}
                       alt="Icono de audio"
                       title="Escuchar"
+                    />
+                  
+                    <img
+                      className="imgAudio"
+                      src={btDelete}
+                      
+                      alt=""
+                      title="Borrar Chiste"
                     />
                   </div>
                 </li>

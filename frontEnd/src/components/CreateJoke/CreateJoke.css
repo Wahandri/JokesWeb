@@ -15,6 +15,7 @@
     justify-content: center;
     align-items: center;
     width: 80%;
+    box-shadow: 30px 30px #7b7974fd, 30px 30px #7b7974fd;
 }
 
 .textAreaCreateJoke{
@@ -28,11 +29,11 @@
     outline: none;
     border: 4px dotted #6ba95d;
 }
-
+ 
 .imgAudio {
     margin-top: 10px;
     margin-bottom: 10px;
-}
+} 
 
 .buttonSubmit {
     margin-bottom: 20px;
