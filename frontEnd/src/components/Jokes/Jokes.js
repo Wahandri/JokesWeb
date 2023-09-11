@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './Jokes.css';
 import emptyStarIcon from '../../images/emptyStarIcon.png';
 import filledStarIcon from '../../images/filledStarIcon.png';
-import addJoke from "../../images/addJoke.png"
+import addJoke from '../../images/addJoke.png';
 import audioIcon from '../../images/btAudio.png';
 import { useUserContext } from '../../UserContext';
 import JokesFilters from './JokesFilters';
@@ -17,11 +17,37 @@ export default function Jokes() {
   const { user } = useUserContext();
   const loadingRef = useRef(null);
 
+  // Función para cargar chistes desde el servidor
+  const fetchJokes = async (page, filter) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/jokes?page=${page}&filter=${filter}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error al obtener la lista de chistes:', error);
+      return { ok: false, error };
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getJokesList(currentPage, filters);
+      const data = await fetchJokes(currentPage, filters.filter);
       if (data.ok) {
-        setChistes(prevChistes => [...prevChistes, ...data.jokes]); // Agrega los nuevos chistes al estado existente
+        if (currentPage === 1) {
+          // Si es la primera página, reemplaza los chistes existentes
+          setChistes(data.jokes);
+        } else {
+          // Si no es la primera página, agrega los nuevos chistes al estado existente
+          setChistes((prevChistes) => [...prevChistes, ...data.jokes]);
+        }
         setTotalPages(Math.ceil(data.totalJokes / 5));
       }
     };
@@ -50,11 +76,11 @@ export default function Jokes() {
   const handleLike = async (jokeId) => {
     try {
       if (!user) {
-        alert('Debes iniciar sesión para dar "Me gusta"');
+        alert('Debes iniciar sesión para agregar a favoritos');
         return;
       }
 
-      const response = await fetch(`http://localhost:3001/jokes/${jokeId}/like`, {
+      const response = await fetch(`http://localhost:3001/jokes/${jokeId}/favorite`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -63,24 +89,25 @@ export default function Jokes() {
       });
 
       if (response.ok) {
-        setChistes(prevChistes =>
-          prevChistes.map(chiste =>
+        const data = await response.json();
+
+        // Actualizar la lista de chistes en el estado según sea necesario
+        setChistes((prevChistes) =>
+          prevChistes.map((chiste) =>
             chiste._id === jokeId
-              ? {
-                ...chiste,
-                likedByUser: !chiste.likedByUser,
-                score: chiste.score + (chiste.likedByUser ? -1 : 1),
-              }
+              ? { ...chiste, likedByUser: !chiste.likedByUser }
               : chiste
           )
         );
+
+        alert(data.message);
       } else {
         const data = await response.json();
         alert(data.error);
       }
     } catch (error) {
-      console.error('Error al dar "Me gusta":', error);
-      alert('Error al dar "Me gusta". Inténtalo de nuevo más tarde.');
+      console.error('Error al agregar/quitar de favoritos:', error);
+      alert('Error al agregar/quitar de favoritos. Inténtalo de nuevo más tarde.');
     }
   };
 
@@ -88,22 +115,6 @@ export default function Jokes() {
     const speechSynthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(chiste);
     speechSynthesis.speak(utterance);
-  };
-
-  const getJokesList = async (page, filters) => {
-    try {
-      const response = await fetch(`http://localhost:3001/jokes?page=${page}&filter=${filters.filter}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Error al obtener la lista de chistes:', error);
-      return { ok: false, error };
-    }
   };
 
   const handleFilterChange = (newFilters) => {
@@ -134,7 +145,6 @@ export default function Jokes() {
                     alt="Icono de audio"
                     title="Escuchar"
                   />
-                  <h4>{chiste.score}</h4>
                   <img
                     className="imgStar"
                     src={chiste.likedByUser ? filledStarIcon : emptyStarIcon}

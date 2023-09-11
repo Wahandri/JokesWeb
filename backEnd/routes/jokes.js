@@ -97,42 +97,42 @@ router.get("/random", async (req, res) => {
 
 
 
-// Votar chiste (Agregar o quitar "Me gusta")
-router.post('/:id/like', async (req, res) => {
+// Agregar o quitar chistes de favoritos
+router.post('/:id/favorite', async (req, res) => {
   const jokeId = req.params.id;
   const { userId } = req.body;
 
   try {
-    console.log("Post enviado");
     const joke = await Joke.findById(jokeId);
     if (!joke) {
-      console.log("Chiste no encontrado");
       return res.status(404).json({ error: 'Chiste no encontrado' });
     }
 
-    const user = await User.findById(userId); // Obtener el usuario
-
+    const user = await User.findById(userId);
     if (!user) {
-      console.log("Usuario no encontrado");
       return res.status(404).json({ error: 'Usuario no encontrado' });
     }
 
-    if (user.favoriteJokes.includes(jokeId)) { // Si el chiste está en los favoritos del usuario, quitarlo
-      joke.score -= 1; // Restar la puntuación del chiste
-      user.favoriteJokes = user.favoriteJokes.filter(id => id.toString() !== jokeId); // Quitar el chiste de los favoritos
-      await Promise.all([joke.save(), user.save()]); // Guardar ambos en paralelo
-      return res.status(200).json({ message: 'Me gusta quitado exitosamente' });
-    } else { // Si el chiste no está en los favoritos del usuario, agregarlo
-      joke.score += 1; // Aumentar la puntuación del chiste
-      user.favoriteJokes.push(jokeId); // Agregar el chiste a los favoritos del usuario
-      await Promise.all([joke.save(), user.save()]); // Guardar ambos en paralelo
-      return res.status(200).json({ message: 'Me gusta agregado exitosamente' });
+    const isFavorite = user.favoriteJokes.includes(jokeId);
+
+    if (isFavorite) {
+      // Si el chiste ya está en favoritos, quítalo
+      user.favoriteJokes = user.favoriteJokes.filter((favId) => favId.toString() !== jokeId.toString());
+    } else {
+      // Si el chiste no está en favoritos, agrégalo
+      user.favoriteJokes.push(jokeId);
     }
+
+    await user.save();
+
+    res.status(200).json({ message: isFavorite ? 'Chiste eliminado de favoritos' : 'Chiste añadido a favoritos' });
   } catch (error) {
-    console.error('Error al manejar "Me gusta":', error);
+    console.error('Error al agregar/quitar de favoritos:', error);
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 });
+
+
 
 
 
