@@ -96,7 +96,49 @@ export default function Jokes() {
         setChistes((prevChistes) =>
           prevChistes.map((chiste) =>
             chiste._id === jokeId
-              ? { ...chiste, likedByUser: !chiste.likedByUser }
+              ? { ...chiste, likedByUser: true }
+              : chiste
+          )
+        );
+
+        // Actualiza la lista de chistes favoritos en el contexto del usuario
+        updateUser({ ...user, favoriteJokes: data.favoriteJokes });
+
+        alert(data.message);
+      } else {
+        const data = await response.json();
+        alert(data.error);
+      }
+    } catch (error) {
+      console.error('Error al agregar/quitar de favoritos:', error);
+      alert('Error al agregar/quitar de favoritos. Inténtalo de nuevo más tarde.');
+    }
+  };
+
+  // Función para manejar el botón de "No me gusta" en un chiste (eliminar de favoritos)
+  const handleUnlike = async (jokeId) => {
+    try {
+      if (!user) {
+        alert('Debes iniciar sesión para quitar de favoritos');
+        return;
+      }
+
+      const response = await fetch(`http://localhost:3001/jokes/${jokeId}/favorite`, {
+        method: 'DELETE', // Usar DELETE para eliminar de favoritos
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId: user._id }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+
+        // Actualizar la lista de chistes en el estado según sea necesario
+        setChistes((prevChistes) =>
+          prevChistes.map((chiste) =>
+            chiste._id === jokeId
+              ? { ...chiste, likedByUser: false }
               : chiste
           )
         );
@@ -151,13 +193,26 @@ export default function Jokes() {
                     alt="Icono de audio"
                     title="Escuchar"
                   />
-                  <img
-                    className="imgStar"
-                    src={chiste.likedByUser ? filledStarIcon : emptyStarIcon}
-                    onClick={() => handleLike(chiste._id)}
-                    alt={chiste.likedByUser ? 'Favorito' : 'No favorito'}
-                    title={chiste.likedByUser ? 'Eliminar de favoritos' : 'Añadir a favoritos'}
-                  />
+                  {/* Comprueba si el chiste está en la lista de favoritos */}
+                  {user && user.favoriteJokes.includes(chiste._id) ? (
+                    // Si está en la lista de favoritos, muestra el icono de estrella llena
+                    <img
+                      className="imgStar"
+                      src={filledStarIcon}
+                      onClick={() => handleUnlike(chiste._id)}
+                      alt="Favorito"
+                      title="Eliminar de favoritos"
+                    />
+                  ) : (
+                    // Si no está en la lista de favoritos, muestra el icono de estrella vacía
+                    <img
+                      className="imgStar"
+                      src={emptyStarIcon}
+                      onClick={() => handleLike(chiste._id)}
+                      alt="No favorito"
+                      title="Añadir a favoritos"
+                    />
+                  )}
                 </div>
               </li>
             ))}

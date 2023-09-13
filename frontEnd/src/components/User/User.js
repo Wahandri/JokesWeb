@@ -149,28 +149,31 @@ export default function User() {
           <hr className='hr'/>
           {showFavoriteJokes && (
             <ul>
-              {favoriteJokes.map(chiste => (
-                <li className='jokesUser' key={chiste._id}>
-                  {chiste.text}
-                  <div className='btsUser'>
-                    <img
-                      className="imgAudio"
-                      src={audioIcon}
-                      onClick={() => escucharChiste(chiste.text)}
-                      alt="Icono de audio"
-                      title="Escuchar"
-                    />
-                  
-                    <img
-                      className="imgStar"
-                      src={filledStarIcon}
-                      alt="Quitar de favoritos"
-                      title="Quitar de favoritos"
-                      onClick={() => handleRemoveFromFavorites(chiste._id)}
-                    />
-                  </div> 
-                </li>
-              ))}
+              {favoriteJokes.length === 0 ? (
+                <h4>No tienes chistes en favoritos.</h4>
+              ) : (
+                favoriteJokes.map(chiste => (
+                  <li className='jokesUser' key={chiste._id}>
+                    {chiste.text}
+                    <div className='btsUser'>
+                      <img
+                        className="imgAudio"
+                        src={audioIcon}
+                        onClick={() => escucharChiste(chiste.text)}
+                        alt="Icono de audio"
+                        title="Escuchar"
+                      />
+                      <img
+                        className="imgStar"
+                        src={filledStarIcon}
+                        alt="Quitar de favoritos"
+                        title="Quitar de favoritos"
+                        onClick={() => handleRemoveFromFavorites(chiste._id)}
+                      />
+                    </div> 
+                  </li>
+                ))
+              )}
             </ul>
           )}
         </div>
@@ -181,30 +184,36 @@ export default function User() {
           <hr className='hr'/>
           {showYourJokes && (
             <ul>
-              {yourJokes.map(chiste => (
-                <li className='jokesUser' key={chiste._id}>
-                  {chiste.text}
-                  <div className='btUser'>
-                    <img
-                      className="imgAudio"
-                      src={audioIcon}
-                      onClick={() => escucharChiste(chiste.text)}
-                      alt="Icono de audio"
-                      title="Escuchar"
-                    />
-                    <img
-                      className="imgAudio"
-                      src={btDelete}
-                      onClick={() => deleteJoke(chiste._id, user._id)}
-                      alt=""
-                      title="Borrar Chiste"
-                    />
-                  </div>
-                </li>
-              ))}
+              {yourJokes.length === 0 ? (
+                <h4>No hay chistes propios.</h4>
+              ) : (
+                yourJokes.map(chiste => (
+                  <li className='jokesUser' key={chiste._id}>
+                    {chiste.text}
+                    <div className='btsUser'>
+                      <img
+                        className="imgAudio"
+                        src={audioIcon}
+                        onClick={() => escucharChiste(chiste.text)}
+                        alt="Icono de audio"
+                        title="Escuchar"
+                      />
+                      <img
+                        className="imgDelete"
+                        src={btDelete}
+                        alt="Eliminar chiste"
+                        title="Eliminar chiste"
+                        onClick={() => deleteJoke(chiste._id)}
+                        style={{ width: '24px', height: '24px' }}
+                      />
+                    </div> 
+                  </li>
+                ))
+              )}
             </ul>
           )}
         </div>
       </div>
     </div>
-  )}
+  );
+}
