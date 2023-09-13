@@ -9,6 +9,7 @@ const Login = ({ onLogin }) => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const { setUser } = useUserContext();
+  const token = localStorage.getItem('token');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -18,6 +19,7 @@ const Login = ({ onLogin }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({ email, password }),
       });

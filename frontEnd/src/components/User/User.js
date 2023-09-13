@@ -13,6 +13,7 @@ export default function User() {
   const [showFavoriteJokes, setShowFavoriteJokes] = useState(false);
   const [showYourJokes, setShowYourJokes] = useState(false);
   const [totalScore, setTotalScore] = useState(0);
+  const token = localStorage.getItem('token');
 
   // Recibir chistes favoritos
   useEffect(() => {
@@ -58,6 +59,47 @@ export default function User() {
     const utterance = new SpeechSynthesisUtterance(chiste);
     speechSynthesis.speak(utterance);
   };
+
+
+  // Función para eliminar un chiste
+  const deleteJoke = async (chisteId) => {
+    if (window.confirm('¿Estás seguro de eliminar este chiste?')) {
+      try {
+        console.log("Deleting joke...");
+  
+        // Realiza una solicitud para eliminar el chiste de la base de datos
+        const response = await fetch(`/jokes/${chisteId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+  
+        console.log("Respuesta del servidor:", response.status);
+  
+        if (response.ok) {
+          console.log("Chiste eliminado correctamente.");
+          // Actualizar lista de Chistes Propios
+          const updatedYourJokes = yourJokes.filter(chiste => chiste._id !== chisteId);
+          setYourJokes(updatedYourJokes);
+          
+        } else {
+          const data = await response.json();
+          console.error('Error al eliminar el chiste:', data.error);
+          alert(data.error);
+        }
+      } catch (error) {
+        console.error('Error al eliminar el chiste:', error);
+        alert('Error al eliminar el chiste. Inténtalo de nuevo más tarde.');
+      }
+    } else {
+      console.log("Cancelado por el usuario.");
+    }
+  };
+  
+  
+  
 
   const handleRemoveFromFavorites = (chisteId) => {
     if (window.confirm('¿Estás seguro de eliminar el chiste de favoritos?')) {
@@ -143,11 +185,10 @@ export default function User() {
                       alt="Icono de audio"
                       title="Escuchar"
                     />
-                  
                     <img
                       className="imgAudio"
                       src={btDelete}
-                      
+                      onClick={() => deleteJoke(chiste._id, user._id)}
                       alt=""
                       title="Borrar Chiste"
                     />
@@ -159,5 +200,4 @@ export default function User() {
         </div>
       </div>
     </div>
-  );
-}
+  )}

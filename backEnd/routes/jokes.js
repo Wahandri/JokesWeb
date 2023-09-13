@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Joke = require("../models/joke");
 const User = require("../models/user");
+const verifyToken = require("../middleweres/auth");
 
 
 // Recibir lista de Chistes (orden inverso)
@@ -134,6 +135,27 @@ router.post('/:id/favorite', async (req, res) => {
 
 
 
+// Eliminar un chiste por su ID
+router.delete('/:id', async (req, res) => {
+  const jokeId = req.params.id;
 
+  try {
+    // Busca el chiste por su ID
+    const joke = await Joke.findById(jokeId);
+
+    if (!joke) {
+      return res.status(404).json({ error: 'Chiste no encontrado' });
+    }
+
+    // Elimina el chiste
+    await Joke.findByIdAndDelete(jokeId);
+
+    res.status(200).json({ message: 'Chiste eliminado con éxito' });
+  } catch (error) {
+    console.error('Error al eliminar el chiste:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
 
 module.exports = router;
+
