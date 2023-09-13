@@ -98,7 +98,7 @@ router.get("/random", async (req, res) => {
 
 
 
-// Agregar o quitar chistes de favoritos
+// Agregar un chiste a favoritos
 router.post('/:id/favorite', async (req, res) => {
   const jokeId = req.params.id;
   const { userId } = req.body;
@@ -114,28 +114,55 @@ router.post('/:id/favorite', async (req, res) => {
       return res.status(404).json({ error: 'Usuario no encontrado' });
     }
 
-    const isFavorite = user.favoriteJokes.includes(jokeId);
-
-    if (isFavorite) {
-      // Si el chiste ya está en favoritos, quítalo
-      user.favoriteJokes = user.favoriteJokes.filter((favId) => favId.toString() !== jokeId.toString());
-    } else {
-      // Si el chiste no está en favoritos, agrégalo
-      user.favoriteJokes.push(jokeId);
+    // Verifica si el chiste ya está en favoritos
+    if (user.favoriteJokes.includes(jokeId)) {
+      return res.status(400).json({ error: 'El chiste ya está en favoritos' });
     }
 
+    // Agrega el chiste a favoritos
+    user.favoriteJokes.push(jokeId);
     await user.save();
 
-    res.status(200).json({ message: isFavorite ? 'Chiste eliminado de favoritos' : 'Chiste añadido a favoritos' });
+    // Devuelve los chistes favoritos actualizados
+    res.status(200).json({ favoriteJokes: user.favoriteJokes });
   } catch (error) {
-    console.error('Error al agregar/quitar de favoritos:', error);
+    console.error('Error al agregar a favoritos:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+// Eliminar un chiste de favoritos
+router.delete('/:id/favorite', async (req, res) => {
+  const jokeId = req.params.id;
+  const { userId } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+
+    // Verifica si el chiste está en favoritos
+    if (!user.favoriteJokes.includes(jokeId)) {
+      return res.status(400).json({ error: 'El chiste no está en favoritos' });
+    }
+
+    // Elimina el chiste de favoritos
+    user.favoriteJokes = user.favoriteJokes.filter((favId) => favId.toString() !== jokeId.toString());
+    await user.save();
+
+    // Devuelve los chistes favoritos actualizados
+    res.status(200).json({ favoriteJokes: user.favoriteJokes });
+  } catch (error) {
+    console.error('Error al eliminar de favoritos:', error);
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 });
 
 
 
-// Eliminar un chiste por su ID
+
+// Eliminar un chiste de la base de datos por su ID
 router.delete('/:id', async (req, res) => {
   const jokeId = req.params.id;
 

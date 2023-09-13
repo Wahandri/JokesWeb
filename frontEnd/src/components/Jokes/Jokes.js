@@ -14,7 +14,7 @@ export default function Jokes() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [filters, setFilters] = useState({ filter: '' });
-  const { user } = useUserContext();
+  const { user, updateUser } = useUserContext();
   const loadingRef = useRef(null);
 
   // Función para cargar chistes desde el servidor
@@ -73,6 +73,7 @@ export default function Jokes() {
     };
   }, [currentPage, totalPages]);
 
+  // Función para manejar el botón de "Me gusta" en un chiste
   const handleLike = async (jokeId) => {
     try {
       if (!user) {
@@ -100,6 +101,9 @@ export default function Jokes() {
           )
         );
 
+        // Actualiza la lista de chistes favoritos en el contexto del usuario
+        updateUser({ ...user, favoriteJokes: data.favoriteJokes });
+
         alert(data.message);
       } else {
         const data = await response.json();
@@ -111,15 +115,17 @@ export default function Jokes() {
     }
   };
 
+  // Función para escuchar un chiste en voz
   const escucharChiste = (chiste) => {
     const speechSynthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(chiste);
     speechSynthesis.speak(utterance);
   };
 
+  // Función para manejar cambios en los filtros de búsqueda
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
-    setCurrentPage(1);
+    setCurrentPage(1); // Volver a la primera página al aplicar nuevos filtros
   };
 
   return (

@@ -101,29 +101,36 @@ export default function User() {
   
   
 
+
+ // Eliminar un chiste de favoritos
   const handleRemoveFromFavorites = (chisteId) => {
     if (window.confirm('¿Estás seguro de eliminar el chiste de favoritos?')) {
-      console.log("Removing joke from favorites...");
-      // Realiza una solicitud para actualizar los chistes favoritos del usuario en el servidor
-      fetch(`/users/${user._id}/favorite-jokes/${chisteId}`, {
+      // Realiza una solicitud DELETE para eliminar el chiste de favoritos
+      fetch(`/jokes/${chisteId}/favorite`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify({ userId: user._id }),
       })
         .then(response => response.json())
         .then(data => {
           console.log("Updated favorite jokes data:", data);
-          setFavoriteJokes(data.favoriteJokes);
+          
+          // Actualiza el estado de favoriteJokes y yourJokes
+          setFavoriteJokes(prevFavoriteJokes => prevFavoriteJokes.filter(chiste => chiste._id !== chisteId));
+          setYourJokes(prevYourJokes => prevYourJokes.filter(chiste => chiste._id !== chisteId));
 
           // Actualiza el contexto del usuario con los chistes favoritos actualizados
           updateUser({ ...user, favoriteJokes: data.favoriteJokes });
         })
         .catch(error => {
-          console.error('Error al eliminar el chiste de favoritos:', error);
+          console.error('Error al eliminar de favoritos:', error);
         });
     }
   };
+
+  
 
   return (
     <div>
