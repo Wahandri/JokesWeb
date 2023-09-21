@@ -8,6 +8,7 @@ import addJoke from '../../images/addJoke.png';
 import audioIcon from '../../images/btAudio.png';
 import { useUserContext } from '../../UserContext';
 import JokesFilters from './JokesFilters';
+import Score from "./Score";
 
 export default function Jokes() {
   const [chistes, setChistes] = useState([]);
@@ -16,6 +17,8 @@ export default function Jokes() {
   const [filters, setFilters] = useState({ filter: '' });
   const { user, updateUser } = useUserContext();
   const loadingRef = useRef(null);
+  const [averageScore, setAverageScore] = useState(0);
+
 
   // Función para cargar chistes desde el servidor
   const fetchJokes = async (page, filter) => {
@@ -179,41 +182,48 @@ export default function Jokes() {
           <ul className="ul">
             {chistes.map((chiste) => (
               <li className="li" key={chiste._id}>
-                <div className='author'>
+                
+                  
+                <div className="author">
                   <p>{chiste.author}</p>
                 </div>
-                <div>
-                  {chiste.text}
-                </div>
-                <div className='score-start'>
-                  <img
-                    className="imgAudio"
-                    src={audioIcon}
-                    onClick={() => escucharChiste(chiste.text)}
-                    alt="Icono de audio"
-                    title="Escuchar"
-                  />
-                  {/* Comprueba si el chiste está en la lista de favoritos */}
-                  {user && user.favoriteJokes.includes(chiste._id) ? (
-                    // Si está en la lista de favoritos, muestra el icono de estrella llena
-                    <img
-                      className="imgStar"
-                      src={filledStarIcon}
-                      onClick={() => handleUnlike(chiste._id)}
-                      alt="Favorito"
-                      title="Eliminar de favoritos"
-                    />
-                  ) : (
-                    // Si no está en la lista de favoritos, muestra el icono de estrella vacía
-                    <img
-                      className="imgStar"
-                      src={emptyStarIcon}
-                      onClick={() => handleLike(chiste._id)}
-                      alt="No favorito"
-                      title="Añadir a favoritos"
-                    />
-                  )}
-                </div>
+                  <div className="flexJoke">
+                    <div className='chisteText'>{chiste.text}</div>
+                    <div className="boxAudioStart">
+                      <img
+                        className="imgAudio"
+                        src={audioIcon}
+                        onClick={() => escucharChiste(chiste.text)}
+                        alt="Icono de audio"
+                        title="Escuchar"
+                      />
+                      {user && user.favoriteJokes.includes(chiste._id) ? (
+                        <img
+                          className="imgStar"
+                          src={filledStarIcon}
+                          onClick={() => handleUnlike(chiste._id)}
+                          alt="Favorito"
+                          title="Eliminar de favoritos"
+                        />
+                      ) : (
+                        <img
+                          className="imgStar"
+                          src={emptyStarIcon}
+                          onClick={() => handleLike(chiste._id)}
+                          alt="No favorito"
+                          title="Añadir a favoritos"
+                        />
+                      )}
+                    </div>
+                  
+                  </div>
+                  <Score
+                  chiste={chiste}
+                  user={user}
+                  averageScore={averageScore}
+                />
+                
+                
               </li>
             ))}
           </ul>
@@ -224,10 +234,7 @@ export default function Jokes() {
       </div>
       <div>
         <Link to="/jokes/create">
-          <img
-            className='floatingIcon btAddJoke'
-            src={addJoke} alt=""
-          />
+          <img className="floatingIcon btAddJoke" src={addJoke} alt="" />
         </Link>
       </div>
     </div>

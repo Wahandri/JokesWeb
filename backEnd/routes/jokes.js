@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Joke = require("../models/joke");
 const User = require("../models/user");
-const verifyToken = require("../middleweres/auth");
+const jwt = require('jsonwebtoken');
+const verifyToken  = require('../middleweres/auth');
 
 
 // Recibir lista de Chistes (orden inverso)
@@ -97,7 +98,6 @@ router.get("/random", async (req, res) => {
 });
 
 
-
 // Agregar un chiste a favoritos
 router.post('/:id/favorite', async (req, res) => {
   const jokeId = req.params.id;
@@ -131,6 +131,81 @@ router.post('/:id/favorite', async (req, res) => {
   }
 });
 
+
+// Ruta para votar por un chiste
+router.post('/:chisteId/vote', async (req, res) => {
+  try {
+    const { chisteId } = req.params;
+    const { score, userEmail } = req.body;
+
+    // Encuentra el chiste por su ID
+    const joke = await Joke.findById(chisteId);
+
+    if (!joke) {
+      return res.status(404).json({ error: 'Chiste no encontrado' });
+    }
+
+    // Verifica si el usuario ya ha votado este chiste
+    const hasUserVoted = joke.userScores.some(userScore => userScore.email === userEmail);
+
+    if (hasUserVoted) {
+      return res.status(400).json({ error: 'El usuario ya ha votado este chiste' });
+    }
+
+    // Agrega el voto al array userScores
+    joke.userScores.push({ email: userEmail, score });
+
+    // Calcula la nueva puntuación promedio del chiste
+    const totalScores = joke.userScores.reduce((total, userScore) => total + userScore.score, 0);
+    joke.score = totalScores / joke.userScores.length;
+
+    // Guarda los cambios en la base de datos
+    await joke.save();
+
+    res.json({ message: 'Voto registrado correctamente' });
+
+  } catch (error) {
+    console.error('Error al votar por el chiste:', error);
+    res.status(500).json({ error: 'Error al votar por el chiste' });
+  }
+});
+
+// Ruta para obtener la puntuación promedio de un chiste
+router.get('/:chisteId/average-score', async (req, res) => {
+  try {
+    const { chisteId } = req.params;
+
+    // Obtén el chiste por su ID y devuelve la puntuación promedio
+    const joke = await Joke.findById(chisteId);
+
+    if (!joke) {
+      return res.status(404).json({ error: 'Chiste no encontrado' });
+    }
+
+    const averageScore = joke.score;
+
+    res.json({ averageScore });
+
+  } catch (error) {
+    console.error('Error al obtener la puntuación promedio:', error);
+    res.status(500).json({ error: 'Error al obtener la puntuación promedio' });
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Eliminar un chiste de favoritos
 router.delete('/:id/favorite', async (req, res) => {
   const jokeId = req.params.id;
@@ -158,8 +233,6 @@ router.delete('/:id/favorite', async (req, res) => {
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 });
-
-
 
 
 // Eliminar un chiste de la base de datos por su ID

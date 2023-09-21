@@ -8,13 +8,13 @@
 .ul {
   /* background-color: darkmagenta; */
     color: aliceblue;
-    padding: 30px;
-    height: 100%;
+    /* padding: 30px; */
+    /* height: 100%; */
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
     align-items: center;
-    width: 100%;
+    width: 100vw;
   
 }
 
@@ -32,6 +32,11 @@
   
 }
 
+.boxAudioStart {
+  display: flex;
+  align-items: center;
+}
+
 .filters {
   margin-left:  15px;
 }
@@ -47,13 +52,19 @@
   justify-content:center;
   align-items: center;
   margin-bottom: 35px;
-  padding: 15px;
+  padding-left:  15px;
   border: 3px solid #6ba95d;
   box-shadow: 20px -15px #7b7974fd, 20px 15px  #7b7974fd;
   border-radius: 20px;
   font-size:larger;
-  width: 60%;
-  min-height: 200px;
+  min-width: 600px;
+  max-width: 80%;
+  min-height: 250px;
+  
+}
+
+.chisteText {
+  max-width: 80%;
 }
 
 .btAddJoke{
@@ -188,4 +199,35 @@
 
 .flex {
   display: flex;
+}
+
+.flexJoke {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+   
+}
+
+/* ---------------Score.js -----------------*/
+
+.score-container {
+  background-color: #7b7974fd;
+  border-radius: 10px;
+  padding: 3px;
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+}
+
+.score-button {
+  width: 20px;
+  margin: 5px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}.score-button:hover {
+  transform: scale(1.25);
+}
+
+.averageScore {
+  width: 30px;
 }

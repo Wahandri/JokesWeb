@@ -27,7 +27,7 @@ export default function FormUser() {
 
     try {
       const token = localStorage.getItem('token'); // Obtén el token almacenado en localStorage
-
+      console.log(token);
       const response = await fetch('http://localhost:3001/users/create', {
         method: 'POST',
         headers: {

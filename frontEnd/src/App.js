@@ -25,7 +25,10 @@ function App() {
             <Route path="/" element={<Start />} />
             <Route path="/login/create" element={<FormUser />} />
             <Route path="/jokes" element={<PrivateRoute element={<Jokes />} />} />
-            <Route path="/jokes/create" element={<PrivateRoute element={<CreateJoke />} />} />
+            <Route
+              path="/jokes/create"
+              element={<PrivateRoute element={<CreateJoke />} />}
+            />
             <Route path="/user" element={<PrivateRoute element={<User />} />} />
           </Routes>
         </BrowserRouter>
