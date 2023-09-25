@@ -17,7 +17,7 @@ export default function Jokes() {
   const [filters, setFilters] = useState({ filter: '' });
   const { user, updateUser } = useUserContext();
   const loadingRef = useRef(null);
-  const [averageScore, setAverageScore] = useState(0);
+  const [averageScore] = useState(0);
 
 
   // Función para cargar chistes desde el servidor
@@ -76,7 +76,7 @@ export default function Jokes() {
     };
   }, [currentPage, totalPages]);
 
-  // Función para manejar el botón de "Me gusta" en un chiste
+  // Función para manejar el botón de "Estrella" en un chiste (Añadir a favoritos)
   const handleLike = async (jokeId) => {
     try {
       if (!user) {
@@ -107,7 +107,7 @@ export default function Jokes() {
         // Actualiza la lista de chistes favoritos en el contexto del usuario
         updateUser({ ...user, favoriteJokes: data.favoriteJokes });
 
-        alert(data.message);
+      
       } else {
         const data = await response.json();
         alert(data.error);
@@ -118,7 +118,7 @@ export default function Jokes() {
     }
   };
 
-  // Función para manejar el botón de "No me gusta" en un chiste (eliminar de favoritos)
+  // Función para manejar el botón de "Estrella" en un chiste (Eliminar de favoritos)
   const handleUnlike = async (jokeId) => {
     try {
       if (!user) {
@@ -149,7 +149,7 @@ export default function Jokes() {
         // Actualiza la lista de chistes favoritos en el contexto del usuario
         updateUser({ ...user, favoriteJokes: data.favoriteJokes });
 
-        alert(data.message);
+      
       } else {
         const data = await response.json();
         alert(data.error);
