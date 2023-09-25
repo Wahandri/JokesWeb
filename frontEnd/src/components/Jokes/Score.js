@@ -85,7 +85,7 @@ export default function Score({ chiste, user }) {
 
   return (
     <div className="score-container">
-      {/* <p>Puntuación Promedio: {averageScore.toFixed(2)}</p>  */}
+      {/* <p>Puntuación Promedio: {averageScore.toFixed(2)}</p>   */}
       {hasVoted ? (
         <img
           title='Puntuación media'
