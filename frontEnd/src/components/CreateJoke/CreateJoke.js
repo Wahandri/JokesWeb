@@ -63,7 +63,7 @@ const CreateJoke = () => {
               rows="5"
               cols="40"
               id="textAreaCreate"
-              placeholder="Escribe el chiste aquí (máximo 240 caracteres)"
+              placeholder="Escribe tu chiste aquí (máximo 240 caracteres)"
               value={jokeText}
               onChange={(e) => setJokeText(e.target.value)}
               required
@@ -71,6 +71,7 @@ const CreateJoke = () => {
             <div>
               <img
                 title="Probar Audio"
+                alt=''
                 id="btAudio"
                 className="imgAudio"
                 src={btAudio}

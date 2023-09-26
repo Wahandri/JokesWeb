@@ -192,20 +192,6 @@ router.get('/:chisteId/average-score', async (req, res) => {
   }
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Eliminar un chiste de favoritos
 router.delete('/:id/favorite', async (req, res) => {
   const jokeId = req.params.id;

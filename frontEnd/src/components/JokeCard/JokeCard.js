@@ -56,14 +56,16 @@ const JokeCard = () => {
 
       <div className='buttons'>
         <img 
+          title='Otro chiste'
           src={iconUpdate} 
           alt="" 
           className=' imgAudio random' 
           onClick={obtenerChisteAleatorio}
         />
         <img 
-        alt=''
-        className='imgAudio'
+          title='Escuchar'
+          alt=''
+          className='imgAudio'
           src={iconAudio}  
           onClick={leerChiste}/>
       </div>
