@@ -5,6 +5,8 @@ import "./User.css";
 import filledStarIcon from "../../images/deleteFavorite.png";
 import AudioButton from '../AudioButton/AudioButton';
 import btDelete from '../../images/delete.png';
+import MediaIcon from "../MediaScore/MediaScore";
+
 
 export default function User() {
   const { user, updateUser } = useUserContext();
@@ -137,9 +139,9 @@ export default function User() {
         <div className='helloUser'>
           <h1>Bienvenido, {user.username}</h1>
         </div>
-        <div className='totalScore'>
+        {/* <div className='totalScore'>
           <h3>Tu puntuación total:  {totalScore}</h3>
-        </div>
+        </div> */}
         <div className='tusChistes flex'>
           <h2 className='h2TusChistes ' onClick={() => setShowFavoriteJokes(!showFavoriteJokes)}>
             Tus chistes favoritos
@@ -193,6 +195,7 @@ export default function User() {
                         style={{ width: '24px', height: '24px' }}
                       />
                     </div> 
+                    <MediaIcon  averageScore={chiste.score} />
                   </li>
                 ))
               )}

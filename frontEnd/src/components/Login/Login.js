@@ -28,7 +28,6 @@ const Login = ({ onLogin }) => {
         localStorage.setItem('token', data.token);
         setUser(data.user);
         onLogin(data.user);
-        alert('¡Bienvenido!');
         navigate('/jokes');
       } else {
         const data = await response.json();
