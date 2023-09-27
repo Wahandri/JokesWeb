@@ -5,9 +5,9 @@ import './Jokes.css';
 import emptyStarIcon from '../../images/emptyStarIcon.png';
 import filledStarIcon from '../../images/filledStarIcon.png';
 import addJoke from '../../images/addJoke.png';
-import audioIcon from '../../images/btAudio.png';
+import AudioButton from "../AudioButton/AudioButton";
 import { useUserContext } from '../../UserContext';
-import JokesFilters from './JokesFilters';
+import JokesFilters from './FilterAndTop';
 import Score from "./Score";
 
 export default function Jokes() {
@@ -160,13 +160,6 @@ export default function Jokes() {
     }
   };
 
-  // Función para escuchar un chiste en voz
-  const escucharChiste = (chiste) => {
-    const speechSynthesis = window.speechSynthesis;
-    const utterance = new SpeechSynthesisUtterance(chiste);
-    speechSynthesis.speak(utterance);
-  };
-
   // Función para manejar cambios en los filtros de búsqueda
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
@@ -182,21 +175,13 @@ export default function Jokes() {
           <ul className="ul">
             {chistes.map((chiste) => (
               <li className="li" key={chiste._id}>
-                
-                  
                 <div className="author">
                   <p>{chiste.author}</p>
                 </div>
                   <div className="flexJoke">
                     <div className='chisteText'>{chiste.text}</div>
                     <div className="boxAudioStart">
-                      <img
-                        className="imgAudio"
-                        src={audioIcon}
-                        onClick={() => escucharChiste(chiste.text)}
-                        alt="Icono de audio"
-                        title="Escuchar"
-                      />
+                      <AudioButton text={chiste.text} /> 
                       {user && user.favoriteJokes.includes(chiste._id) ? (
                         <img
                           className="imgStar"

@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import "./JokeCard.css";
 import iconAudio from "../../images/btAudio.png";
 import iconUpdate from "../../images/btUpdate.png";
+import AudioButton from '../AudioButton/AudioButton';
 
 const JokeCard = () => {
   const [chiste, setChiste] = useState('');
-  // const [funny, setFunny] = useState('');
-  const [isReading, setIsReading] = useState(false); // Estado para controlar si el chiste está siendo leído
 
   const obtenerChisteAleatorio = async () => {
     try {
@@ -19,20 +18,6 @@ const JokeCard = () => {
     }
   };
 
-  const leerChiste = () => {
-    if (!isReading) {
-      const utterance = new SpeechSynthesisUtterance(chiste);
-      speechSynthesis.speak(utterance);
-
-      utterance.onend = () => {
-        setIsReading(false);
-      };
-      setIsReading(true);
-    } else {
-      speechSynthesis.cancel();
-      setIsReading(false);
-    }
-  };
 
   useEffect(() => {
     
@@ -62,12 +47,7 @@ const JokeCard = () => {
           className=' imgAudio random' 
           onClick={obtenerChisteAleatorio}
         />
-        <img 
-          title='Escuchar'
-          alt=''
-          className='imgAudio'
-          src={iconAudio}  
-          onClick={leerChiste}/>
+        <AudioButton text={chiste} />
       </div>
     </div>
   );

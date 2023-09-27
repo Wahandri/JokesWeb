@@ -2,18 +2,12 @@ import React, { useState } from 'react';
 import { useUserContext } from '../../UserContext';
 import './CreateJoke.css';
 import Header from '../Header/Header';
-import btAudio from '../../images/btAudio.png';
+import AudioButton from '../AudioButton/AudioButton';
 
 const CreateJoke = () => {
   const { user } = useUserContext();
   const [jokeText, setJokeText] = useState('');
   const [message, setMessage] = useState('');
-
-  const escucharChiste = () => {
-    const speechSynthesis = window.speechSynthesis;
-    const utterance = new SpeechSynthesisUtterance(jokeText);
-    speechSynthesis.speak(utterance);
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -69,14 +63,7 @@ const CreateJoke = () => {
               required
             />
             <div>
-              <img
-                title="Probar Audio"
-                alt=''
-                id="btAudio"
-                className="imgAudio"
-                src={btAudio}
-                onClick={escucharChiste}
-              />
+              <AudioButton text={jokeText} />
             </div>
             <button className="bt buttonSubmit" type="submit">
               Añadir Chiste

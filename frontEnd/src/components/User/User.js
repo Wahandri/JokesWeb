@@ -3,7 +3,7 @@ import { useUserContext } from '../../UserContext';
 import Header from '../Header/Header';
 import "./User.css";
 import filledStarIcon from "../../images/deleteFavorite.png";
-import audioIcon from '../../images/btAudio.png';
+import AudioButton from '../AudioButton/AudioButton';
 import btDelete from '../../images/delete.png';
 
 export default function User() {
@@ -53,12 +53,6 @@ export default function User() {
         console.error('Error al obtener todos los chistes:', error);
       });
   }, [user.username]);
-
-  const escucharChiste = (chiste) => {
-    const speechSynthesis = window.speechSynthesis;
-    const utterance = new SpeechSynthesisUtterance(chiste);
-    speechSynthesis.speak(utterance);
-  };
 
 
   // Función para eliminar un chiste
@@ -130,6 +124,10 @@ export default function User() {
     }
   };
 
+
+  // Puntuacion media de tus chistes
+  
+
   
 
   return (
@@ -156,13 +154,7 @@ export default function User() {
                   <li className='jokesUser' key={chiste._id}>
                     {chiste.text}
                     <div className='btsUser'>
-                      <img
-                        className="imgAudio"
-                        src={audioIcon}
-                        onClick={() => escucharChiste(chiste.text)}
-                        alt="Icono de audio"
-                        title="Escuchar"
-                      />
+                      <AudioButton text={chiste.text} />
                       <img
                         className="imgStar"
                         src={filledStarIcon}
@@ -191,13 +183,7 @@ export default function User() {
                   <li className='jokesUser' key={chiste._id}>
                     {chiste.text}
                     <div className='btsUser'>
-                      <img
-                        className="imgAudio"
-                        src={audioIcon}
-                        onClick={() => escucharChiste(chiste.text)}
-                        alt="Icono de audio"
-                        title="Escuchar"
-                      />
+                     <AudioButton text={chiste.text} />
                       <img
                         className="imgDelete"
                         src={btDelete}

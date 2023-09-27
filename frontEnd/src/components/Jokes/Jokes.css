@@ -37,12 +37,28 @@
   align-items: center;
 }
 
+
+/* --------Filtro y Top 10 */
 .filters {
-  margin-left:  15px;
+  margin: 15px;
+  display: flex;
+  justify-content: space-between;
 }
+
 .textoBusqueda {
   margin: 15px;
 }
+
+.iconTop10 {
+  max-width: 50px;
+  cursor: pointer;
+
+  transition: transform 0.3s ease-in-out;
+}.iconTop10:hover {
+  transform: scale(1.2); 
+}
+
+/* ------------------------- */
 
 .li {
   font-family: 'Comic Sans MS', cursive;
