@@ -1,4 +1,4 @@
-# Proyecto_CodeSpace
+# JokesWeb
 
 # Proyecto Final: Chistes Divertidos
 
@@ -47,22 +47,102 @@ A continuación, se detallan los endpoints de la API de esta aplicación:
 | `/api/users/:id`                                 | DELETE     | Cambia el estado de un usuario a inactivo o lo elimina de la base de datos. |
 
 
+
 ## Cómo Empezar
 
-1. Clona este repositorio en tu máquina local.
-2. Instala las dependencias del frontend y backend utilizando `npm install` en las carpetas respectivas.
-3. Asegúrate de tener una instancia de MongoDB en ejecución.
-4. Configura las variables de entorno necesarias en un archivo `.env`.
-5. Inicia el servidor backend con el comando `npm start`.
-6. Inicia la aplicación frontend con el comando `npm start`.
+Sigue estos pasos para poner en marcha el proyecto:
+
+1. **Clonar el Repositorio:** Primero, clona este repositorio en tu máquina local:
+
+    ```bash
+    git clone https://github.com/Wahandri/JokesWeb.git
+    cd JokesWeb
+    ```
+
+2. **Instalar Dependencias:** Luego, instala las dependencias del frontend y backend utilizando npm en las carpetas respectivas:
+
+    ```bash
+    # En la carpeta frontend
+    cd frontend
+    npm install
+
+    # En la carpeta backend
+    cd ../backend
+    npm install
+    ```
+
+3. **Configurar MongoDB:** Asegúrate de tener una instancia de MongoDB en ejecución.
+
+4. **Configurar Variables de Entorno:** Crea un archivo `.env` en la carpeta backend y configura las siguientes variables de entorno:
+
+    **Configurar Variables de Entorno:**
+
+1. Crea un archivo llamado `.env` en la carpeta backend de tu proyecto si aún no existe.
+
+2. Abre el archivo `.env` en un editor de texto y configura las siguientes variables de entorno:
+
+    ```plaintext
+    # Archivo .env en el directorio backend
+
+    MONGO_URL=mongodb://localhost:27017/MiBaseDeDatos
+    PORT=3001
+    JWT_KEY=TuClaveSecreta
+    ```
+
+    Asegúrate de personalizar estas variables según tus preferencias y configuración específica:
+
+    - **`MONGO_URL:`** Esta variable debe apuntar a la URL de tu base de datos MongoDB. Reemplaza `"mongodb://localhost:27017/MiBaseDeDatos"` con la URL de tu base de datos MongoDB.
+
+    - **`PORT:`** Aquí puedes especificar el puerto en el que deseas que se ejecute el servidor backend. Cambia `3001` por el puerto que prefieras, asegurándote de que no esté en uso por otros servicios.
+
+    - **`JWT_KEY:`** Esta es la clave secreta utilizada para firmar los tokens JWT. Cambia `"TuClaveSecreta"` por tu propia clave secreta segura.
+
+    Asegúrate de guardar el archivo `.env` después de realizar estas configuraciones.
+
+3. Una vez que hayas configurado las variables de entorno, podrás iniciar el servidor backend sin problemas.
+
+    Siguiendo estos pasos, habrás personalizado las variables de entorno para tu configuración específica.
+
+
+5. **Iniciar el Servidor Backend:** Inicia el servidor backend con el siguiente comando:
+
+    ```bash
+    # En la carpeta backend
+    npm start
+    ```
+
+6. **Iniciar la Aplicación Frontend:** Por último, inicia la aplicación frontend con el siguiente comando:
+
+    ```bash
+    # En la carpeta frontend
+    npm start
+    ```
+
+Con estos pasos, habrás configurado y ejecutado tanto el frontend como el backend de tu proyecto.
+
+### Ejemplo del Archivo .env
+
+Aquí tienes un ejemplo del archivo `.env` con valores de ejemplo para las variables:
+
+```plaintext
+# Archivo .env en el directorio backend
+
+MONGO_URL=mongodb://localhost:27017/MiBaseDeDatos
+PORT=3001
+JWT_KEY=ClaveSecretaSegura123
+
+
 
 ## Contribuciones y Retroalimentación
 
-Este proyecto es el resultado de mi aprendizaje y esfuerzo. Si tienes sugerencias, encuentras errores o quisieras contribuir con nuevas características, ¡estoy emocionado por escuchar tu opinión! Envía un pull request o contáctame directamente.
+Este proyecto es el resultado de mi aprendizaje y esfuerzo. Si tienes sugerencias, encuentras errores o quisieras contribuir con nuevas características, ¡estoy emocionado por escuchar tu opinión! Envía un pull request o contácteme directamente.
 
 ## Contacto
 
 Si tienes alguna pregunta o comentario, no dudes en contactarme en [wahandricode@gmail.com](mailto:wahandricode@gmail.com).
 
-Espero que disfrutes riendo con los chistes y que esta aplicación te ayude a aprender y practicar nuevas habilidades. ¡Diviértete explorando y riendo a carcajadas!
+Espero que disfrutes riendo con los chistes y que esta aplicación te ayude a aprender y practicar nuevas habilidades. ¡Diviértete explorando y riendo a carcajadas!.
 
+# Proyecto Final: Chistes Divertidos
+
+# JokesWeb 
