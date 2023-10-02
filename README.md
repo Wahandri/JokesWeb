@@ -130,8 +130,7 @@ Aquí tienes un ejemplo del archivo `.env` con valores de ejemplo para las varia
 MONGO_URL=mongodb://localhost:27017/MiBaseDeDatos
 PORT=3001
 JWT_KEY=ClaveSecretaSegura123
-
-
+```
 
 ## Contribuciones y Retroalimentación
 
