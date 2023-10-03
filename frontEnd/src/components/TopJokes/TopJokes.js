@@ -5,13 +5,14 @@ import "./TopJokes.css";
 import top1 from "../../images/top1.png";
 import top2 from "../../images/top2.png";
 import top3 from "../../images/top3.png";
+import apiUrl from '../configURL';
 
 
 export default function TopJokes() {
   const [topJokes, setTopJokes] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3001/jokes/alljokes') // Obtén todos los chistes sin filtros
+    fetch(`${apiUrl}:3001/jokes/alljokes`) // Obtén todos los chistes sin filtros
       .then((response) => response.json())
       .then((data) => {
         // Ordena los chistes de mayor a menor puntuación (score)

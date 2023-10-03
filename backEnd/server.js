@@ -1,5 +1,5 @@
-const dotenv = require("dotenv"); // Agrega esta línea para requerir dotenv
-dotenv.config(); // Carga las variables de entorno desde el archivo .env
+const dotenv = require("dotenv"); 
+dotenv.config();
 
 const users = require("./routes/users");
 const jokes = require("./routes/jokes");
@@ -7,7 +7,7 @@ const login = require("./routes/login");
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3003;
 
 const cors = require("cors");
 const bodyParser = require("body-parser");

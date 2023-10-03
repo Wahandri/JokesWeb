@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import apiUrl from './components/configURL';
 
 const JokeContext = createContext();
 
@@ -11,7 +12,7 @@ export function JokeProvider({ children }) {
 
   const fetchJokes = async () => {
     try {
-      const response = await fetch('http://localhost:3001/jokes');
+      const response = await fetch(`${apiUrl}:3001/jokes`);
       const data = await response.json();
       setJokes(data);
     } catch (error) {

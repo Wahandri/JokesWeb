@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import "./Login.css";
 import { useUserContext } from '../../UserContext';
+import apiUrl from '../configURL';
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
@@ -14,7 +15,7 @@ const Login = ({ onLogin }) => {
     event.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:3001/login', {
+      const response = await fetch(`${apiUrl}:3001/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

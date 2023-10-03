@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import "./FormUser.css";
 import logotipo from "../../images/logotipo.png";
+import apiUrl from '../configURL';
 
 export default function FormUser() { 
   const [username, setUsername] = useState('');
@@ -28,7 +29,7 @@ export default function FormUser() {
     try {
       const token = localStorage.getItem('token'); // Obtén el token almacenado en localStorage
       console.log(token);
-      const response = await fetch('http://localhost:3001/users/create', {
+      const response = await fetch(`${apiUrl}:3001/users/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -3,6 +3,7 @@ import { useUserContext } from '../../UserContext';
 import './CreateJoke.css';
 import Header from '../Header/Header';
 import AudioButton from '../AudioButton/AudioButton';
+import apiUrl from '../configURL';
 
 const CreateJoke = () => {
   const { user } = useUserContext();
@@ -19,7 +20,7 @@ const CreateJoke = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3001/jokes/create', {
+      const response = await fetch(`${apiUrl}:3001/jokes/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
