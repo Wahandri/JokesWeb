@@ -84,3 +84,9 @@ to {
     ;
 }
     
+
+@media (max-width: 768px) {
+    .baseHeader {
+      padding: 5px; /* Ajusta el padding para hacerlo más delgado en dispositivos móviles */
+    }
+  }

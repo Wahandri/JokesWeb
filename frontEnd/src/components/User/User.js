@@ -19,7 +19,7 @@ export default function User() {
 
   // Recibir chistes favoritos
   useEffect(() => {
-    console.log("Fetching favorite jokes...");
+    console.log("Fetching favorite jokes with user._id:", user._id);
     fetch(`/users/${user._id}/favorite-jokes`)
       .then(response => response.json())
       .then(data => {
@@ -30,6 +30,7 @@ export default function User() {
         console.error('Error al obtener los chistes favoritos:', error);
       });
   }, [user._id]);
+  
 
   // Recibir y filtrar chistes propios
   useEffect(() => {

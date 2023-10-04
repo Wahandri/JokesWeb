@@ -247,3 +247,28 @@
 .averageScore {
   width: 30px;
 }
+
+
+/* Estilos para dispositivos móviles */
+@media screen and (max-width: 768px) {
+  .ul {
+    align-items: flex-start;
+    padding: 0; 
+  }
+
+  .li {
+    min-width: 90%; 
+  }
+
+  .author {
+    font-size: smaller; 
+  }
+
+  .chisteText {
+    max-width: 100%; 
+  }
+
+  .boxAudioStart {
+    flex-direction: row; 
+  }
+}

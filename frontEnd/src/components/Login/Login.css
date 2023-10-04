@@ -37,3 +37,14 @@
     box-shadow: none;
     
 }
+
+@media screen and (max-width: 768px) {
+    .formLogin {
+      width: 80%; /* Ajusta el ancho del formulario */
+    }
+  
+    .buttonLogin {
+      width: 100%; /* Hace que el botón ocupe todo el ancho disponible */
+    }
+  }
+  

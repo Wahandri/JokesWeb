@@ -37,3 +37,18 @@
 .img {
     width: 100px;
 }
+
+@media screen and (max-width: 768px) {
+    .indexBox {
+      display: flex;
+      flex-direction: column;
+      margin-left: 5%;
+      margin-right: 5%;
+    }
+  
+    .loginCard {
+      padding-left: 10%;
+      padding-right: 10%;
+    }
+  }
+  

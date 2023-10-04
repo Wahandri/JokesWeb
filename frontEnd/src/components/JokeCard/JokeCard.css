@@ -9,8 +9,8 @@
 
 .buttons {
     display: flex;
-    justify-content: space-around;
-    width: 70%;
+    justify-content: center;
+    grid-area: 10px;
     margin: 20px;
 }
 
@@ -71,4 +71,25 @@
     width: 90%;
     /* font-family: 'Indie Flower', cursive; */
     margin: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .buttons {
+    /* flex-direction: column; */
+    align-items: center;
+    gap: 10px;
+    margin: 10px;
+  }
+
+  .audioButton {
+    margin-top: 5px;
+  }
+
+  .audioIcon {
+    height: 18px; /* Ajusta el tamaño en pantallas más pequeñas */
+  }
+
+  .imgAudio {
+    height: 24px; /* Ajusta el tamaño en pantallas más pequeñas */
+  }
 }
