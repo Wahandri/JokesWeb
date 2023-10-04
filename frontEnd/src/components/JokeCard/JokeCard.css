@@ -1,95 +1,93 @@
 .jokeCard {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 }
 
 .buttons {
-    display: flex;
-    justify-content: center;
-    grid-area: 10px;
-    margin: 20px;
+  display: flex;
+  justify-content: center;
+  grid-area: 10px;
+  margin: 20px;
 }
 
 .imgAudio {
-    position: relative;
-    height: 30px;
-    cursor:pointer;
-   
-  }
-  
-  .imgAudio:hover {
-    animation: vibrate 0.2s 3 linear;
-  }
-  
-  @keyframes vibrate {
-    0% {
-      transform: translateX(0);
-    }
-    25% {
-      transform: translateX(-5px);
-    }
-    50% {
-      transform: translateX(0);
-    }
-    75% {
-      transform: translateX(5px);
-    }
-    100% {
-      transform: translateX(0);
-    }
-  }
-
-.hr {
-    width: 80%;
+  position: relative;
+  height: 30px;
+  cursor:pointer;
 }
 
+.imgAudio:hover {
+  animation: vibrate 0.2s 3 linear;
+}
+
+@keyframes vibrate {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(0);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.hr {
+  width: 80%;
+}
 
 .chiste {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50%;
-    height: 200px;
-    border-radius: 10%;
-    background-color: #80cb70;
-    box-shadow: -2px 2px 10px rgb(41, 84, 42);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  height: 250px;
+  max-height: 200px;
+  overflow: auto;
+  border-radius: 10px;
+  background-color: #80cb70;
+  box-shadow: -2px 2px 10px rgb(41, 84, 42);
 }
 
 .h4Title {
-    font-family: 'Comic Sans MS', cursive;
-    display: flex;
-    margin-left: 10%;
-    width: 100%;
+  font-family: 'Comic Sans MS', cursive;
+  display: flex;
+  margin-left: 10%;
+  width: 100%;
 }
 
 .h4 {
-    font-family: 'Comic Sans MS', cursive;
-    width: 90%;
-    /* font-family: 'Indie Flower', cursive; */
-    margin: 10px;
+  font-family: 'Comic Sans MS', cursive;
+  width: 90%;
+  margin: 10px;
 }
 
 @media screen and (max-width: 768px) {
-  .buttons {
-    /* flex-direction: column; */
-    align-items: center;
-    gap: 10px;
-    margin: 10px;
-  }
+.buttons {
+  align-items: center;
+  gap: 10px;
+  margin: 10px;
+}
 
-  .audioButton {
-    margin-top: 5px;
-  }
+.audioButton {
+  margin-top: 5px;
+}
 
-  .audioIcon {
-    height: 18px; /* Ajusta el tamaño en pantallas más pequeñas */
-  }
+.audioIcon {
+  height: 18px;
+}
 
-  .imgAudio {
-    height: 24px; /* Ajusta el tamaño en pantallas más pequeñas */
-  }
+.imgAudio {
+  height: 24px;
+}
 }

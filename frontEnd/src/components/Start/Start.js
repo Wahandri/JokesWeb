@@ -15,7 +15,10 @@ export default function Start() {
   return (
     <div className='base'>
       <div className='logoContainer'>
-        <img className='img' src={logotipo} alt="" />
+        <div className='imgContainer'>
+          <img className='img' src={logotipo} alt="" />
+          <span className="developerText">Desarrollado por Wahandri</span>
+        </div>
       </div>
       <div className='indexBox'>
         <div className="jokeCard">

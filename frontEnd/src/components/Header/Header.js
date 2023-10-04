@@ -9,7 +9,9 @@ export default function Header(props) {
   return (
     <div className='baseHeader'>
       <div className='header'>
-        <div className=""><img className='img' src={logotipo} alt='' /></div>
+        
+        <img className='img' src={logotipo} alt='' />
+        
         <div><h1>{props.title}</h1></div>
         <Link to="/user">
           <div><img className='img2' src={payaso2} alt='' /></div>
@@ -18,13 +20,13 @@ export default function Header(props) {
       <div > 
         <div className=' boxNav'> 
           <Link to="/jokes/create"> 
-            <h4 className='btnNav'>SUBIR CHISTE</h4>
+            <p className='btnNav'>SUBIR CHISTE</p>
           </Link>
           <Link to="/jokes"> 
-            <h4 className='btnNav'>CHISTES</h4>
+            <p className='btnNav'>CHISTES</p>
           </Link>
           <Link to="/user"> 
-            <h4 className='btnNav'>USUARIO</h4>
+            <p className='btnNav'>USUARIO</p>
           </Link>
         </div>
       </div>

@@ -6,54 +6,47 @@
 
 .img {
     width: 100px;
-    margin-right: 40px
-}.img:hover {
-        
+    margin-right: 40px;
+}
+
+
+
+.img:hover {
     animation-name: gift;
     animation-duration: 1.9s; 
     animation-iteration-count: 1;
 }
+
 @keyframes gift {
-
-from {
-
-
-}
-to {
-    rotate: -180deg;
+    from {}
+    to {
+        rotate: -360deg;
     }
 }
 
 .img2 {
     width: 60px;
-    margin-right: 40px
-}.img2:hover {
-        
-    animation-name: gift;
+    margin-right: 40px;
+}
+
+.img2:hover {
+    animation-name: gift2;
     animation-duration: 1.5s; 
     animation-iteration-count: 1;
 }
-@keyframes gift {
 
-from {
-
-
-}
-to {
-    rotate: -360deg;
+@keyframes gift2 {
+    from {}
+    to {
+        rotate: -360deg;
     }
 }
 
 .header {
-    /* border-radius: 10px;
-    background-color:rgb(194, 193, 193); */
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
     color: rgb(255, 255, 255);
-    /* border: 1px solid rgba(95, 95, 95, 0.315); */
-    
     align-items: center;
-
 }
 
 .between {
@@ -75,18 +68,23 @@ to {
     text-align: center;
     border-radius: 10px;
     box-shadow: 2px 2px 2px rgb(93, 92, 92);
-}.btnNav:hover{
+    text-decoration: none; 
+}
+
+.btnNav a {
+    text-decoration: none; /* Quítale el subrayado a los enlaces */
+}
+.btnNav:hover {
     border: 3px solid #8dde7b;
 }
 
-.btnNav p a {
-    text-decoration: none;
-    ;
-}
-    
-
 @media (max-width: 768px) {
     .baseHeader {
-      padding: 5px; /* Ajusta el padding para hacerlo más delgado en dispositivos móviles */
+        padding: 5px;
     }
-  }
+
+    .btnNav {
+        padding: 5px 10px;
+        height: auto; 
+    }
+}
