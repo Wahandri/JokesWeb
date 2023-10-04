@@ -2,8 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
 
 Body {
-    /* background-image: url(./images/fondo2.avif); */
-    /* background: linear-gradient(to bottom right, #80cb70, #7b7974fd); */
+    background-image: url(./images/fondo.png);
+    background-size: 20%;
     background-color: #b4b4b48e;
     height: 100vh;
     font-weight: bold;
