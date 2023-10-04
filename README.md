@@ -1,4 +1,6 @@
-# JokesWeb - Proyecto Final: Chistes Divertidos
+# JokesWeb
+
+# Proyecto Final: Chistes Divertidos
 
 ¡Bienvenido a mi proyecto final de aprendizaje en la Academia CodeSpace! En este proyecto, he creado una aplicación web que te permitirá disfrutar de una colección de chistes divertidos y pasar un buen rato riendo, puntuando o subiendo tus propios chistes.
 
@@ -9,7 +11,7 @@
 - Agrega tus propios chistes: como usuario registrado, tienes la opción de contribuir a la diversión añadiendo nuevos chistes a la colección.
 - Filtra y busca chistes: utiliza el sistema de filtrado para encontrar chistes basados en palabras clave o autores.
 - Escucha los chistes: cada chiste tiene una opción para escucharlo en formato de audio, dándole un toque único a la experiencia.
-- Reacciona a los chistes con un amigable sistema de puntuación basado en emojis (😕​😐​🙂​🤭​😂​) al puntuar verás la reacción media de entre todos los usuarios que votaron.
+- Reacciona a los chistes con un amigable sistema de puntuación basado en emojis (😕​😐​🙂​🤭​😂​) al puntuar veras la reacción media de entre todos los usuarios que votaron.
 - Añade los chistes que mas te gusten a tu propia lista de favoritos desde tu perfil.
 - En tu perfil también podrás ver tus chistes añadidos, escucharlos o eliminarlos.
 
@@ -22,7 +24,7 @@
 - **Sistema de Votación y Contribuciones:** Los usuarios pueden dar "Me gusta" a los chistes y contribuir con nuevos chistes.
 - **Filtrado de Chistes:** Sistema de búsqueda y filtrado para encontrar chistes específicos.
 
-## Endpoints de la API
+# Endpoints de la API
 
 A continuación, se detallan los endpoints de la API de esta aplicación:
 
@@ -43,6 +45,8 @@ A continuación, se detallan los endpoints de la API de esta aplicación:
 | `/api/users/change/:id`                          | PUT        | Modifica los datos de un usuario existente.                             |
 | `/api/users/create`                              | POST       | Crea un nuevo usuario y lo guarda en la base de datos.                 |
 | `/api/users/:id`                                 | DELETE     | Cambia el estado de un usuario a inactivo o lo elimina de la base de datos. |
+
+
 
 ## Cómo Empezar
 
@@ -71,15 +75,47 @@ Sigue estos pasos para poner en marcha el proyecto:
 
 4. **Configurar Variables de Entorno:** Crea un archivo `.env` en la carpeta backend y configura las siguientes variables de entorno:
 
+    **Configurar Variables de Entorno:**
+
+1. Crea un archivo llamado `.env` en la carpeta backend de tu proyecto si aún no existe.
+
+2. Abre el archivo `.env` en un editor de texto y configura las siguientes variables de entorno:
+
     ```plaintext
     # Archivo .env en el directorio backend
 
     MONGO_URL=mongodb://localhost:27017/MiBaseDeDatos
-    PORT=3001
+    PORT=3003
     JWT_KEY=TuClaveSecreta
     ```
 
-    Asegúrate de personalizar estas variables según tus preferencias y configuración específica.
+    Asegúrate de personalizar estas variables según tus preferencias y configuración específica:
+
+    - **`MONGO_URL:`** Esta variable debe apuntar a la URL de tu base de datos MongoDB. Reemplaza `"mongodb://localhost:27017/MiBaseDeDatos"` con la URL de tu base de datos MongoDB.
+
+    - **`PORT:`** Aquí puedes especificar el puerto en el que deseas que se ejecute el servidor backend. Cambia `3003` por el puerto que prefieras, asegurándote de que no esté en uso por otros servicios.
+
+    - **`JWT_KEY:`** Esta es la clave secreta utilizada para firmar los tokens JWT. Cambia `"TuClaveSecreta"` por tu propia clave secreta segura.
+
+    Asegúrate de guardar el archivo `.env` después de realizar estas configuraciones.
+
+3. Una vez que hayas configurado las variables de entorno, podrás iniciar el servidor backend sin problemas.
+
+    Siguiendo estos pasos, habrás personalizado las variables de entorno para tu configuración específica.
+
+4. **Restaurar la Base de Datos:** Para restaurar la base de datos desde una copia de seguridad, sigue estos pasos:
+
+   1. Asegúrate de tener una instancia de MongoDB en ejecución.
+
+   2. Abre una terminal y navega hasta la carpeta raíz de tu proyecto.
+
+   3. Ejecuta el siguiente comando para restaurar la base de datos desde tu copia:
+
+    ```
+    mongorestore --db HappyHandri ./mongoDB/HappyHandri
+
+    ```
+
 
 5. **Iniciar el Servidor Backend:** Inicia el servidor backend con el siguiente comando:
 
@@ -97,12 +133,28 @@ Sigue estos pasos para poner en marcha el proyecto:
 
 Con estos pasos, habrás configurado y ejecutado tanto el frontend como el backend de tu proyecto.
 
+### Ejemplo del Archivo .env
+
+Aquí tienes un ejemplo del archivo `.env` con valores de ejemplo para las variables:
+
+```plaintext
+# Archivo .env en el directorio backend
+
+MONGO_URL=mongodb://localhost:27017/MiBaseDeDatos
+PORT=3003
+JWT_KEY=ClaveSecretaSegura123
+```
+
 ## Contribuciones y Retroalimentación
 
-Este proyecto es el resultado de mi aprendizaje y esfuerzo. Si tienes sugerencias, encuentras errores o quisieras contribuir con nuevas características, ¡estoy emocionado por escuchar tu opinión! Envía un pull request o contáctame directamente.
+Este proyecto es el resultado de mi aprendizaje y esfuerzo. Si tienes sugerencias, encuentras errores o quisieras contribuir con nuevas características, ¡estoy emocionado por escuchar tu opinión! Envía un pull request o contácteme directamente.
 
 ## Contacto
 
 Si tienes alguna pregunta o comentario, no dudes en contactarme en [wahandricode@gmail.com](mailto:wahandricode@gmail.com).
 
-Espero que disfrutes riendo con los chistes y que esta aplicación te ayude a aprender y practicar nuevas habilidades. ¡Diviértete explorando y riendo a carcajadas!
+Espero que disfrutes riendo con los chistes y que esta aplicación te ayude a aprender y practicar nuevas habilidades. ¡Diviértete explorando y riendo a carcajadas!.
+
+# Proyecto Final: Chistes Divertidos
+
+# JokesWeb 
