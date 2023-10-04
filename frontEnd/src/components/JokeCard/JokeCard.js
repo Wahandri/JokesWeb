@@ -9,7 +9,7 @@ const JokeCard = () => {
 
   const obtenerChisteAleatorio = async () => {
     try {
-      const respuesta = await fetch(`${apiUrl}:3001/jokes/random`);
+      const respuesta = await fetch(`${apiUrl}/jokes/random`);
       const data = await respuesta.json();
       setChiste(data.joke.text);
       // setFunny(data.joke.funny);

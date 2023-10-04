@@ -1,5 +1,3 @@
-require('dotenv').config(); // Cargar variables de entorno desde .env
-
-const apiUrl = process.env.REACT_APP_BACKEND_URL;
+const apiUrl = 'http://localhost:3003';
 
 export default apiUrl;
