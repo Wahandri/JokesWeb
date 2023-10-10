@@ -10,6 +10,7 @@ import { useUserContext } from '../../UserContext';
 import JokesFilters from './FilterAndTop';
 import Score from "./Score";
 import apiUrl from '../configURL';
+import Sidebar from '../Sidebar/Sidebar';
 
 export default function Jokes() {
   const [chistes, setChistes] = useState([]);
@@ -170,15 +171,18 @@ export default function Jokes() {
   return (
     <div>
       <Header title="Chistes" />
-      <JokesFilters onFilterChange={handleFilterChange} />
-      <div className="jokesContent">
-        <div className="boxJokes">
-          <ul className="ul">
-            {chistes.map((chiste) => (
-              <li className="li" key={chiste._id}>
-                <div className="author">
-                  <p>{chiste.author}</p>
-                </div>
+      <div className='flexBox'>
+        <Sidebar/>
+        <div>
+          <JokesFilters onFilterChange={handleFilterChange} />
+          <div className="jokesContent">
+            <div className="boxJokes">
+              <ul className="ul">
+                {chistes.map((chiste) => (
+                <li className="li" key={chiste._id}>
+                 <div className="author">
+                   <p>{chiste.author}</p>
+                  </div>
                   <div className="flexJoke">
                     <div className='chisteText'>{chiste.text}</div>
                     <div className="boxAudioStart">
@@ -208,8 +212,6 @@ export default function Jokes() {
                   user={user}
                   averageScore={averageScore}
                 />
-                
-                
               </li>
             ))}
           </ul>
@@ -222,6 +224,8 @@ export default function Jokes() {
         <Link to="/jokes/create">
           <img className="floatingIcon btAddJoke" src={addJoke} alt="" />
         </Link>
+      </div>
+      </div>
       </div>
     </div>
   );

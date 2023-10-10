@@ -12,8 +12,10 @@
     margin-top: 10px;
     padding: 10px;
     color: aliceblue;
-    margin-left: 10%;
+    margin-left: 15px;
     margin-right: 10%;
+    width:auto;
+    min-width: 100%;
     /* border: 2px solid #6ba95d; */
     
 }
@@ -70,3 +72,7 @@
     overflow: hidden;
     transition: max-height 0.5s ease-out; 
   }
+
+.contentUser {
+    display: flex;
+}

@@ -9,3 +9,7 @@ Body {
     font-weight: bold;
     
 }
+
+.flexRow {
+    display: flex;
+}

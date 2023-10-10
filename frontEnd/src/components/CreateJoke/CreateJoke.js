@@ -4,6 +4,7 @@ import './CreateJoke.css';
 import Header from '../Header/Header';
 import AudioButton from '../AudioButton/AudioButton';
 import apiUrl from '../configURL';
+import Sidebar from '../Sidebar/Sidebar';
 
 const CreateJoke = () => {
   const { user } = useUserContext();
@@ -49,7 +50,8 @@ const CreateJoke = () => {
   return (
     <>
       <Header title="Añadir chiste" />
-      <div className="boxCreateJoke">
+      <div className="flexRow">
+      <Sidebar/>
         <div className="jokeForm">
           <h2>Añadir Nuevo Chiste</h2>
           <form className="flex" onSubmit={handleSubmit}>

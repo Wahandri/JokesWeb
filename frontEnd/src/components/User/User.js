@@ -6,6 +6,7 @@ import filledStarIcon from "../../images/deleteFavorite.png";
 import AudioButton from '../AudioButton/AudioButton';
 import btDelete from '../../images/delete.png';
 import MediaIcon from "../MediaScore/MediaScore";
+import Sidebar from '../Sidebar/Sidebar';
 
 
 export default function User() {
@@ -19,7 +20,7 @@ export default function User() {
 
   // Recibir chistes favoritos
   useEffect(() => {
-    console.log("Fetching favorite jokes with user._id:", user._id);
+    console.log("Fetching favorite jokes...");
     fetch(`/users/${user._id}/favorite-jokes`)
       .then(response => response.json())
       .then(data => {
@@ -30,7 +31,6 @@ export default function User() {
         console.error('Error al obtener los chistes favoritos:', error);
       });
   }, [user._id]);
-  
 
   // Recibir y filtrar chistes propios
   useEffect(() => {
@@ -136,15 +136,15 @@ export default function User() {
   return (
     <div>
       <Header title="Perfil" />
+      <div className='flexRow'>
+        <Sidebar/>
       <div className='baseUser flex'>
+        
         <div className='helloUser'>
           <h1>Bienvenido, {user.username}</h1>
         </div>
-        {/* <div className='totalScore'>
-          <h3>Tu puntuación total:  {totalScore}</h3>
-        </div> */}
-        <div className='tusChistes flex'>
-          <h2 className='h2TusChistes ' onClick={() => setShowFavoriteJokes(!showFavoriteJokes)}>
+        <div className='tusChistes flex' onClick={() => setShowFavoriteJokes(!showFavoriteJokes)}>
+          <h2 className='h2TusChistes ' >
             Tus chistes favoritos
           </h2>
           <hr className='hr'/>
@@ -172,8 +172,8 @@ export default function User() {
             </ul>
           )}
         </div>
-        <div className='tusChistes flex'>
-          <h2 className='h2TusChistes' onClick={() => setShowYourJokes(!showYourJokes)}>
+        <div className='tusChistes flex' onClick={() => setShowYourJokes(!showYourJokes)}>
+          <h2 className='h2TusChistes' >
             Tus chistes propios
           </h2>
           <hr className='hr'/>
@@ -203,6 +203,7 @@ export default function User() {
             </ul>
           )}
         </div>
+      </div>
       </div>
     </div>
   );

@@ -17,7 +17,7 @@ export default function Header(props) {
           <div><img className='img2' src={payaso2} alt='' /></div>
         </Link>
       </div>
-      <div > 
+      {/* <div > 
         <div className=' boxNav'> 
           <Link to="/jokes/create"> 
             <p className='btnNav'>SUBIR CHISTE</p>
@@ -29,7 +29,7 @@ export default function Header(props) {
             <p className='btnNav'>USUARIO</p>
           </Link>
         </div>
-      </div>
+      </div> */}
       
     </div>
   )

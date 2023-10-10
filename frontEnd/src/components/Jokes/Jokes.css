@@ -18,6 +18,10 @@
   
 }
 
+.flexBox {
+  display: flex;
+}
+
 .author {
   width: 100%;
   display: flex;

@@ -6,6 +6,7 @@ import top1 from "../../images/top1.png";
 import top2 from "../../images/top2.png";
 import top3 from "../../images/top3.png";
 import apiUrl from '../configURL';
+import Sidebar from '../Sidebar/Sidebar';
 
 
 export default function TopJokes() {
@@ -31,25 +32,28 @@ export default function TopJokes() {
   return (
     <div>
       <Header title="Top 10" />
-      <div className='boxJokes flex'>
-        <h1>Top Mejores 10 Chistes</h1>
-        <ul className='ul'>
-          {topJokes.map((joke, index) => (
-            <li className='li liTop' key={joke._id}>
-              {index === 0 ? (
-                <img className='medalla' src={top1} alt="Top 1" />
-              ) : index === 1 ? (
-                <img className='medalla' src={top2} alt="Top 2" />
-              ) : index === 2 ? (
-                <img className='medalla' src={top3} alt="Top 3" />
-              ) : (
-                <span className="position">{index + 1}. </span>
-              )}
-              {joke.text}
-              <AudioButton text={joke.text} />
-            </li>
-          ))}
-        </ul>
+      <div className='boxJokes flexRow'>
+        <Sidebar/>
+        <div className='flex'>
+          <h1>Top Mejores 10 Chistes</h1>
+          <ul className='ul'>
+            {topJokes.map((joke, index) => (
+              <li className='li liTop' key={joke._id}>
+                {index === 0 ? (
+                  <img className='medalla' src={top1} alt="Top 1" />
+                ) : index === 1 ? (
+                  <img className='medalla' src={top2} alt="Top 2" />
+                ) : index === 2 ? (
+                  <img className='medalla' src={top3} alt="Top 3" />
+                ) : (
+                  <span className="position">{index + 1}. </span>
+                )}
+                {joke.text}
+                <AudioButton text={joke.text} />
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
