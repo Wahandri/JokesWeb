@@ -17,20 +17,6 @@ export default function Header(props) {
           <div><img className='img2' src={payaso2} alt='' /></div>
         </Link>
       </div>
-      {/* <div > 
-        <div className=' boxNav'> 
-          <Link to="/jokes/create"> 
-            <p className='btnNav'>SUBIR CHISTE</p>
-          </Link>
-          <Link to="/jokes"> 
-            <p className='btnNav'>CHISTES</p>
-          </Link>
-          <Link to="/user"> 
-            <p className='btnNav'>USUARIO</p>
-          </Link>
-        </div>
-      </div> */}
-      
     </div>
   )
 }

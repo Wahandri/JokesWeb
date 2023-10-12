@@ -1,8 +1,9 @@
 .jokesContent {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* max-width: 90%; */
 }
 
 .ul {
@@ -14,7 +15,7 @@
     flex-direction: column;
     /* justify-content: center; */
     align-items: center;
-    width: 100vw;
+    /* width: 100%; */
   
 }
 

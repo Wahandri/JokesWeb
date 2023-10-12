@@ -1,10 +1,14 @@
-// ChistesFavoritos.js
 import React, { useEffect, useState } from 'react';
+import { useUserContext } from '../../UserContext';
+import Header from '../Header/Header';
+import Sidebar from '../Sidebar/Sidebar';
 import filledStarIcon from "../../images/deleteFavorite.png";
 import AudioButton from '../AudioButton/AudioButton';
 
-const ChistesFavoritos = ({ token, user }) => {
+export default function FavoritesJokes() {
+  const { user } = useUserContext();
   const [favoriteJokes, setFavoriteJokes] = useState([]);
+  const token = localStorage.getItem('token');
 
   // Recibir chistes favoritos
   useEffect(() => {
@@ -20,6 +24,7 @@ const ChistesFavoritos = ({ token, user }) => {
       });
   }, [user._id]);
 
+  // Función para eliminar un chiste de favoritos
   const handleRemoveFromFavorites = (chisteId) => {
     if (window.confirm('¿Estás seguro de eliminar el chiste de favoritos?')) {
       // Realiza una solicitud DELETE para eliminar el chiste de favoritos
@@ -27,14 +32,13 @@ const ChistesFavoritos = ({ token, user }) => {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({ userId: user._id }),
       })
         .then(response => response.json())
         .then(data => {
           console.log("Updated favorite jokes data:", data);
-          
+
           // Actualiza el estado de favoriteJokes
           setFavoriteJokes(prevFavoriteJokes => prevFavoriteJokes.filter(chiste => chiste._id !== chisteId));
         })
@@ -46,30 +50,40 @@ const ChistesFavoritos = ({ token, user }) => {
 
   return (
     <div>
-      <h2>Tus chistes favoritos</h2>
-      <ul>
-        {favoriteJokes.length === 0 ? (
-          <h4>No tienes chistes en favoritos.</h4>
-        ) : (
-          favoriteJokes.map(chiste => (
-            <li className='jokesUser' key={chiste._id}>
-              {chiste.text}
-              <div className='btsUser'>
-                <AudioButton text={chiste.text} />
-                <img
-                  className="imgStar"
-                  src={filledStarIcon}
-                  alt="Quitar de favoritos"
-                  title="Quitar de favoritos"
-                  onClick={() => handleRemoveFromFavorites(chiste._id)}
-                />
-              </div>
-            </li>
-          ))
-        )}
-      </ul>
+      <Header title="Chistes Favoritos" />
+      <div className='flexRow'>
+        <Sidebar />
+        <div className='baseUser flex'>
+
+          <div className='helloUser'>
+            <h1>Bienvenido, {user.username}</h1>
+          </div>
+          <div className='tusChistes flex'>
+            {favoriteJokes.length > 0 && (
+              <ul>
+                {favoriteJokes.map(chiste => (
+                  <li className='jokesUser' key={chiste._id}>
+                    {chiste.text}
+                    <div className='btsUser'>
+                      <AudioButton text={chiste.text} />
+                      <img
+                        className="imgStar"
+                        src={filledStarIcon}
+                        alt="Quitar de favoritos"
+                        title="Quitar de favoritos"
+                        onClick={() => handleRemoveFromFavorites(chiste._id)}
+                      />
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {favoriteJokes.length === 0 && (
+              <h4>No tienes chistes en favoritos.</h4>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
-};
-
-export default ChistesFavoritos;
+}

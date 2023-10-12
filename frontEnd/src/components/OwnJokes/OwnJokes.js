@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import btDelete from '../../images/delete.png';
-import MediaIcon from "../MediaScore/MediaScore";
+import { useUserContext } from '../../UserContext';
+import Header from '../Header/Header';
+import Sidebar from '../Sidebar/Sidebar';
 import AudioButton from '../AudioButton/AudioButton';
+import btDelete from '../../images/delete.png';
+import MediaIcon from '../MediaScore/MediaScore';
 
-const ChistesPropios = ({ user, token }) => {
+export default function YourJokes() {
+  const { user } = useUserContext();
   const [yourJokes, setYourJokes] = useState([]);
+  const token = localStorage.getItem('token');
 
   // Recibir y filtrar chistes propios
   useEffect(() => {
@@ -21,10 +26,11 @@ const ChistesPropios = ({ user, token }) => {
         setYourJokes(filteredJokes);
       })
       .catch(error => {
-        console.error('Error al obtener todos los chistes:', error);
+        console.error('Error al obtener tus chistes propios:', error);
       });
   }, [user.username]);
 
+  // Función para eliminar un chiste
   const deleteJoke = async (chisteId) => {
     if (window.confirm('¿Estás seguro de eliminar este chiste?')) {
       try {
@@ -62,32 +68,41 @@ const ChistesPropios = ({ user, token }) => {
 
   return (
     <div>
-      <h2>Tus chistes propios</h2>
-      <ul>
-        {yourJokes.length === 0 ? (
-          <h4>No hay chistes propios.</h4>
-        ) : (
-          yourJokes.map(chiste => (
-            <li className='jokesUser' key={chiste._id}>
-              {chiste.text}
-              <div className='btsUser'>
-                <AudioButton text={chiste.text} />
-                <img
-                  className="imgDelete"
-                  src={btDelete}
-                  alt="Eliminar chiste"
-                  title="Eliminar chiste"
-                  onClick={() => deleteJoke(chiste._id)}
-                  style={{ width: '24px', height: '24px' }}
-                />
-              </div> 
-              <MediaIcon averageScore={chiste.score} />
-            </li>
-          ))
-        )}
-      </ul>
+      <Header title="Tus Chistes Propios" />
+      <div className='flexRow'>
+        <Sidebar />
+        <div className='baseUser flex'>
+
+          <div className='helloUser'>
+            <h1>Bienvenido, {user.username}</h1>
+          </div>
+          <div className='tusChistes flex'>
+            {yourJokes.length > 0 && (
+              <ul>
+                {yourJokes.map(chiste => (
+                  <li className='jokesUser' key={chiste._id}>
+                    {chiste.text}
+                    <div className='btsUser'>
+                      <AudioButton text={chiste.text} />
+                      <img
+                        className="imgDelete"
+                        src={btDelete}
+                        alt="Eliminar chiste"
+                        title="Eliminar chiste"
+                        onClick={() => deleteJoke(chiste._id)}
+                      />
+                      <MediaIcon averageScore={chiste.score} />
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {yourJokes.length === 0 && (
+              <h4>No hay chistes propios.</h4>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
-};
-
-export default ChistesPropios;
+}

@@ -11,14 +11,14 @@ const Sidebar = () => {
         <Link className='linkLi' to="/top"><p className='liSidebar'>TOP 10</p></Link>
         <Link className='linkLi' to="/user"><p className='liSidebar'>PERFIL</p></Link>
         <Link
-  className='linkLi'
-  to="/"
-  onClick={(e) => {
-    if (!window.confirm("¿Estás seguro de que quieres cerrar sesión?")) {
-      e.preventDefault(); // Evita la navegación si se hace clic en "Cancelar"
-    }
-  }}
->
+            className='linkLi'
+            to="/"
+            onClick={(e) => {
+                if (!window.confirm("¿Estás seguro de que quieres cerrar sesión?")) {
+                e.preventDefault(); // Evita la navegación si se hace clic en "Cancelar"
+            }
+        }}
+    >
   <p className='liSidebar'>CERRAR SESIÓN</p>
 </Link>
     </div>

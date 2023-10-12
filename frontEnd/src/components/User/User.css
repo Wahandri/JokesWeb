@@ -3,6 +3,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    max-width: 100%; /* Establece un ancho máximo del 100% para el contenido principal */
+  overflow: hidden;
 }
 
 .baseUser {

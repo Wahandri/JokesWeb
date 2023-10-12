@@ -1,7 +1,13 @@
 .liTop {
     min-height: 100px;
+    width: 50%;
+    max-width: 80%;
 }
 
 .medalla {
     height: 40px;
+}
+
+.ul {
+    max-width: 80%;
 }

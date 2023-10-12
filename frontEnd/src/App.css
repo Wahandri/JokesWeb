@@ -7,8 +7,14 @@ Body {
     background-color: #b4b4b48e;
     height: 100vh;
     font-weight: bold;
-    
+    max-width: 100vw;
 }
+
+.flex {
+    max-width: 100%; /* Establece un ancho máximo del 100% para el contenido principal */
+    overflow: hidden; /* Evita que el contenido sobresalga */
+  }
+  
 
 .flexRow {
     display: flex;

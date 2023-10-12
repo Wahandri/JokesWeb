@@ -173,9 +173,9 @@ export default function Jokes() {
       <Header title="Chistes" />
       <div className='flexBox'>
         <Sidebar/>
-        <div>
+        <div className='jokesContent'>
           <JokesFilters onFilterChange={handleFilterChange} />
-          <div className="jokesContent">
+          <div className="">
             <div className="boxJokes">
               <ul className="ul">
                 {chistes.map((chiste) => (
