@@ -134,6 +134,7 @@ router.post("/create", async (req, res) => {
 });
 
 
+
 // Borrar usuario
 router.delete("/:id", verifyToken, async (req, res) => {
   try {
@@ -145,16 +146,21 @@ router.delete("/:id", verifyToken, async (req, res) => {
       return res.status(404).json({ ok: false, message: "User not found" });
     }
 
-    if (req.body.active !== undefined) {
-      user.active = req.body.active;
-    }
+    // Desactiva la cuenta cambiando el estado de activación a false
+    user.active = false;
 
-    const updatedUser = await user.save();
+    // Cambia el correo electrónico a uno no accesible
+    user.email = `deleted_${user._id}@example.com`;
 
-    res.status(200).json({ ok: true, updatedUser });
+    // Guarda los cambios en la base de datos
+    await user.save();
+
+    res.status(200).json({ ok: true, message: "User deactivated successfully" });
   } catch (error) {
-    res.status(400).json({ ok: false, error });
+    res.status(500).json({ ok: false, error });
   }
 });
+
+
 
 module.exports = router;
