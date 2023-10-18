@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import "./FavoriteJokes.css";
 import { useUserContext } from '../../UserContext';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
@@ -54,15 +55,11 @@ export default function FavoritesJokes() {
       <div className='flexRow'>
         <Sidebar />
         <div className='baseUser flex'>
-
-          <div className='helloUser'>
-            <h1>Bienvenido, {user.username}</h1>
-          </div>
           <div className='tusChistes flex'>
             {favoriteJokes.length > 0 && (
               <ul>
                 {favoriteJokes.map(chiste => (
-                  <li className='jokesUser' key={chiste._id}>
+                  <li className='boxArea jokesUser' key={chiste._id}>
                     {chiste.text}
                     <div className='btsUser'>
                       <AudioButton text={chiste.text} />

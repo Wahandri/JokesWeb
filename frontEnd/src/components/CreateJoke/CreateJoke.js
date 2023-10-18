@@ -11,11 +11,29 @@ const CreateJoke = () => {
   const [jokeText, setJokeText] = useState('');
   const [message, setMessage] = useState('');
 
+  const charLimit = 240;
+
+  const handleTextAreaChange = (e) => {
+    const newText = e.target.value;
+    if (newText.length <= charLimit) {
+      setJokeText(newText);
+    }
+  };
+
+  const getCharCountColor = () => {
+    if (jokeText.length === 240 ) {
+      return 'red';
+    } else if (jokeText.length > 200) {
+      return '#ffa600';
+    }
+    return 'green';
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     // Validación de longitud del texto del chiste
-    if (jokeText.length > 240) {
+    if (jokeText.length > charLimit) {
       setMessage('El chiste es demasiado largo. Debe tener menos de 240 caracteres.');
       return; // No envíes el chiste al servidor si es demasiado largo
     }
@@ -51,7 +69,7 @@ const CreateJoke = () => {
     <>
       <Header title="Añadir chiste" />
       <div className="flexRow">
-      <Sidebar/>
+        <Sidebar />
         <div className="jokeForm">
           <h2>Añadir Nuevo Chiste</h2>
           <form className="flex" onSubmit={handleSubmit}>
@@ -62,10 +80,13 @@ const CreateJoke = () => {
               id="textAreaCreate"
               placeholder="Escribe tu chiste aquí (máximo 240 caracteres)"
               value={jokeText}
-              onChange={(e) => setJokeText(e.target.value)}
+              onChange={handleTextAreaChange}
               required
             />
             <div>
+              <span  style={{ color: getCharCountColor(), backgroundColor: 'aliceblue', borderRadius: "10px" }}>
+                {jokeText.length}/{charLimit}
+              </span>
               <AudioButton text={jokeText} />
             </div>
             <button className="bt buttonSubmit" type="submit">

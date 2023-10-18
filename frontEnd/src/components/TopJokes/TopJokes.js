@@ -35,7 +35,6 @@ export default function TopJokes() {
       <div className='boxJokes flexRow'>
         <Sidebar/>
         <div className='flex'>
-          <h1>Top Mejores 10 Chistes</h1>
           <ul className='ul'>
             {topJokes.map((joke, index) => (
               <li className='li liTop' key={joke._id}>

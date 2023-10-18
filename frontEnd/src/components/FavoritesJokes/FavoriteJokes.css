@@ -1,0 +1,8 @@
+.boxArea {
+    color: aliceblue;
+    background-color: rgb(141, 141, 141);
+    border-radius: 10px;
+    border: 2px solid rgb(106, 182, 81);
+    margin-bottom: 5px;
+    box-shadow: 3px 3px 3px rgb(91, 204, 97);
+}
