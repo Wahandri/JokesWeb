@@ -63,7 +63,29 @@ router.get("/:userId/favorite-jokes", async (req, res) => {
   }
 });
 
+// Cambiar contraseña del usuario
+router.put("/change-password/:id", verifyToken, async (req, res) => {
+  try {
+    const { id } = req.params;
 
+    const user = await User.findById(id);
+
+    if (!user) {
+      return res.status(404).json({ ok: false, message: "User not found" });
+    }
+
+    if (req.body.password) {
+      // Cifra la nueva contraseña
+      user.password = bcrypt.hashSync(req.body.password, 10);
+    }
+
+    const updatedUser = await user.save();
+
+    res.status(200).json({ ok: true, updatedUser });
+  } catch (error) {
+    res.status(400).json({ ok: false, error });
+  }
+});
 
 // Recibir lista de usuarios
 router.get("/", verifyToken, async (req, res) => {

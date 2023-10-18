@@ -11,7 +11,7 @@ export default function DeleteUser() {
   const [error, setError] = useState(null);
 
   const handleDeleteAccount = async () => {
-    if (confirmation === 'DELETE') {
+    if (confirmation === user.email) {
       try {
         // Obtiene el token del almacenamiento local
         const token = localStorage.getItem('token');
@@ -41,7 +41,7 @@ export default function DeleteUser() {
         setError('Error al eliminar la cuenta. Inténtalo de nuevo más tarde.');
       }
     } else {
-      setError('Por favor, confirma la eliminación ingresando "DELETE".');
+      setError('Por favor, confirma la eliminación ingresando tu email.');
     }
   };
 
@@ -52,7 +52,7 @@ export default function DeleteUser() {
         <Sidebar />
         <div>
           <p>¿Estás seguro de que deseas eliminar tu cuenta de usuario? Esta acción no se puede deshacer.</p>
-          <p>Para confirmar, escribe "DELETE" en el campo de abajo:</p>
+          <p>Para confirmar, escribe "{user.email}" en el campo de abajo:</p>
           <input
             type="text"
             value={confirmation}
