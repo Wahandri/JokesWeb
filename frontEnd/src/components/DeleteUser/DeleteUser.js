@@ -46,14 +46,15 @@ export default function DeleteUser() {
   };
 
   return (
-    <div>
+    <div className='pading'>
       <Header title="Eliminar Usuario" />
       <div className='flex'>
         <Sidebar />
-        <div>
+        <div className='boxArea'>
           <p>¿Estás seguro de que deseas eliminar tu cuenta de usuario? Esta acción no se puede deshacer.</p>
-          <p>Para confirmar, escribe "{user.email}" en el campo de abajo:</p>
+          <p>Para confirmar, escribe "TU EMAIL" en el campo de abajo:</p>
           <input
+            placeholder={user.email}
             type="text"
             value={confirmation}
             onChange={(e) => setConfirmation(e.target.value)}

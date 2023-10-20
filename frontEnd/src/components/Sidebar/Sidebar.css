@@ -9,15 +9,7 @@
   height:min-content;
 }
 
-.liSidebar {
-  background-color: #80cb70;
-  border: 3px solid #6ba95d;
-  box-shadow: 2px 2px 2px rgb(93, 92, 92);
-  border-radius: 10px;
-  padding: 5px;
-  margin-bottom: 3px;
-  
-}
+/*  */
 
 .linkLi {
   color: aliceblue;

@@ -23,7 +23,7 @@ const AudioButton = ({ text }) => {
     <img
       title="Escuchar"
       alt=""
-      className="imgAudio"
+      className="btnDelete"
       src={iconAudio}
       onClick={leerChiste}
     />

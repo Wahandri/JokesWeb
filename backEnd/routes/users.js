@@ -105,19 +105,24 @@ router.get("/", verifyToken, async (req, res) => {
 });
 
 // Cambiar usuario
-router.put("/change/:id", verifyToken, async (req, res) => {
+router.put('/change/:id', verifyToken, async (req, res) => {
   try {
     const { id } = req.params;
 
     const user = await User.findById(id);
 
     if (!user) {
-      return res.status(404).json({ ok: false, message: "User not found" });
+      return res.status(404).json({ ok: false, message: 'User not found' });
     }
 
     if (req.body.username) {
+      const existingUser = await User.findOne({ username: req.body.username });
+      if (existingUser) {
+        return res.status(400).json({ ok: false, message: 'Nombre de usuario ya en uso' });
+      }
       user.username = req.body.username;
     }
+    
     if (req.body.email) {
       user.email = req.body.email;
     }
@@ -132,6 +137,7 @@ router.put("/change/:id", verifyToken, async (req, res) => {
     res.status(400).json({ ok: false, error });
   }
 });
+
 
 // Crear usuario
 router.post("/create", async (req, res) => {

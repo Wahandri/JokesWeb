@@ -50,11 +50,11 @@ export default function FavoritesJokes() {
   };
 
   return (
-    <div>
+    <div className='pading'>
       <Header title="Chistes Favoritos" />
       <div className='flexRow'>
         <Sidebar />
-        <div className='baseUser flex'>
+        <div className='baseUser boxComponent flex'>
           <div className='tusChistes flex'>
             {favoriteJokes.length > 0 && (
               <ul>

@@ -1,18 +1,33 @@
 import React, { useState } from 'react';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
+import './UserDate.css';
 import { useUserContext } from '../../UserContext';
 
 export default function UserData() {
-  const { user } = useUserContext();
+  const { user, updateUser } = useUserContext();
   const [newUsername, setNewUsername] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState(null);
+  const [message, setMessage] = useState('');
+  const [showUsernameChangeConfirm, setShowUsernameChangeConfirm] = useState(false);
 
   const handleChangeUsername = async () => {
     try {
-      // Realizar la solicitud para cambiar el nombre de usuario
+      const token = localStorage.getItem('token');
+
+      if (!token) {
+        return;
+      }
+
+      setShowUsernameChangeConfirm(true);
+    } catch (error) {
+      setMessage('Error al cambiar el nombre de usuario. Inténtalo de nuevo más tarde.');
+    }
+  };
+
+  const confirmUsernameChange = async () => {
+    try {
       const token = localStorage.getItem('token');
 
       if (!token) {
@@ -29,20 +44,29 @@ export default function UserData() {
       });
 
       if (response.ok) {
-        setError(null);
+        updateUser({ ...user, username: newUsername }); // Actualizar el nombre de usuario en el contexto
+        setMessage('Nombre de usuario cambiado exitosamente');
+        setNewUsername('');
+        setShowUsernameChangeConfirm(false);
       } else {
         const data = await response.json();
-        setError(data.message || 'Error al cambiar el nombre de usuario.');
+        setMessage(data.message || 'Error al cambiar el nombre de usuario.');
+        setShowUsernameChangeConfirm(false);
       }
     } catch (error) {
-      setError('Error al cambiar el nombre de usuario. Inténtalo de nuevo más tarde.');
+      setMessage('Error al cambiar el nombre de usuario. Inténtalo de nuevo más tarde.');
+      setShowUsernameChangeConfirm(false);
     }
+  };
+
+  const cancelUsernameChange = () => {
+    setShowUsernameChangeConfirm(false);
   };
 
   const handleChangePassword = async () => {
     try {
       if (newPassword !== confirmPassword) {
-        setError('Las contraseñas no coinciden. Inténtalo de nuevo.');
+        setMessage('Las contraseñas no coinciden. Inténtalo de nuevo.');
         return;
       }
 
@@ -52,7 +76,6 @@ export default function UserData() {
         return;
       }
 
-      // Realizar la solicitud para cambiar la contraseña
       const response = await fetch(`/users/change-password/${user._id}`, {
         method: 'PUT',
         headers: {
@@ -63,49 +86,60 @@ export default function UserData() {
       });
 
       if (response.ok) {
-        setError(null);
+        setMessage('Contraseña cambiada exitosamente');
+        setNewPassword('');
+        setConfirmPassword('');
       } else {
         const data = await response.json();
-        setError(data.message || 'Error al cambiar la contraseña.');
+        setMessage(data.message || 'Error al cambiar la contraseña.');
       }
     } catch (error) {
-      setError('Error al cambiar la contraseña. Inténtalo de nuevo más tarde.');
+      setMessage('Error al cambiar la contraseña. Inténtalo de nuevo más tarde.');
     }
   };
 
   return (
-    <div>
-      <Header title="Datos de Usuario" />
-      <div className="flex">
+    <div className='pading'>
+      <Header title='Cambiar Datos' />
+      <div className='flex'>
         <Sidebar />
-        <div className="flex">
-          <div>
+        <div className='flex colums boxComponent'>
+          <div className='boxArea'>
             <p>Nombre de usuario actual: {user.username}</p>
             <input
-              type="text"
-              placeholder="Nuevo nombre de usuario"
+              type='text'
+              placeholder='Nuevo nombre de usuario'
               value={newUsername}
               onChange={(e) => setNewUsername(e.target.value)}
             />
             <button onClick={handleChangeUsername}>Cambiar Nombre de Usuario</button>
+            {showUsernameChangeConfirm && (
+              <div>
+                <p>
+                  ¿Estás seguro de que deseas cambiar el nombre de usuario de "{user.username}" a "{newUsername}"?
+                </p>
+                <button onClick={confirmUsernameChange}>Sí</button>
+                <button onClick={cancelUsernameChange}>No</button>
+              </div>
+            )}
           </div>
-          <div>
+          <div className='boxArea'>
             <p>Cambiar Contraseña</p>
             <input
-              type="password"
-              placeholder="Nueva contraseña"
+              type='password'
+              placeholder='Nueva contraseña'
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
             />
             <input
-              type="password"
-              placeholder="Confirmar contraseña"
+              type='password'
+              placeholder='Confirmar contraseña'
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
             <button onClick={handleChangePassword}>Cambiar Contraseña</button>
           </div>
-          {error && <p className="error-message">{error}</p>}
+          {message && <p className='message'>{message}</p>}
         </div>
       </div>
     </div>

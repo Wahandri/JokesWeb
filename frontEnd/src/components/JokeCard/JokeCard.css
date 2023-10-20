@@ -14,6 +14,12 @@
   margin: 20px;
 }
 
+.h4Title {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+
 .imgAudio {
   position: relative;
   height: 30px;
@@ -48,11 +54,12 @@
 
 .chiste {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 60%;
+  width: 80%;
   height: 250px;
-  max-height: 200px;
+  max-height: 400px;
   overflow: auto;
   border-radius: 10px;
   background-color: #80cb70;
@@ -68,8 +75,9 @@
 
 .h4 {
   font-family: 'Comic Sans MS', cursive;
+  font-size:larger;
   width: 90%;
-  margin: 10px;
+  /* margin: 10px; */
 }
 
 @media screen and (max-width: 768px) {

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useUserContext } from '../../UserContext';
+import "./OwnJokes.css"
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
 import AudioButton from '../AudioButton/AudioButton';
@@ -67,31 +68,28 @@ export default function YourJokes() {
   };
 
   return (
-    <div>
+    <div className='pading'>
       <Header title="Tus Chistes Propios" />
       <div className='flexRow'>
         <Sidebar />
-        <div className='baseUser flex'>
-
-          <div className='helloUser'>
-            <h1>Bienvenido, {user.username}</h1>
-          </div>
+        <div className='baseUser boxComponent flex'>
           <div className='tusChistes flex'>
             {yourJokes.length > 0 && (
               <ul>
                 {yourJokes.map(chiste => (
-                  <li className='jokesUser' key={chiste._id}>
+                  <li className='boxArea' key={chiste._id}>
                     {chiste.text}
-                    <div className='btsUser'>
+                    <MediaIcon averageScore={chiste.score} />
+                    <div className='btnsFavorite'>
                       <AudioButton text={chiste.text} />
                       <img
-                        className="imgDelete"
+                        className="btnDelete"
                         src={btDelete}
                         alt="Eliminar chiste"
                         title="Eliminar chiste"
                         onClick={() => deleteJoke(chiste._id)}
                       />
-                      <MediaIcon averageScore={chiste.score} />
+                      
                     </div>
                   </li>
                 ))}

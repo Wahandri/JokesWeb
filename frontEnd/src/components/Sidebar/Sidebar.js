@@ -6,10 +6,10 @@ const Sidebar = () => {
     
   return (
     <div className="sidebarBox">
-        <Link className='linkLi' to="/jokes"><p className='liSidebar'>CHISTES</p></Link>
-        <Link className='linkLi' to="/jokes/create"><p className='liSidebar'>AÑADIR CHISTE</p></Link>
-        <Link className='linkLi' to="/top"><p className='liSidebar'>TOP 10</p></Link>
-        <Link className='linkLi' to="/user"><p className='liSidebar'>PERFIL</p></Link>
+        <Link className='linkLi' to="/jokes"><p className="myBtn">CHISTES</p></Link>
+        <Link className='linkLi' to="/jokes/create"><p className="myBtn">AÑADIR CHISTE</p></Link>
+        <Link className='linkLi' to="/top"><p className="myBtn">TOP 10</p></Link>
+        <Link className='linkLi' to="/user"><p className="myBtn">PERFIL</p></Link>
         <Link
             className='linkLi'
             to="/"
@@ -19,7 +19,7 @@ const Sidebar = () => {
             }
         }}
     >
-  <p className='liSidebar'>CERRAR SESIÓN</p>
+  <p className='myBtn'>CERRAR SESIÓN</p>
 </Link>
     </div>
   );

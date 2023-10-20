@@ -11,11 +11,56 @@ Body {
 }
 
 .flex {
-    max-width: 100%; /* Establece un ancho máximo del 100% para el contenido principal */
-    overflow: hidden; /* Evita que el contenido sobresalga */
+    max-width: 100%; 
+    overflow: hidden;
   }
   
 
 .flexRow {
     display: flex;
 }
+
+/* Estilos para componentes */
+
+.pading {
+    padding: 10px;
+}
+
+.boxComponent {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+}
+
+.boxArea {
+    background-color: #80cb70;
+    border: 3px solid #6ba95d;
+    border-radius: 20px;
+    display: flex;
+    color: aliceblue;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    box-shadow: 10px 10px #7b7974fd, 10px 10px #7b7974fd;
+    margin: 12px;
+    padding: 10px;
+}
+
+/* Boton  */
+
+.myBtn {
+    background-color: #80cb70;
+    border: 3px solid #6ba95d;
+    box-shadow: 2px 2px 2px rgb(93, 92, 92);
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 3px;
+} .myBtn:hover {
+    border: 3px solid #7be962;
+}
+
+/* -------------------- */

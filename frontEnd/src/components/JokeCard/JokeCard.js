@@ -32,10 +32,12 @@ const JokeCard = () => {
   return (
     <div className='jokeCard'>
       <div className="h4Title">
-        <h2 >Tu chiste del día</h2>
+        
       </div>
-      <hr className='hr'></hr>
+      
       <div className='chiste'>
+        <h2 >Tu chiste del día</h2>
+        <hr className='hr'></hr>
         <h4 className='h4' lang='es'>{chiste}</h4>
       </div>
 

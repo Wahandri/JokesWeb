@@ -1,0 +1,11 @@
+.btnDelete {
+    width: 30px;
+    cursor: pointer;
+
+}
+
+.btnsFavorite {
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+}
