@@ -66,13 +66,12 @@ const CreateJoke = () => {
   };
 
   return (
-    <>
+    <div className='pading'>                       
       <Header title="Añadir chiste" />
       <div className="flexRow">
         <Sidebar />
-        <div className="jokeForm">
-          <h2>Añadir Nuevo Chiste</h2>
-          <form className="flex" onSubmit={handleSubmit}>
+        <div className="boxComponent ">
+          <form className="flex boxArea" onSubmit={handleSubmit}>
             <textarea
               className="textAreaCreateJoke"
               rows="5"
@@ -84,7 +83,7 @@ const CreateJoke = () => {
               required
             />
             <div>
-              <span  style={{ color: getCharCountColor(), backgroundColor: 'aliceblue', borderRadius: "10px" }}>
+              <span  style={{ color: getCharCountColor(), marginRight: "15px", backgroundColor: 'aliceblue', borderRadius: "10px" }}>
                 {jokeText.length}/{charLimit}
               </span>
               <AudioButton text={jokeText} />
@@ -96,7 +95,7 @@ const CreateJoke = () => {
           {message && <p className="message">{message}</p>}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

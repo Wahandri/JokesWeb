@@ -169,17 +169,17 @@ export default function Jokes() {
   };
 
   return (
-    <div>
+    <div className='pading'>
       <Header title="Chistes" />
       <div className='flexBox'>
         <Sidebar/>
-        <div className='jokesContent'>
+        <div className='jokesContent boxComponent'>
           <JokesFilters onFilterChange={handleFilterChange} />
           <div className="">
             <div className="boxJokes">
               <ul className="ul">
                 {chistes.map((chiste) => (
-                <li className="li" key={chiste._id}>
+                <li className="boxArea" key={chiste._id}>
                  <div className="author">
                    <p>{chiste.author}</p>
                   </div>

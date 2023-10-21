@@ -9,8 +9,11 @@ export default function Header(props) {
   return (
     <div className='baseHeader'>
       <div className='header'>
+        <div className='imgContainer'>
+          <img className='img' src={logotipo} alt='' />
+          <span className="developerText">Desarrollado por Wahandri</span>
+        </div>
         
-        <img className='img' src={logotipo} alt='' />
         
         <div><h1>{props.title}</h1></div>
         <Link to="/user">

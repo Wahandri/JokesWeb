@@ -30,14 +30,14 @@ export default function TopJokes() {
   }, []);
 
   return (
-    <div>
+    <div className='pading'>
       <Header title="Top 10" />
       <div className='boxJokes flexRow'>
         <Sidebar/>
-        <div className='flex'>
+        <div className='boxComponent'>
           <ul className='ul'>
             {topJokes.map((joke, index) => (
-              <li className='li liTop' key={joke._id}>
+              <li className='boxArea' key={joke._id}>
                 {index === 0 ? (
                   <img className='medalla' src={top1} alt="Top 1" />
                 ) : index === 1 ? (

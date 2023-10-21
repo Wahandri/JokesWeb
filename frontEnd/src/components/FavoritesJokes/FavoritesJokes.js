@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import atras from "../../images/atras.png";
 import "./FavoriteJokes.css";
 import { useUserContext } from '../../UserContext';
 import Header from '../Header/Header';
@@ -9,7 +11,7 @@ import AudioButton from '../AudioButton/AudioButton';
 export default function FavoritesJokes() {
   const { user } = useUserContext();
   const [favoriteJokes, setFavoriteJokes] = useState([]);
-  const token = localStorage.getItem('token');
+
 
   // Recibir chistes favoritos
   useEffect(() => {
@@ -54,6 +56,9 @@ export default function FavoritesJokes() {
       <Header title="Chistes Favoritos" />
       <div className='flexRow'>
         <Sidebar />
+        <Link className="linkLi" to="/user">
+          <img src={atras} alt="Atras" width="40px" />
+        </Link>
         <div className='baseUser boxComponent flex'>
           <div className='tusChistes flex'>
             {favoriteJokes.length > 0 && (

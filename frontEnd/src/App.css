@@ -63,4 +63,33 @@ Body {
     border: 3px solid #7be962;
 }
 
+.bt {
+    position: relative;
+    padding: 10px 20px;
+    background-color: rgb(103, 173, 46);
+    color: white;
+    border: none;
+    margin: 3px;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: 3px 3px  #2e7930;;
+  }.bt:hover {
+      box-shadow: 0px 0px;
+      background-color: rgb(103, 173, 46); 
+      left: 3px;
+      top: 3px;
+  }
+
+.myBtnGrey {
+    color: aliceblue;
+    background-color: #696969;
+    border: 3px solid #4a4a4a;
+    box-shadow: 2px 2px 2px rgb(93, 92, 92);
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 3px;
+} .myBtnGrey:hover {
+    border: 3px solid #7be962;
+}
+
 /* -------------------- */

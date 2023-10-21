@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import atras from "../../images/atras.png";
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
 import { useUserContext } from '../../UserContext';
@@ -50,6 +51,9 @@ export default function DeleteUser() {
       <Header title="Eliminar Usuario" />
       <div className='flex'>
         <Sidebar />
+        <Link className="linkLi" to="/user">
+          <img src={atras} alt="Atras" width="40px" />
+        </Link>
         <div className='boxArea'>
           <p>¿Estás seguro de que deseas eliminar tu cuenta de usuario? Esta acción no se puede deshacer.</p>
           <p>Para confirmar, escribe "TU EMAIL" en el campo de abajo:</p>
