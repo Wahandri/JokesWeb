@@ -5,7 +5,22 @@
 }
 
 .btnsFavorite {
-    width: 30%;
+    margin-top: 15px;
+    width: 80%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+
+.ownBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ownBox2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

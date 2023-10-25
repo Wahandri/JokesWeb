@@ -76,6 +76,37 @@ router.post("/create", async (req, res) => {
 });
 
 
+router.put('/:id/edit', async (req, res) => {
+  const chisteId = req.params.id;
+  const { text, author } = req.body;
+
+  try {
+    // Verificar si el chiste existe
+    const joke = await Joke.findById(chisteId);
+
+    if (!joke) {
+      return res.status(404).json({ error: 'Chiste no encontrado' });
+    }
+
+    // Verificar si el autor del chiste coincide con el usuario que envía la solicitud
+    if (joke.author !== author) {
+      return res.status(403).json({ error: 'No tienes permiso para editar este chiste' });
+    }
+
+    // Actualizar el texto del chiste
+    joke.text = text;
+
+    // Guardar los cambios en la base de datos
+    const updatedJoke = await joke.save();
+
+    res.status(200).json({ ok: true, updatedJoke });
+  } catch (error) {
+    console.error('Error al editar el chiste:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+
 // Obtener un chiste aleatorio
 router.get("/random", async (req, res) => {
   try {
@@ -134,7 +165,7 @@ router.post('/:id/favorite', async (req, res) => {
 });
 
 
-// Ruta para votar por un chiste
+// Votar por un chiste
 router.post('/:chisteId/vote', async (req, res) => {
   try {
     const { chisteId } = req.params;
@@ -172,7 +203,7 @@ router.post('/:chisteId/vote', async (req, res) => {
   }
 });
 
-// Ruta para obtener la puntuación promedio de un chiste
+// Obtener la puntuación promedio de un chiste
 router.get('/:chisteId/average-score', async (req, res) => {
   try {
     const { chisteId } = req.params;

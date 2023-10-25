@@ -82,14 +82,14 @@ Body {
 
 .myBtnGrey {
     color: aliceblue;
-    background-color: #696969;
-    border: 3px solid #4a4a4a;
+    background-color: #7b7974fd;
+    border: 3px solid #7b7974fd;
     box-shadow: 2px 2px 2px rgb(93, 92, 92);
     border-radius: 10px;
     padding: 5px;
     margin-bottom: 3px;
 } .myBtnGrey:hover {
-    border: 3px solid #7be962;
+    border: 3px solid #5b5a5afd
 }
 
 /* -------------------- */
