@@ -13,7 +13,7 @@
 - Escucha los chistes: cada chiste tiene una opción para escucharlo en formato de audio, dándole un toque único a la experiencia.
 - Reacciona a los chistes con un amigable sistema de puntuación basado en emojis (😕​😐​🙂​🤭​😂​) al puntuar veras la reacción media de entre todos los usuarios que votaron.
 - Añade los chistes que mas te gusten a tu propia lista de favoritos desde tu perfil.
-- En tu perfil también podrás ver tus chistes añadidos, escucharlos o eliminarlos.
+- En tu perfil también podrás ver tus chistes añadidos, escucharlos, editarlos o eliminarlos.
 
 ## Tecnologías Utilizadas
 
@@ -28,16 +28,17 @@
 
 A continuación, se detallan los endpoints de la API de esta aplicación:
 
-| **Ruta**                                           | **Método** | **Descripción**                                                         |
-| ------------------------------------------------- | ---------- | ----------------------------------------------------------------------- |
-| `/api/jokes`                                      | GET        | Recibe una lista de chistes con opciones de paginación, filtrado y ordenación. |
+| **Ruta**                                         | **Método** | **Descripción**                                                         |
+| -------------------------------------------------| ---------- | ----------------------------------------------------------------------- |
+| `/api/jokes`                                     | GET        | Recibe una lista de chistes con opciones de paginación, filtrado y ordenación. |
 | `/api/jokes/alljokes`                            | GET        | Recibe todos los chistes sin filtros.                                    |
 | `/api/jokes/create`                              | POST       | Crea un nuevo chiste y lo guarda en la base de datos.                   |
 | `/api/jokes/random`                              | GET        | Obtiene un chiste aleatorio de la base de datos.                        |
 | `/api/jokes/:id/favorite`                        | POST       | Agrega un chiste a la lista de favoritos de un usuario.                 |
-| `/api/jokes/:chisteId/vote`                      | POST       | Permite a un usuario votar por un chiste y actualiza su puntuación.    |
+| `/api/jokes/:chisteId/vote`                      | POST       | Permite a un usuario votar por un chiste y actualiza su puntuación.     |
 | `/api/jokes/:chisteId/average-score`             | GET        | Obtiene la puntuación promedio de un chiste.                            |
 | `/api/jokes/:id/favorite`                        | DELETE     | Elimina un chiste de la lista de favoritos de un usuario.               |
+| `/api/jokes/:id/edit`                            | DELETE     | Modifica un chiste propio.                                              |
 | `/api/jokes/:id`                                 | DELETE     | Elimina un chiste de la base de datos por su ID.                        |
 | `/api/auth`                                      | POST       | Verifica la contraseña encriptada del usuario para iniciar sesión.      |
 | `/api/users/:userId/favorite-jokes`              | GET        | Obtiene la lista de chistes favoritos de un usuario.                   |

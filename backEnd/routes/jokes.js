@@ -74,7 +74,7 @@ router.post("/create", async (req, res) => {
     res.status(500).json({ ok: false, error: 'Error interno del servidor' });
   }
 });
-
+ 
 
 router.put('/:id/edit', async (req, res) => {
   const chisteId = req.params.id;
