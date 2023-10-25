@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 const User = require("../models/user");
-const configSeed = require("./config"); // Importar la configuración
+const configSeed = require("./config"); 
 
 // Verificación de password encriptada
 router.post("/", async (req, res) => {
@@ -33,7 +33,7 @@ router.post("/", async (req, res) => {
     console.log("Config SEED:", configSeed.SEED);
     const token = jwt.sign(
       { user: userDB },
-      configSeed.SEED, // Usar la clave secreta de la configuración
+      configSeed.SEED, 
       { expiresIn: "2h" }
     );
 

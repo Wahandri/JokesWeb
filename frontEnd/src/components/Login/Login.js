@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import "./Login.css";
 import { useUserContext } from '../../UserContext';
 import apiUrl from '../configURL';
+import jwt_decode from 'jwt-decode'; 
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const { setUser } = useUserContext();
-  const token = localStorage.getItem('token');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -19,7 +19,6 @@ const Login = ({ onLogin }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({ email, password }),
       });
@@ -40,6 +39,32 @@ const Login = ({ onLogin }) => {
       alert('Error al enviar el formulario');
     }
   };
+
+  const updateToken = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const decodedToken = jwt_decode(token);
+      const currentTime = Date.now() / 1000;
+      if (decodedToken.exp < currentTime) {
+        const response = await fetch(`${apiUrl}/refresh-token`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          localStorage.setItem('token', data.token);
+        }
+      }
+    } catch (error) {
+      console.error('Error al actualizar el token:', error);
+    }
+  };
+
+  useEffect(() => {
+    updateToken();
+  }, []);
 
   return (
     <div className='loginBox'>

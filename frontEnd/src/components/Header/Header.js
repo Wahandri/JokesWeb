@@ -17,7 +17,7 @@ export default function Header(props) {
         
         <div><h1>{props.title}</h1></div>
         <Link to="/user">
-          <div><img className='img2' src={payaso2} alt='' /></div>
+          <img className='img2' src={payaso2} alt='Perfil' />
         </Link>
       </div>
     </div>

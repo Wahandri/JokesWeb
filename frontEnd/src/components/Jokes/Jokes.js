@@ -168,25 +168,55 @@ export default function Jokes() {
     setCurrentPage(1); // Volver a la primera página al aplicar nuevos filtros
   };
 
-  return (
-    <div className='pading'>
-      <Header title="Chistes" />
-      <div className='flexBox'>
-        <Sidebar/>
-        <div className='jokesContent boxComponent'>
-          <JokesFilters onFilterChange={handleFilterChange} />
-          <div className="">
-            <div className="boxJokes">
-              <ul className="ul">
-                {chistes.map((chiste) => (
+  const formatTimeDifference = (createdAt) => {
+  const currentTime = new Date();
+  const createdAtTime = new Date(createdAt);
+
+  const timeDifference = currentTime - createdAtTime;
+  const seconds = Math.floor(timeDifference / 1000);
+
+  if (seconds < 60) {
+    return `Hace ${seconds} segundo(s)`;
+  }
+
+  const minutes = Math.floor(seconds / 60);
+
+  if (minutes < 60) {
+    return `Hace ${minutes} minuto(s)`;
+  }
+
+  const hours = Math.floor(minutes / 60);
+
+  if (hours < 24) {
+    return `Hace ${hours} hora(s)`;
+  }
+
+  const days = Math.floor(hours / 24);
+  return `Hace ${days} día(s)`;
+};
+
+return (
+  <div className='pading'>
+    <Header title="Chistes" />
+    <div className='flexBox'>
+      <Sidebar />
+      <div className='jokesContent boxComponent'>
+        <JokesFilters onFilterChange={handleFilterChange} />
+        <div className="">
+          <div className="boxJokes">
+            <ul className="ul">
+              {chistes.map((chiste) => (
                 <li className="boxArea" key={chiste._id}>
-                 <div className="author">
-                   <p>{chiste.author}</p>
+                  <div className="author">
+                    <p>{chiste.author}</p>
+                    <div className="uploadTime">
+                      <h6>{formatTimeDifference(chiste.createdAt)}</h6>
+                    </div>
                   </div>
                   <div className="flexJoke">
                     <div className='chisteText'>{chiste.text}</div>
                     <div className="boxAudioStart">
-                      <AudioButton text={chiste.text} /> 
+                      <AudioButton text={chiste.text} />
                       {user && user.favoriteJokes.includes(chiste._id) ? (
                         <img
                           className="imgStar"
@@ -205,28 +235,28 @@ export default function Jokes() {
                         />
                       )}
                     </div>
-                  
+                    
                   </div>
                   <Score
-                  chiste={chiste}
-                  user={user}
-                  averageScore={averageScore}
-                />
-              </li>
-            ))}
-          </ul>
+                    chiste={chiste}
+                    user={user}
+                    averageScore={averageScore}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div ref={loadingRef} className="loading">
+            {currentPage < totalPages && <p>Cargando más chistes...</p>}
+          </div>
         </div>
-        <div ref={loadingRef} className="loading">
-          {currentPage < totalPages && <p>Cargando más chistes...</p>}
+        <div>
+          <Link to="/jokes/create">
+            <img className="floatingIcon btAddJoke" src={addJoke} alt="" />
+          </Link>
         </div>
-      </div>
-      <div>
-        <Link to="/jokes/create">
-          <img className="floatingIcon btAddJoke" src={addJoke} alt="" />
-        </Link>
-      </div>
-      </div>
       </div>
     </div>
-  );
+  </div>
+);
 }

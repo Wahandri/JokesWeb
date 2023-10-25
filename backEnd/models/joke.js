@@ -20,7 +20,7 @@ const jokeSchema = new mongoose.Schema({
   },
   score: {
     type: Number,
-    default: 0, // Inicialmente, la puntuación es 0
+    default: 0,
   },
   userScores: [
     {

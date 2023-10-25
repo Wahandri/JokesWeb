@@ -14,6 +14,7 @@ import CreateJoke from "./components/CreateJoke/CreateJoke";
 import { useUserContext } from './UserContext';
 import TopJokes from "./components/TopJokes/TopJokes";
 import DeleteUser from "./components/DeleteUser/DeleteUser";
+import Footer from "./components/Footer/Footer";
 
 
 const PrivateRoute = ({ element, path }) => {
@@ -40,6 +41,7 @@ function App() {
             <Route path="/top" element={<PrivateRoute element={<TopJokes />} />} />
           </Routes>
         </BrowserRouter>
+        <Footer />
       </JokeProvider>
     </UserProvider>
   );

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
+import "./User.css";
 import { useUserContext } from '../../UserContext';
 
 export default function User() {
@@ -52,18 +53,20 @@ export default function User() {
                 <strong>Media de puntuaciones de tus chistes:</strong> {averageRating}
               </p>
             )}
-            <Link className="linkLi" to="/user/favorites">
-              <p className="myBtn">CHISTES FAVORITOS</p>
-            </Link>
-            <Link className="linkLi" to="/user/own">
-              <p className="myBtn">CHISTES PROPIOS</p>
-            </Link>
-            <Link className="linkLi" to="/user/data">
-              <p className="myBtn"> CAMBIAR DATOS DE USUARIO</p>
-            </Link>
-            <Link className="linkLi" to="/user/delete">
-              <p className="myBtn">ELIMINAR USUARIO</p>
-            </Link>
+            <div className='myRed'>
+              <Link className="linkLi" to="/user/favorites">
+                <p className="myBtn">CHISTES FAVORITOS</p>
+              </Link>
+              <Link className="linkLi" to="/user/own">
+                <p className="myBtn">CHISTES PROPIOS</p>
+              </Link>
+              <Link className="linkLi" to="/user/data">
+                <p className="myBtn"> CAMBIAR DATOS DE USUARIO</p>
+              </Link>
+              <Link className="linkLi" to="/user/delete">
+                <p className="myBtn">ELIMINAR USUARIO</p>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

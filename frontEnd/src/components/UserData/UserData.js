@@ -13,20 +13,53 @@ export default function UserData() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
   const [showUsernameChangeConfirm, setShowUsernameChangeConfirm] = useState(false);
-  const [showPasswordChangeConfirm, setShowPasswordChangeConfirm] = useState(false); // Nuevo estado para mostrar confirmación de contraseña
+  const [showPasswordChangeConfirm, setShowPasswordChangeConfirm] = useState(false);
 
   const handleChangeUsername = async () => {
+    if (newUsername.trim() === '') {
+      setMessage('El nuevo nombre de usuario no puede estar vacío.');
+      return;
+    }
+
+    // Realiza una solicitud para verificar si el nuevo nombre de usuario ya existe
+    const isUsernameAvailable = await checkUsernameAvailability(newUsername);
+
+    if (!isUsernameAvailable) {
+      setMessage('El nuevo nombre de usuario ya está en uso. Elije otro.');
+      return;
+    }
+
+    // Resto del código para cambiar el nombre de usuario
+  };
+
+  // Función para verificar la disponibilidad del nombre de usuario
+  const checkUsernameAvailability = async (username) => {
     try {
+      // Realiza una solicitud al servidor para verificar la disponibilidad del nombre de usuario
       const token = localStorage.getItem('token');
 
       if (!token) {
-        return;
+        return false;
       }
 
-      // Mostrar el cuadro de diálogo de confirmación
-      setShowUsernameChangeConfirm(true);
+      const response = await fetch(`/users/username-available`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ username }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        return data.available;
+      }
+
+      return false;
     } catch (error) {
-      setMessage('Error al cambiar el nombre de usuario. Inténtalo de nuevo más tarde.');
+      console.error('Error al verificar la disponibilidad del nombre de usuario:', error);
+      return false;
     }
   };
 
@@ -64,28 +97,26 @@ export default function UserData() {
     }
   };
 
-  const cancelUsernameChange = () => {
-    setShowUsernameChangeConfirm(false);
-  };
-
+  // Función para verificar y cambiar la contraseña
   const handleChangePassword = async () => {
-    try {
-      if (newPassword !== confirmPassword) {
-        setMessage('Las contraseñas no coinciden. Inténtalo de nuevo.');
-        return;
-      }
-
-      const token = localStorage.getItem('token');
-
-      if (!token) {
-        return;
-      }
-
-      // Mostrar el cuadro de diálogo de confirmación de contraseña
-      setShowPasswordChangeConfirm(true);
-    } catch (error) {
-      setMessage('Error al cambiar la contraseña. Inténtalo de nuevo más tarde.');
+    if (newPassword.trim() === '') {
+      setMessage('La nueva contraseña no puede estar vacía.');
+      return;
     }
+
+    if (newPassword !== confirmPassword) {
+      setMessage('Las contraseñas no coinciden. Inténtalo de nuevo.');
+      return;
+    }
+
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      return;
+    }
+
+    // Mostrar el cuadro de diálogo de confirmación de contraseña
+    setShowPasswordChangeConfirm(true);
   };
 
   const confirmPasswordChange = async () => {
@@ -120,6 +151,10 @@ export default function UserData() {
       setMessage('Error al cambiar la contraseña. Inténtalo de nuevo más tarde.');
       setShowPasswordChangeConfirm(false); // En caso de error, ocultar la confirmación
     }
+  };
+
+  const cancelUsernameChange = () => {
+    setShowUsernameChangeConfirm(false);
   };
 
   const cancelPasswordChange = () => {

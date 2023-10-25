@@ -62,7 +62,7 @@ router.post("/create", async (req, res) => {
     // Crear un nuevo chiste
     const joke = new Joke({
       text: req.body.text,
-      author: req.body.author, // Aquí se almacena el nombre de usuario
+      author: req.body.author, 
     });
 
     // Guardar el chiste en la base de datos
@@ -86,9 +86,11 @@ router.get("/random", async (req, res) => {
       res.status(404).json({ ok: false, message: "No hay chistes disponibles" });
     } else {
       const randomIndex = Math.floor(Math.random() * jokeCount);
-      console.log("Obteniendo chiste aleatorio en el índice:", randomIndex);
+      // console.log("Obteniendo chiste aleatorio en el índice:", randomIndex);
+      
       const randomJoke = await Joke.findOne().skip(randomIndex).exec();
-      console.log("Chiste aleatorio:", randomJoke.text);
+      // console.log("Chiste aleatorio:", randomJoke.text);
+
       res.status(200).json({ ok: true, joke: randomJoke });
     }
   } catch (error) {
