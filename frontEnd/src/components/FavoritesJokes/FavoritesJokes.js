@@ -56,7 +56,7 @@ export default function FavoritesJokes() {
       <Header title="Chistes Favoritos" />
       <div className='flexRow'>
         <Sidebar />
-        <Link className="linkLi" to="/user">
+        <Link className="" to="/user">
           <img src={atras} alt="Atras" width="40px" />
         </Link>
         <div className='baseUser boxComponent flex'>
