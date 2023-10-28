@@ -19,7 +19,7 @@ const Login = ({ onLogin }) => {
       if (decodedToken.exp > currentTime) {
         // Token es válido, inicia sesión automáticamente
         setUser(decodedToken.user);
-        navigate('/jokes');
+        navigate(-1);
       }
     }
   };
