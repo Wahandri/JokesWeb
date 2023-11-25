@@ -30,7 +30,7 @@ export default function TopJokes() {
   }, []);
 
   return (
-    <div className='pading'>
+    <div className='boxTop10 pading'>
       <Header title="Top 10" />
       <div className='boxJokes flexRow'>
         <Sidebar/>

@@ -1,5 +1,5 @@
 .indexBox {
-  background-color: #7b7974fd;
+  background-color: #73726E;
   display: grid;
   gap: 1rem;
   grid-template-columns: 50% 50%;
@@ -11,7 +11,7 @@
 }
 
 .loginCard {
-  background-color: #80cb70;
+  background-color: #97C257;
   height: 90%;
   border-radius: 10px;
   padding-left: 20%;
@@ -43,6 +43,7 @@
   white-space: nowrap;
   opacity: 0;
   transition: opacity 0.5s ease; 
+  
 }
 
 .imgContainer:hover .developerText {

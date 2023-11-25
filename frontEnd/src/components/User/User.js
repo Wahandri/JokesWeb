@@ -39,20 +39,22 @@ export default function User() {
         <Sidebar />
         <div className="boxComponent">
           <div className="boxComponent boxArea">
-            <p>
-              <strong>Nombre de usuario:</strong> {user.username}
-            </p>
-            <p >
-              <strong>Email:</strong> {user.email}
-            </p>
-            <p>
-              <strong>Número de chistes subidos:</strong> {userJokes.length}
-            </p>
-            {userJokes.length > 0 && (
+            <div className='myRed'>
               <p>
-                <strong>Media de puntuaciones de tus chistes:</strong> {averageRating}
+                <strong>Nombre de usuario:</strong> <span className='colorSpam'>{user.username}</span>
               </p>
-            )}
+              <p >
+                <strong>Email:</strong> <span class="colorSpam">{user.email}</span>
+              </p>
+              <p>
+                <strong>Número de chistes subidos:</strong> <span class="colorSpam">{userJokes.length}</span>
+              </p>
+              {userJokes.length > 0 && (
+                <p>
+                  <strong>Media de puntuaciones de tus chistes:</strong> <span class="colorSpam">{averageRating}</span>
+                </p>
+              )}
+            </div>
             <div className='myRed'>
               <Link className="linkLi" to="/user/favorites">
                 <p className="myBtn">CHISTES FAVORITOS</p>

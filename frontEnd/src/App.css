@@ -2,18 +2,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
 
 Body {
+    display: flex;
+    flex-direction: column;
     background-image: url(./images/fondo.png);
     background-size: 20%;
-    background-color: #b4b4b48e;
+    background-color: #B5B3A5;
     height: 100vh;
     font-weight: bold;
     max-width: 100vw;
+    margin: 0;
 }
 
 .flex {
     max-width: 100%; 
     overflow: hidden;
-  }
+}
   
 
 .flexRow {
@@ -21,6 +24,11 @@ Body {
 }
 
 /* Estilos para componentes */
+
+.gap {
+    gap: 10px;
+
+}
 
 .pading {
     padding: 10px;
@@ -36,16 +44,16 @@ Body {
 }
 
 .boxArea {
-    background-color: #80cb70;
-    border: 3px solid #6ba95d;
+    background-color: #97C257;
+    border: 3px solid #7A925C;
     border-radius: 20px;
     display: flex;
     color: aliceblue;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 80%;
-    box-shadow: 10px 10px #7b7974fd, 10px 10px #7b7974fd;
+    width: 100%;
+    box-shadow: 10px 10px #73726E, 10px 10px #73726E;
     margin: 12px;
     padding: 10px;
 }
@@ -53,14 +61,14 @@ Body {
 /* Boton  */
 
 .myBtn {
-    background-color: #80cb70;
-    border: 3px solid #6ba95d;
+    background-color: #97C257;
+    border: 3px solid #7A925C;
     box-shadow: 2px 2px 2px rgb(93, 92, 92);
     border-radius: 10px;
     padding: 5px;
     margin-bottom: 3px;
 } .myBtn:hover {
-    border: 3px solid #7be962;
+    background-color: #a9cf6e;
 }
 
 .bt {
@@ -82,8 +90,8 @@ Body {
 
 .myBtnGrey {
     color: aliceblue;
-    background-color: #7b7974fd;
-    border: 3px solid #7b7974fd;
+    background-color: #73726E;
+    border: 3px solid #73726E;
     box-shadow: 2px 2px 2px rgb(93, 92, 92);
     border-radius: 10px;
     padding: 5px;

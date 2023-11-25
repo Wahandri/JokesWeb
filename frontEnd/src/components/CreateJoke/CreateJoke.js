@@ -66,7 +66,7 @@ const CreateJoke = () => {
   };
 
   return (
-    <div className='pading'>                       
+    <div className='boxCreateJoke pading'>                       
       <Header title="Añadir chiste" />
       <div className="flexRow">
         <Sidebar />
