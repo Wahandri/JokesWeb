@@ -4,13 +4,16 @@
 Body {
     display: flex;
     flex-direction: column;
-    background-image: url(./images/fondo.png);
+    background-color: #ebebeb;
     background-size: 20%;
-    background-color: #B5B3A5;
     height: 100vh;
     font-weight: bold;
     max-width: 100vw;
     margin: 0;
+}
+.bodyApp {
+    display: grid;
+    grid-template-columns: 1fr 11fr;
 }
 
 .flex {
@@ -41,6 +44,7 @@ Body {
     align-items: center;
     gap: 10px;
     padding: 20px;
+
 }
 
 .boxArea {

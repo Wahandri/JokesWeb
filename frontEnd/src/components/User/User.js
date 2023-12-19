@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import Header from '../Header/Header';
-import Sidebar from '../Sidebar/Sidebar';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./User.css";
-import { useUserContext } from '../../UserContext';
+import { useUserContext } from "../../UserContext";
 
 export default function User() {
   const { user } = useUserContext();
@@ -19,13 +17,20 @@ export default function User() {
         if (response.ok) {
           const data = await response.json();
           // Filtra los chistes del usuario por su nombre de autor
-          const userJokes = data.jokes.filter(joke => joke.author === user.username);
+          const userJokes = data.jokes.filter(
+            (joke) => joke.author === user.username
+          );
           setUserJokes(userJokes);
-          const ratingSum = userJokes.reduce((sum, joke) => sum + joke.score, 0);
-          setAverageRating(userJokes.length > 0 ? (ratingSum / userJokes.length).toFixed(2) : 0);
+          const ratingSum = userJokes.reduce(
+            (sum, joke) => sum + joke.score,
+            0
+          );
+          setAverageRating(
+            userJokes.length > 0 ? (ratingSum / userJokes.length).toFixed(2) : 0
+          );
         }
       } catch (error) {
-        console.error('Error al cargar los chistes del usuario', error);
+        console.error("Error al cargar los chistes del usuario", error);
       }
     }
 
@@ -34,41 +39,41 @@ export default function User() {
 
   return (
     <div className="pading">
-      <Header title="Usuario" />
-      <div className="flex">
-        <Sidebar />
-        <div className="boxComponent">
-          <div className="boxComponent boxArea">
-            <div className='myRed'>
+      <div className="boxComponent">
+        <div className="boxComponent boxArea">
+          <div className="myRed">
+            <p>
+              <strong>Nombre de usuario:</strong>{" "}
+              <span className="colorSpam">{user.username}</span>
+            </p>
+            <p>
+              <strong>Email:</strong>{" "}
+              <span class="colorSpam">{user.email}</span>
+            </p>
+            <p>
+              <strong>Número de chistes subidos:</strong>{" "}
+              <span class="colorSpam">{userJokes.length}</span>
+            </p>
+            {userJokes.length > 0 && (
               <p>
-                <strong>Nombre de usuario:</strong> <span className='colorSpam'>{user.username}</span>
+                <strong>Media de puntuaciones de tus chistes:</strong>{" "}
+                <span class="colorSpam">{averageRating}</span>
               </p>
-              <p >
-                <strong>Email:</strong> <span class="colorSpam">{user.email}</span>
-              </p>
-              <p>
-                <strong>Número de chistes subidos:</strong> <span class="colorSpam">{userJokes.length}</span>
-              </p>
-              {userJokes.length > 0 && (
-                <p>
-                  <strong>Media de puntuaciones de tus chistes:</strong> <span class="colorSpam">{averageRating}</span>
-                </p>
-              )}
-            </div>
-            <div className='myRed'>
-              <Link className="linkLi" to="/user/favorites">
-                <p className="myBtn">CHISTES FAVORITOS</p>
-              </Link>
-              <Link className="linkLi" to="/user/own">
-                <p className="myBtn">CHISTES PROPIOS</p>
-              </Link>
-              <Link className="linkLi" to="/user/data">
-                <p className="myBtn"> CAMBIAR DATOS DE USUARIO</p>
-              </Link>
-              <Link className="linkLi" to="/user/delete">
-                <p className="myBtn">ELIMINAR USUARIO</p>
-              </Link>
-            </div>
+            )}
+          </div>
+          <div className="myRed">
+            <Link className="linkLi" to="/user/favorites">
+              <p className="myBtn">CHISTES FAVORITOS</p>
+            </Link>
+            <Link className="linkLi" to="/user/own">
+              <p className="myBtn">CHISTES PROPIOS</p>
+            </Link>
+            <Link className="linkLi" to="/user/data">
+              <p className="myBtn"> CAMBIAR DATOS DE USUARIO</p>
+            </Link>
+            <Link className="linkLi" to="/user/delete">
+              <p className="myBtn">ELIMINAR USUARIO</p>
+            </Link>
           </div>
         </div>
       </div>

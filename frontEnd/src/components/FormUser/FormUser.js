@@ -28,7 +28,7 @@ export default function FormUser() {
 
     try {
       const token = localStorage.getItem('token'); // Obtén el token almacenado en localStorage
-      console.log(token);
+      
       const response = await fetch(`${apiUrl}/users/create`, {
         method: 'POST',
         headers: {
@@ -57,7 +57,7 @@ export default function FormUser() {
         navigate("/");
       } else {
         console.error('Error al crear el usuario:', data.error);
-        alert('Error al ingresar datos');
+        alert(data.error);
       }
     } catch (error) {
       console.error('Error al enviar el formulario:', error);

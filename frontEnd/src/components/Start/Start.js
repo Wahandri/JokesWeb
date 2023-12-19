@@ -1,8 +1,8 @@
-import React from 'react';
-import Login from '../Login/Login';
-import { useUserContext } from '../../UserContext';
+import React from "react";
+import Login from "../Login/Login";
+import { useUserContext } from "../../UserContext";
 import "./Start.css";
-import JokeCard from '../JokeCard/JokeCard';
+import JokeCard from "../JokeCard/JokeCard";
 import logotipo from "../../images/logotipo.png";
 
 export default function Start() {
@@ -13,15 +13,12 @@ export default function Start() {
   };
 
   return (
-    <div className='base'>
-      <div className='logoContainer'>
-        <div className='imgContainer'>
-          <img className='img' src={logotipo} alt="" />
-          <span className="developerText">Desarrollado por Wahandri</span>
-        </div>
+    <div className="boxStart">
+      <div className="logoContainer">
+        <img className="img" src={logotipo} alt="" />
       </div>
-      <div className='indexBox'>
-        <div className="jokeCard">
+      <div className="indexBox">
+        <div className="">
           <JokeCard />
         </div>
         <div className="loginCard">

@@ -27,11 +27,9 @@ router.post("/login", async (req, res) => {
       });
     }
 
-    const token = jwt.sign(
-      { user: userDB },
-      process.env.SEED,
-      { expiresIn: "2h" }
-    );
+    const token = jwt.sign({ user: userDB }, process.env.SEED, {
+      expiresIn: "2h",
+    });
 
     res.status(200).json({ ok: true, token, user: userDB });
   } catch (error) {
@@ -39,9 +37,8 @@ router.post("/login", async (req, res) => {
   }
 });
 
-
 // Recibir Chistes Favoritos
-router.get("/:userId/favorite-jokes", async (req, res) => {
+router.get("/:userId/favorite-jokes", verifyToken, async (req, res) => {
   try {
     const userId = req.params.userId;
     console.log("User ID:", userId);
@@ -50,7 +47,7 @@ router.get("/:userId/favorite-jokes", async (req, res) => {
     console.log("User:", user);
 
     if (!user) {
-      return res.status(404).json({ error: 'Usuario no encontrado' });
+      return res.status(404).json({ error: "Usuario no encontrado" });
     }
 
     const favoriteJokes = await Joke.find({ _id: { $in: user.favoriteJokes } });
@@ -58,7 +55,7 @@ router.get("/:userId/favorite-jokes", async (req, res) => {
 
     res.status(200).json({ favoriteJokes });
   } catch (error) {
-    console.error('Error al obtener los chistes favoritos:', error);
+    console.error("Error al obtener los chistes favoritos:", error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -105,24 +102,26 @@ router.get("/", verifyToken, async (req, res) => {
 });
 
 // Cambiar usuario
-router.put('/change/:id', verifyToken, async (req, res) => {
+router.put("/change/:id", verifyToken, async (req, res) => {
   try {
     const { id } = req.params;
 
     const user = await User.findById(id);
 
     if (!user) {
-      return res.status(404).json({ ok: false, message: 'User not found' });
+      return res.status(404).json({ ok: false, message: "User not found" });
     }
 
     if (req.body.username) {
       const existingUser = await User.findOne({ username: req.body.username });
       if (existingUser) {
-        return res.status(400).json({ ok: false, message: 'Nombre de usuario ya en uso' });
+        return res
+          .status(400)
+          .json({ ok: false, message: "Nombre de usuario ya en uso" });
       }
       user.username = req.body.username;
     }
-    
+
     if (req.body.email) {
       user.email = req.body.email;
     }
@@ -138,19 +137,46 @@ router.put('/change/:id', verifyToken, async (req, res) => {
   }
 });
 
-
 // Crear usuario
+function validatePassword(password) {
+  if (password.length <= 6) {
+    return false;
+  }
+  if (!/[A-Z]/.test(password)) {
+    return false;
+  }
+  if (!/[0-9]/.test(password)) {
+    return false;
+  }
+  return true;
+}
+
 router.post("/create", async (req, res) => {
   try {
+    const { username, email, password } = req.body;
+
+    if (!validatePassword(password)) {
+      return res.status(400).json({
+        ok: false,
+        error:
+          "La contraseña debe tener al menos 6 caracteres, una letra mayúscula y un número.",
+      });
+    }
+
     const user = new User({
       username: req.body.username,
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password, 10),
     });
 
-    const existingUser = await User.findOne({ $or: [{ username: req.body.username }, { email: req.body.email }] });
+    const existingUser = await User.findOne({
+      $or: [{ username: req.body.username }, { email: req.body.email }],
+    });
     if (existingUser) {
-      return res.status(400).json({ ok: false, error: "El nombre de usuario o correo electrónico ya está en uso." });
+      return res.status(400).json({
+        ok: false,
+        error: "El nombre de usuario o correo electrónico ya está en uso.",
+      });
     }
 
     const savedUser = await user.save();
@@ -160,8 +186,6 @@ router.post("/create", async (req, res) => {
     res.status(400).json({ ok: false, error });
   }
 });
-
-
 
 // Borrar usuario
 router.delete("/:id", verifyToken, async (req, res) => {
@@ -183,12 +207,12 @@ router.delete("/:id", verifyToken, async (req, res) => {
     // Guarda los cambios en la base de datos
     await user.save();
 
-    res.status(200).json({ ok: true, message: "User deactivated successfully" });
+    res
+      .status(200)
+      .json({ ok: true, message: "User deactivated successfully" });
   } catch (error) {
     res.status(500).json({ ok: false, error });
   }
 });
-
-
 
 module.exports = router;

@@ -1,26 +1,31 @@
-import React, { useState, useEffect, useRef } from 'react';
-import Header from '../Header/Header';
-import { Link } from 'react-router-dom';
-import './Jokes.css';
-import emptyStarIcon from '../../images/emptyStarIcon.png';
-import filledStarIcon from '../../images/filledStarIcon.png';
-import addJoke from '../../images/addJoke.png';
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import MyAlert from "../MyAlert/MyAlert";
+import "./Jokes.css";
+import emptyStarIcon from "../../images/emptyStarIcon.png";
+import filledStarIcon from "../../images/filledStarIcon.png";
+import addJoke from "../../images/addJoke.png";
 import AudioButton from "../AudioButton/AudioButton";
-import { useUserContext } from '../../UserContext';
-import JokesFilters from './FilterAndTop';
+import { useUserContext } from "../../UserContext";
+import JokesFilters from "./FilterAndTop";
 import Score from "./Score";
-import apiUrl from '../configURL';
-import Sidebar from '../Sidebar/Sidebar';
+import apiUrl from "../configURL";
 
 export default function Jokes() {
   const [chistes, setChistes] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [filters, setFilters] = useState({ filter: '' });
+  const [filters, setFilters] = useState({ filter: "" });
   const { user, updateUser } = useUserContext();
   const loadingRef = useRef(null);
   const [averageScore] = useState(0);
-
+  const [alertState, setAlertState] = useState({
+    isOpen: false,
+    message: "",
+    onConfirm: () => {},
+    onCancel: () => {},
+  });
+  const navigate = useNavigate();
 
   // Función para cargar chistes desde el servidor
   const fetchJokes = async (page, filter) => {
@@ -28,16 +33,16 @@ export default function Jokes() {
       const response = await fetch(
         `${apiUrl}/jokes?page=${page}&filter=${filter}`,
         {
-          method: 'GET',
+          method: "GET",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       );
       const data = await response.json();
       return data;
     } catch (error) {
-      console.error('Error al obtener la lista de chistes:', error);
+      console.error("Error al obtener la lista de chistes:", error);
       return { ok: false, error };
     }
   };
@@ -72,9 +77,9 @@ export default function Jokes() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [currentPage, totalPages]);
 
@@ -82,14 +87,22 @@ export default function Jokes() {
   const handleLike = async (jokeId) => {
     try {
       if (!user) {
-        alert('Debes iniciar sesión para agregar a favoritos');
+        setAlertState({
+          isOpen: true,
+          message: "Debes iniciar sesión para agregar a favoritos",
+          onConfirm: () => {
+            setAlertState({ isOpen: false });
+            navigate("/login");
+          },
+          onCancel: () => setAlertState({ isOpen: false }),
+        });
         return;
       }
 
       const response = await fetch(`${apiUrl}/jokes/${jokeId}/favorite`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ userId: user._id }),
       });
@@ -100,23 +113,30 @@ export default function Jokes() {
         // Actualizar la lista de chistes en el estado según sea necesario
         setChistes((prevChistes) =>
           prevChistes.map((chiste) =>
-            chiste._id === jokeId
-              ? { ...chiste, likedByUser: true }
-              : chiste
+            chiste._id === jokeId ? { ...chiste, likedByUser: true } : chiste
           )
         );
 
         // Actualiza la lista de chistes favoritos en el contexto del usuario
         updateUser({ ...user, favoriteJokes: data.favoriteJokes });
-
-      
       } else {
         const data = await response.json();
-        alert(data.error);
+        setAlertState({
+          isOpen: true,
+          message: data.error,
+          onConfirm: () => setAlertState({ isOpen: false }),
+          onCancel: () => setAlertState({ isOpen: false }),
+        });
       }
     } catch (error) {
-      console.error('Error al agregar/quitar de favoritos:', error);
-      alert('Error al agregar/quitar de favoritos. Inténtalo de nuevo más tarde.');
+      console.error("Error al agregar/quitar de favoritos:", error);
+      setAlertState({
+        isOpen: true,
+        message:
+          "Error al agregar/quitar de favoritos. Inténtalo de nuevo más tarde.",
+        onConfirm: () => setAlertState({ isOpen: false }),
+        onCancel: () => setAlertState({ isOpen: false }),
+      });
     }
   };
 
@@ -124,14 +144,14 @@ export default function Jokes() {
   const handleUnlike = async (jokeId) => {
     try {
       if (!user) {
-        alert('Debes iniciar sesión para quitar de favoritos');
+        alert("Debes iniciar sesión para quitar de favoritos");
         return;
       }
 
       const response = await fetch(`${apiUrl}/jokes/${jokeId}/favorite`, {
-        method: 'DELETE', // Usar DELETE para eliminar de favoritos
+        method: "DELETE", // Usar DELETE para eliminar de favoritos
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ userId: user._id }),
       });
@@ -142,23 +162,21 @@ export default function Jokes() {
         // Actualizar la lista de chistes en el estado según sea necesario
         setChistes((prevChistes) =>
           prevChistes.map((chiste) =>
-            chiste._id === jokeId
-              ? { ...chiste, likedByUser: false }
-              : chiste
+            chiste._id === jokeId ? { ...chiste, likedByUser: false } : chiste
           )
         );
 
         // Actualiza la lista de chistes favoritos en el contexto del usuario
         updateUser({ ...user, favoriteJokes: data.favoriteJokes });
-
-      
       } else {
         const data = await response.json();
         alert(data.error);
       }
     } catch (error) {
-      console.error('Error al agregar/quitar de favoritos:', error);
-      alert('Error al agregar/quitar de favoritos. Inténtalo de nuevo más tarde.');
+      console.error("Error al agregar/quitar de favoritos:", error);
+      alert(
+        "Error al agregar/quitar de favoritos. Inténtalo de nuevo más tarde."
+      );
     }
   };
 
@@ -169,38 +187,35 @@ export default function Jokes() {
   };
 
   const formatTimeDifference = (createdAt) => {
-  const currentTime = new Date();
-  const createdAtTime = new Date(createdAt);
+    const currentTime = new Date();
+    const createdAtTime = new Date(createdAt);
 
-  const timeDifference = currentTime - createdAtTime;
-  const seconds = Math.floor(timeDifference / 1000);
+    const timeDifference = currentTime - createdAtTime;
+    const seconds = Math.floor(timeDifference / 1000);
 
-  if (seconds < 60) {
-    return `Hace ${seconds} segundo(s)`;
-  }
+    if (seconds < 60) {
+      return `Hace ${seconds} segundo(s)`;
+    }
 
-  const minutes = Math.floor(seconds / 60);
+    const minutes = Math.floor(seconds / 60);
 
-  if (minutes < 60) {
-    return `Hace ${minutes} minuto(s)`;
-  }
+    if (minutes < 60) {
+      return `Hace ${minutes} minuto(s)`;
+    }
 
-  const hours = Math.floor(minutes / 60);
+    const hours = Math.floor(minutes / 60);
 
-  if (hours < 24) {
-    return `Hace ${hours} hora(s)`;
-  }
+    if (hours < 24) {
+      return `Hace ${hours} hora(s)`;
+    }
 
-  const days = Math.floor(hours / 24);
-  return `Hace ${days} día(s)`;
-};
+    const days = Math.floor(hours / 24);
+    return `Hace ${days} día(s)`;
+  };
 
-return (
-  <div className='pading'>
-    <Header title="Chistes" />
-    <div className='flexBox'>
-      <Sidebar />
-      <div className='jokesContent boxComponent'>
+  return (
+    <div className="pading">
+      <div className="jokesContent boxComponent">
         <JokesFilters onFilterChange={handleFilterChange} />
         <div className="">
           <div className="boxJokes">
@@ -214,7 +229,7 @@ return (
                     </div>
                   </div>
                   <div className="flexJoke">
-                    <div className='chisteText'>{chiste.text}</div>
+                    <div className="chisteText">{chiste.text}</div>
                     <div className="boxAudioStart">
                       <AudioButton text={chiste.text} />
                       {user && user.favoriteJokes.includes(chiste._id) ? (
@@ -235,7 +250,6 @@ return (
                         />
                       )}
                     </div>
-                    
                   </div>
                   <Score
                     chiste={chiste}
@@ -255,8 +269,8 @@ return (
             <img className="floatingIcon btAddJoke" src={addJoke} alt="" />
           </Link>
         </div>
+        <MyAlert {...alertState} />
       </div>
     </div>
-  </div>
-);
+  );
 }

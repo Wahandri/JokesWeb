@@ -2,25 +2,24 @@ const express = require("express");
 const router = express.Router();
 const Joke = require("../models/joke");
 const User = require("../models/user");
-const jwt = require('jsonwebtoken');
-const verifyToken  = require('../middleweres/auth');
-
+const jwt = require("jsonwebtoken");
+const verifyToken = require("../middleweres/auth");
 
 // Recibir lista de Chistes (orden inverso)
 router.get("/", async (req, res) => {
   try {
     const PAGE_SIZE = 5;
     const page = req.query.page || 1;
-    const filter = req.query.filter || ''; // Nuevo filtro de texto
-    const sortByScore = req.query.sortByScore === 'true'; // Nuevo filtro de ordenación
+    const filter = req.query.filter || ""; // Nuevo filtro de texto
+    const sortByScore = req.query.sortByScore === "true"; // Nuevo filtro de ordenación
 
     let query = {};
 
     // Aplicar filtro de texto si se proporciona
     if (filter) {
       query.$or = [
-        { text: { $regex: filter, $options: 'i' } }, // Filtrar por texto del chiste (insensible a mayúsculas y minúsculas)
-        { author: { $regex: filter, $options: 'i' } }, // Filtrar por autor del chiste (insensible a mayúsculas y minúsculas)
+        { text: { $regex: filter, $options: "i" } }, // Filtrar por texto del chiste (insensible a mayúsculas y minúsculas)
+        { author: { $regex: filter, $options: "i" } }, // Filtrar por autor del chiste (insensible a mayúsculas y minúsculas)
       ];
     }
 
@@ -43,11 +42,10 @@ router.get("/", async (req, res) => {
   }
 });
 
-
 // Recibir TODOS lo chistes
 router.get("/alljokes", async (req, res) => {
   try {
-    const jokes = await Joke.find(); 
+    const jokes = await Joke.find();
 
     res.status(200).json({ ok: true, jokes });
   } catch (error) {
@@ -55,14 +53,13 @@ router.get("/alljokes", async (req, res) => {
   }
 });
 
-
 // CREAR CHISTE (Joke)
-router.post("/create", async (req, res) => {
+router.post("/create", verifyToken, async (req, res) => {
   try {
     // Crear un nuevo chiste
     const joke = new Joke({
       text: req.body.text,
-      author: req.body.author, 
+      author: req.body.author,
     });
 
     // Guardar el chiste en la base de datos
@@ -70,13 +67,12 @@ router.post("/create", async (req, res) => {
 
     res.status(201).json({ ok: true, savedJoke });
   } catch (error) {
-    console.error('Error al crear el chiste:', error);
-    res.status(500).json({ ok: false, error: 'Error interno del servidor' });
+    console.error("Error al crear el chiste:", error);
+    res.status(500).json({ ok: false, error: "Error interno del servidor" });
   }
 });
- 
 
-router.put('/:id/edit', async (req, res) => {
+router.put("/:id/edit", verifyToken, async (req, res) => {
   const chisteId = req.params.id;
   const { text, author } = req.body;
 
@@ -85,12 +81,14 @@ router.put('/:id/edit', async (req, res) => {
     const joke = await Joke.findById(chisteId);
 
     if (!joke) {
-      return res.status(404).json({ error: 'Chiste no encontrado' });
+      return res.status(404).json({ error: "Chiste no encontrado" });
     }
 
     // Verificar si el autor del chiste coincide con el usuario que envía la solicitud
     if (joke.author !== author) {
-      return res.status(403).json({ error: 'No tienes permiso para editar este chiste' });
+      return res
+        .status(403)
+        .json({ error: "No tienes permiso para editar este chiste" });
     }
 
     // Actualizar el texto del chiste
@@ -101,11 +99,10 @@ router.put('/:id/edit', async (req, res) => {
 
     res.status(200).json({ ok: true, updatedJoke });
   } catch (error) {
-    console.error('Error al editar el chiste:', error);
-    res.status(500).json({ error: 'Error interno del servidor' });
+    console.error("Error al editar el chiste:", error);
+    res.status(500).json({ error: "Error interno del servidor" });
   }
 });
-
 
 // Obtener un chiste aleatorio
 router.get("/random", async (req, res) => {
@@ -114,11 +111,13 @@ router.get("/random", async (req, res) => {
     const jokeCount = await Joke.countDocuments();
     console.log("Total de chistes:", jokeCount);
     if (jokeCount === 0) {
-      res.status(404).json({ ok: false, message: "No hay chistes disponibles" });
+      res
+        .status(404)
+        .json({ ok: false, message: "No hay chistes disponibles" });
     } else {
       const randomIndex = Math.floor(Math.random() * jokeCount);
       // console.log("Obteniendo chiste aleatorio en el índice:", randomIndex);
-      
+
       const randomJoke = await Joke.findOne().skip(randomIndex).exec();
       // console.log("Chiste aleatorio:", randomJoke.text);
 
@@ -130,26 +129,25 @@ router.get("/random", async (req, res) => {
   }
 });
 
-
 // Agregar un chiste a favoritos
-router.post('/:id/favorite', async (req, res) => {
+router.post("/:id/favorite", verifyToken, async (req, res) => {
   const jokeId = req.params.id;
   const { userId } = req.body;
 
   try {
     const joke = await Joke.findById(jokeId);
     if (!joke) {
-      return res.status(404).json({ error: 'Chiste no encontrado' });
+      return res.status(404).json({ error: "Chiste no encontrado" });
     }
 
     const user = await User.findById(userId);
     if (!user) {
-      return res.status(404).json({ error: 'Usuario no encontrado' });
+      return res.status(404).json({ error: "Usuario no encontrado" });
     }
 
     // Verifica si el chiste ya está en favoritos
     if (user.favoriteJokes.includes(jokeId)) {
-      return res.status(400).json({ error: 'El chiste ya está en favoritos' });
+      return res.status(400).json({ error: "El chiste ya está en favoritos" });
     }
 
     // Agrega el chiste a favoritos
@@ -159,14 +157,13 @@ router.post('/:id/favorite', async (req, res) => {
     // Devuelve los chistes favoritos actualizados
     res.status(200).json({ favoriteJokes: user.favoriteJokes });
   } catch (error) {
-    console.error('Error al agregar a favoritos:', error);
-    res.status(500).json({ error: 'Error interno del servidor' });
+    console.error("Error al agregar a favoritos:", error);
+    res.status(500).json({ error: "Error interno del servidor" });
   }
 });
 
-
 // Votar por un chiste
-router.post('/:chisteId/vote', async (req, res) => {
+router.post("/:chisteId/vote", verifyToken, async (req, res) => {
   try {
     const { chisteId } = req.params;
     const { score, userEmail } = req.body;
@@ -175,36 +172,42 @@ router.post('/:chisteId/vote', async (req, res) => {
     const joke = await Joke.findById(chisteId);
 
     if (!joke) {
-      return res.status(404).json({ error: 'Chiste no encontrado' });
+      return res.status(404).json({ error: "Chiste no encontrado" });
     }
 
     // Verifica si el usuario ya ha votado este chiste
-    const hasUserVoted = joke.userScores.some(userScore => userScore.email === userEmail);
+    const hasUserVoted = joke.userScores.some(
+      (userScore) => userScore.email === userEmail
+    );
 
     if (hasUserVoted) {
-      return res.status(400).json({ error: 'El usuario ya ha votado este chiste' });
+      return res
+        .status(400)
+        .json({ error: "El usuario ya ha votado este chiste" });
     }
 
     // Agrega el voto al array userScores
     joke.userScores.push({ email: userEmail, score });
 
     // Calcula la nueva puntuación promedio del chiste
-    const totalScores = joke.userScores.reduce((total, userScore) => total + userScore.score, 0);
+    const totalScores = joke.userScores.reduce(
+      (total, userScore) => total + userScore.score,
+      0
+    );
     joke.score = totalScores / joke.userScores.length;
 
     // Guarda los cambios en la base de datos
     await joke.save();
 
-    res.json({ message: 'Voto registrado correctamente' });
-
+    res.json({ message: "Voto registrado correctamente" });
   } catch (error) {
-    console.error('Error al votar por el chiste:', error);
-    res.status(500).json({ error: 'Error al votar por el chiste' });
+    console.error("Error al votar por el chiste:", error);
+    res.status(500).json({ error: "Error al votar por el chiste" });
   }
 });
 
 // Obtener la puntuación promedio de un chiste
-router.get('/:chisteId/average-score', async (req, res) => {
+router.get("/:chisteId/average-score", async (req, res) => {
   try {
     const { chisteId } = req.params;
 
@@ -212,50 +215,50 @@ router.get('/:chisteId/average-score', async (req, res) => {
     const joke = await Joke.findById(chisteId);
 
     if (!joke) {
-      return res.status(404).json({ error: 'Chiste no encontrado' });
+      return res.status(404).json({ error: "Chiste no encontrado" });
     }
 
     const averageScore = joke.score;
 
     res.json({ averageScore });
-
   } catch (error) {
-    console.error('Error al obtener la puntuación promedio:', error);
-    res.status(500).json({ error: 'Error al obtener la puntuación promedio' });
+    console.error("Error al obtener la puntuación promedio:", error);
+    res.status(500).json({ error: "Error al obtener la puntuación promedio" });
   }
 });
 
 // Eliminar un chiste de favoritos
-router.delete('/:id/favorite', async (req, res) => {
+router.delete("/:id/favorite", verifyToken, async (req, res) => {
   const jokeId = req.params.id;
   const { userId } = req.body;
 
   try {
     const user = await User.findById(userId);
     if (!user) {
-      return res.status(404).json({ error: 'Usuario no encontrado' });
+      return res.status(404).json({ error: "Usuario no encontrado" });
     }
 
     // Verifica si el chiste está en favoritos
     if (!user.favoriteJokes.includes(jokeId)) {
-      return res.status(400).json({ error: 'El chiste no está en favoritos' });
+      return res.status(400).json({ error: "El chiste no está en favoritos" });
     }
 
     // Elimina el chiste de favoritos
-    user.favoriteJokes = user.favoriteJokes.filter((favId) => favId.toString() !== jokeId.toString());
+    user.favoriteJokes = user.favoriteJokes.filter(
+      (favId) => favId.toString() !== jokeId.toString()
+    );
     await user.save();
 
     // Devuelve los chistes favoritos actualizados
     res.status(200).json({ favoriteJokes: user.favoriteJokes });
   } catch (error) {
-    console.error('Error al eliminar de favoritos:', error);
-    res.status(500).json({ error: 'Error interno del servidor' });
+    console.error("Error al eliminar de favoritos:", error);
+    res.status(500).json({ error: "Error interno del servidor" });
   }
 });
 
-
 // Eliminar un chiste de la base de datos por su ID
-router.delete('/:id', async (req, res) => {
+router.delete("/:id", verifyToken, async (req, res) => {
   const jokeId = req.params.id;
 
   try {
@@ -263,18 +266,17 @@ router.delete('/:id', async (req, res) => {
     const joke = await Joke.findById(jokeId);
 
     if (!joke) {
-      return res.status(404).json({ error: 'Chiste no encontrado' });
+      return res.status(404).json({ error: "Chiste no encontrado" });
     }
 
     // Elimina el chiste
     await Joke.findByIdAndDelete(jokeId);
 
-    res.status(200).json({ message: 'Chiste eliminado con éxito' });
+    res.status(200).json({ message: "Chiste eliminado con éxito" });
   } catch (error) {
-    console.error('Error al eliminar el chiste:', error);
-    res.status(500).json({ error: 'Error interno del servidor' });
+    console.error("Error al eliminar el chiste:", error);
+    res.status(500).json({ error: "Error interno del servidor" });
   }
 });
 
 module.exports = router;
-

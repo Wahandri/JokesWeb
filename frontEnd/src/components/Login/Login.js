@@ -1,25 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import "./Login.css";
-import { useUserContext } from '../../UserContext';
-import apiUrl from '../configURL';
-import jwt_decode from 'jwt-decode';
+import { useUserContext } from "../../UserContext";
+import apiUrl from "../configURL";
+import jwt_decode from "jwt-decode";
 
 const Login = ({ onLogin }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { setUser } = useUserContext();
 
   const checkTokenValidity = () => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
       const decodedToken = jwt_decode(token);
       const currentTime = Date.now() / 1000;
       if (decodedToken.exp > currentTime) {
         // Token es válido, inicia sesión automáticamente
         setUser(decodedToken.user);
-        navigate(-1);
+        navigate("/user");
+        console.log("Token válido");
       }
     }
   };
@@ -29,27 +30,27 @@ const Login = ({ onLogin }) => {
 
     try {
       const response = await fetch(`${apiUrl}/login`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
       });
 
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem('token', data.token);
+        localStorage.setItem("token", data.token);
         setUser(data.user);
         onLogin(data.user);
-        navigate('/jokes');
+        navigate("/");
       } else {
         const data = await response.json();
-        console.error('Error al iniciar sesión:', data.error);
-        alert('Datos no válidos');
+        console.error("Error al iniciar sesión:", data.error);
+        alert("Datos no válidos");
       }
     } catch (error) {
-      console.error('Error al enviar el formulario:', error);
-      alert('Error al enviar el formulario');
+      console.error("Error al enviar el formulario:", error);
+      alert("Error al enviar el formulario");
     }
   };
 
@@ -59,11 +60,11 @@ const Login = ({ onLogin }) => {
   }, []);
 
   return (
-    <div className='loginBox'>
+    <div className="loginBox">
       <h2>Iniciar sesión</h2>
-      <form className='formLogin' onSubmit={handleSubmit}>
+      <form className="formLogin" onSubmit={handleSubmit}>
         <input
-          placeholder='Email'
+          placeholder="Email"
           type="email"
           id="email"
           value={email}
@@ -71,14 +72,14 @@ const Login = ({ onLogin }) => {
           required
         />
         <input
-          placeholder='Contraseña'
+          placeholder="Contraseña"
           type="password"
           id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button className='bt' type="submit">
+        <button className="bt" type="submit">
           Iniciar sesión
         </button>
       </form>
