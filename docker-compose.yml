@@ -4,7 +4,7 @@ services:
   backend:
     build: ./backEnd
     ports:
-      - "3000:3000"
+      - "3033:3000"
 
   frontend:
     build: ./frontEnd
@@ -16,4 +16,4 @@ services:
   mongo:
     image: mongo
     ports:
-      - "27017:27017"
+      - "27018:27017"
