@@ -1,22 +1,13 @@
 .jokesContent {
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
-  /* align-items: center; */
-  /* max-width: 90%; */
 }
 
 .ul {
-  /* background-color: darkmagenta; */
     color: aliceblue;
-    /* padding: 30px; */
-    /* height: 100%; */
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
-    /* width: 100%; */
-  
 }
 
 .flexBox {
@@ -31,9 +22,9 @@
 
   
   text-decoration: underline;
-  text-decoration-color: #7A925C; /* Cambiar el color del subrayado */
-  text-decoration-thickness: 1px; /* Cambiar el grosor del subrayado */
-  text-decoration-style:double; /* Cambiar el estilo del subrayado */
+  text-decoration-color: #7A925C; 
+  text-decoration-thickness: 1px; 
+  text-decoration-style:double; 
   
   
 }
@@ -109,8 +100,6 @@
 
 /* Estilos para el icono flotante */
 .floatingIconBox {
-  /* width: 5px; */
-  /* height: 50px; */
   position: fixed;
   bottom: 25%;
   right: 15%;
@@ -153,7 +142,6 @@
     position: relative;
     height: 25px;
     cursor:pointer;
-    /* margin-left: 20px; */
     cursor: pointer;
     margin-right: 50%;
   }
@@ -182,11 +170,9 @@
   
 
 .buttonBox {
-    /* width: auto;uuuuuuuuu */
     display: flex;
     justify-content: space-between;
     margin: 15px;
-
 }
 
 .boxJokes {
@@ -224,7 +210,6 @@
   border-radius: 10px;
   padding: 3px;
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
 }
 

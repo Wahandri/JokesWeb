@@ -214,63 +214,61 @@ export default function Jokes() {
   };
 
   return (
-    <div className="pading">
-      <div className="jokesContent boxComponent">
-        <JokesFilters onFilterChange={handleFilterChange} />
-        <div className="">
-          <div className="boxJokes">
-            <ul className="ul">
-              {chistes.map((chiste) => (
-                <li className="boxArea" key={chiste._id}>
-                  <div className="author">
-                    <p>{chiste.author}</p>
-                    <div className="uploadTime">
-                      <h6>{formatTimeDifference(chiste.createdAt)}</h6>
-                    </div>
+    <div className="jokesContent boxComponent">
+      <JokesFilters onFilterChange={handleFilterChange} />
+      <div className="">
+        <div className="boxJokes">
+          <ul className="ul">
+            {chistes.map((chiste) => (
+              <li className="boxArea" key={chiste._id}>
+                <div className="author">
+                  <p>{chiste.author}</p>
+                  <div className="uploadTime">
+                    <h6>{formatTimeDifference(chiste.createdAt)}</h6>
                   </div>
-                  <div className="flexJoke">
-                    <div className="chisteText">{chiste.text}</div>
-                    <div className="boxAudioStart">
-                      <AudioButton text={chiste.text} />
-                      {user && user.favoriteJokes.includes(chiste._id) ? (
-                        <img
-                          className="imgStar"
-                          src={filledStarIcon}
-                          onClick={() => handleUnlike(chiste._id)}
-                          alt="Favorito"
-                          title="Eliminar de favoritos"
-                        />
-                      ) : (
-                        <img
-                          className="imgStar"
-                          src={emptyStarIcon}
-                          onClick={() => handleLike(chiste._id)}
-                          alt="No favorito"
-                          title="Añadir a favoritos"
-                        />
-                      )}
-                    </div>
+                </div>
+                <div className="flexJoke">
+                  <div className="chisteText">{chiste.text}</div>
+                  <div className="boxAudioStart">
+                    <AudioButton text={chiste.text} />
+                    {user && user.favoriteJokes.includes(chiste._id) ? (
+                      <img
+                        className="imgStar"
+                        src={filledStarIcon}
+                        onClick={() => handleUnlike(chiste._id)}
+                        alt="Favorito"
+                        title="Eliminar de favoritos"
+                      />
+                    ) : (
+                      <img
+                        className="imgStar"
+                        src={emptyStarIcon}
+                        onClick={() => handleLike(chiste._id)}
+                        alt="No favorito"
+                        title="Añadir a favoritos"
+                      />
+                    )}
                   </div>
-                  <Score
-                    chiste={chiste}
-                    user={user}
-                    averageScore={averageScore}
-                  />
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div ref={loadingRef} className="loading">
-            {currentPage < totalPages && <p>Cargando más chistes...</p>}
-          </div>
+                </div>
+                <Score
+                  chiste={chiste}
+                  user={user}
+                  averageScore={averageScore}
+                />
+              </li>
+            ))}
+          </ul>
         </div>
-        <div>
-          <Link to="/jokes/create">
-            <img className="floatingIcon btAddJoke" src={addJoke} alt="" />
-          </Link>
+        <div ref={loadingRef} className="loading">
+          {currentPage < totalPages && <p>Cargando más chistes...</p>}
         </div>
-        <MyAlert {...alertState} />
       </div>
+      <div>
+        <Link to="/jokes/create">
+          <img className="floatingIcon btAddJoke" src={addJoke} alt="" />
+        </Link>
+      </div>
+      <MyAlert {...alertState} />
     </div>
   );
 }
