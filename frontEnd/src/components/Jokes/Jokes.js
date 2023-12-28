@@ -143,11 +143,6 @@ export default function Jokes() {
   // Función para manejar el botón de "Estrella" en un chiste (Eliminar de favoritos)
   const handleUnlike = async (jokeId) => {
     try {
-      if (!user) {
-        alert("Debes iniciar sesión para quitar de favoritos");
-        return;
-      }
-
       const response = await fetch(`${apiUrl}/jokes/${jokeId}/favorite`, {
         method: "DELETE", // Usar DELETE para eliminar de favoritos
         headers: {
