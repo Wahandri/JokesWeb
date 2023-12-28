@@ -46,16 +46,16 @@ Body {
 }
 
 .boxArea {
-    background-color: #97C257;
-    border: 3px solid #7A925C;
+    background-color: #ffffff;
+    /* border: 1px solid #c1c1c1; */
     border-radius: 20px;
     display: flex;
-    color: aliceblue;
+    color: rgb(0, 0, 0);
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    box-shadow: 10px 10px #73726E, 10px 10px #73726E;
+    width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 12px;
     padding: 10px;
 }
