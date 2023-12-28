@@ -17,12 +17,12 @@
 .author {
   width: 100%;
   display: flex;
-  color: #73726E;
+  color: #000000;
   justify-content: space-between;
 
   
   text-decoration: underline;
-  text-decoration-color: #7A925C; 
+  text-decoration-color: #000000; 
   text-decoration-thickness: 1px; 
   text-decoration-style:double; 
   
@@ -60,7 +60,7 @@
 
 .li {
   font-family: 'Comic Sans MS', cursive;
-  background-color:  #97C257;
+  background-color:  #ffffff;
   display: flex;
   flex-direction: column;
   justify-content:center;
@@ -68,13 +68,17 @@
   margin-bottom: 35px;
   padding-left:  15px;
   border: 3px solid #7A925C;
-  box-shadow: 20px -15px #73726E, 20px 15px  #73726E;
+
   border-radius: 20px;
   font-size:larger;
   min-width: 600px;
   max-width: 80%;
   min-height: 250px;
   
+}
+
+.timeUpdate {
+  color: black;
 }
 
 .chisteText {
@@ -206,7 +210,7 @@
 /* ---------------Score.js -----------------*/
 
 .score-container {
-  background-color: #73726E;
+  background-color: #45454550;
   border-radius: 10px;
   padding: 3px;
   display: flex;
