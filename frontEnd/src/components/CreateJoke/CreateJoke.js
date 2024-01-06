@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useUserContext } from "../../UserContext";
 import "./CreateJoke.css";
-import Header from "../Header/Header";
 import AudioButton from "../AudioButton/AudioButton";
 import apiUrl from "../configURL";
 
@@ -70,7 +69,6 @@ const CreateJoke = () => {
 
   return (
     <div className="pading">
-      <Header title="Añadir chiste" />
       <div className="flexRow">
         <div className="boxComponent ">
           <form className="flex boxArea" onSubmit={handleSubmit}>

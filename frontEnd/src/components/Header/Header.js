@@ -52,9 +52,11 @@ export default function Header() {
         >
           PERFIL
         </Link>
+
         {/* <Link to="/user">
           <img className="img2" src={payaso2} alt="Perfil" />
         </Link> */}
+
         <div className="boxBtnExit" onClick={() => setConfirmLogout(true)}>
           <img className="btnExit" src={exit2} alt="" />
         </div>

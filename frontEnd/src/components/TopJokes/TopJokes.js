@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Header from "../Header/Header";
 import AudioButton from "../AudioButton/AudioButton";
 import "./TopJokes.css";
 import top1 from "../../images/top1.png";
@@ -29,7 +28,6 @@ export default function TopJokes() {
 
   return (
     <div className="pading">
-      <Header title="Top 10" />
       <div className="boxJokes flexRow">
         <div className="boxComponent">
           <ul className="ul">

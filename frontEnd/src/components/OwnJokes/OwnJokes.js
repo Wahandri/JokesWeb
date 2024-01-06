@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useUserContext } from "../../UserContext";
 import "./OwnJokes.css";
-import Header from "../Header/Header";
 import AudioButton from "../AudioButton/AudioButton";
 import { Link } from "react-router-dom";
 import atras from "../../images/atras.png";
@@ -131,7 +130,6 @@ export default function YourJokes() {
 
   return (
     <div className="pading">
-      <Header title="Tus Chistes Propios" />
       <div className="flexRow">
         <Link className="linkLi" to="/user">
           <img src={atras} alt="Atras" width="40px" />

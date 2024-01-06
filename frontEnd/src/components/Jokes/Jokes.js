@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import Header from "../Header/Header";
 import { Link } from "react-router-dom";
 import "./Jokes.css";
 import emptyStarIcon from "../../images/emptyStarIcon.png";
@@ -191,7 +190,6 @@ export default function Jokes() {
 
   return (
     <div className="pading">
-      <Header title="Chistes" />
       <div className="flexBox">
         <div className="jokesContent boxComponent">
           <JokesFilters onFilterChange={handleFilterChange} />

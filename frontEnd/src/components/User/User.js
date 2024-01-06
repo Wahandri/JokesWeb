@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Header from "../Header/Header";
 import "./User.css";
 import { useUserContext } from "../../UserContext";
 
@@ -40,7 +39,6 @@ export default function User() {
 
   return (
     <div className="pading">
-      <Header title="Usuario" />
       <div className="flex">
         <div className="boxComponent">
           <div className="boxComponent boxArea">

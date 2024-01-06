@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Header from "../Header/Header";
 import { Link } from "react-router-dom";
 import atras from "../../images/atras.png";
 import "./UserDate.css";
@@ -171,7 +170,6 @@ export default function UserData() {
 
   return (
     <div className="pading">
-      <Header title="Cambiar Datos" />
       <div className="flex">
         <Link className="linkLi" to="/user">
           <img src={atras} alt="Atras" width="40px" />
