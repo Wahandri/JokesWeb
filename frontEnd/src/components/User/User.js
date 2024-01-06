@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Header from "../Header/Header";
 import "./User.css";
 import { useUserContext } from "../../UserContext";
 
@@ -39,41 +40,39 @@ export default function User() {
 
   return (
     <div className="pading">
-      <div className="boxComponent">
-        <div className="boxComponent boxArea">
-          <div className="myRed">
+      <Header title="Usuario" />
+      <div className="flex">
+        <div className="boxComponent">
+          <div className="boxComponent boxArea">
             <p>
-              <strong>Nombre de usuario:</strong>{" "}
-              <span className="colorSpam">{user.username}</span>
+              <strong>Nombre de usuario:</strong> {user.username}
             </p>
             <p>
-              <strong>Email:</strong>{" "}
-              <span class="colorSpam">{user.email}</span>
+              <strong>Email:</strong> {user.email}
             </p>
             <p>
-              <strong>Número de chistes subidos:</strong>{" "}
-              <span class="colorSpam">{userJokes.length}</span>
+              <strong>Número de chistes subidos:</strong> {userJokes.length}
             </p>
             {userJokes.length > 0 && (
               <p>
                 <strong>Media de puntuaciones de tus chistes:</strong>{" "}
-                <span class="colorSpam">{averageRating}</span>
+                {averageRating}
               </p>
             )}
-          </div>
-          <div className="myRed">
-            <Link className="linkLi" to="/user/favorites">
-              <p className="myBtn">CHISTES FAVORITOS</p>
-            </Link>
-            <Link className="linkLi" to="/user/own">
-              <p className="myBtn">CHISTES PROPIOS</p>
-            </Link>
-            <Link className="linkLi" to="/user/data">
-              <p className="myBtn"> CAMBIAR DATOS DE USUARIO</p>
-            </Link>
-            <Link className="linkLi" to="/user/delete">
-              <p className="myBtn">ELIMINAR USUARIO</p>
-            </Link>
+            <div className="myRed">
+              <Link className="linkLi" to="/user/favorites">
+                <p className="myBtn">CHISTES FAVORITOS</p>
+              </Link>
+              <Link className="linkLi" to="/user/own">
+                <p className="myBtn">CHISTES PROPIOS</p>
+              </Link>
+              <Link className="linkLi" to="/user/data">
+                <p className="myBtn"> CAMBIAR DATOS DE USUARIO</p>
+              </Link>
+              <Link className="linkLi" to="/user/delete">
+                <p className="myBtn">ELIMINAR USUARIO</p>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

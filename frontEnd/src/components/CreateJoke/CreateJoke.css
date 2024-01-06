@@ -1,9 +1,14 @@
-
+.boxCreateJoke{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 .jokeForm{
     /* font-family: 'Comic Sans MS', cursive; */
-    background-color: #97C257;
-    border: 3px solid #7A925C;
+    background-color: #80cb70;
+    border: 3px solid #6ba95d;
     border-radius: 20px;
     display: flex;
     color: aliceblue;
@@ -11,11 +16,11 @@
     justify-content: center;
     align-items: center;
     width: 80%;
-    box-shadow: 30px 30px #73726E, 30px 30px #73726E;
+    box-shadow: 30px 30px #7b7974fd, 30px 30px #7b7974fd;
 }
 
 .textAreaCreateJoke{
-    border: 3px solid #7A925C;
+    border: 3px solid #6ba95d;
     border-radius: 10px;
     background-color: #dff7d6;
     color:rgb(49, 129, 44);
@@ -23,7 +28,7 @@
   font-size: 16px;
 }.textAreaCreateJoke:focus{
     outline: none;
-    border: 4px dotted #7A925C;
+    border: 4px dotted #6ba95d;
 }
 
 

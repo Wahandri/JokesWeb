@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Header from "../Header/Header";
 import { Link } from "react-router-dom";
 import atras from "../../images/atras.png";
 import "./UserDate.css";
@@ -170,66 +171,69 @@ export default function UserData() {
 
   return (
     <div className="pading">
-      <Link className="linkLi" to="/user">
-        <img src={atras} alt="Atras" width="40px" />
-      </Link>
-      <div className="flex colums boxComponent">
-        <div className="boxArea">
-          <p>Nombre de usuario actual: {user.username}</p>
-          <input
-            type="text"
-            placeholder="Nuevo nombre de usuario"
-            value={newUsername}
-            onChange={(e) => setNewUsername(e.target.value)}
-          />
-          <button className="bt" onClick={handleChangeUsername}>
-            Cambiar Nombre de Usuario
-          </button>
-          {showUsernameChangeConfirm && (
-            <div>
-              <p>
-                ¿Estás seguro de que deseas cambiar el nombre de usuario de "
-                {user.username}" a "{newUsername}"?
-              </p>
-              <button className="bt" onClick={confirmUsernameChange}>
-                Sí
-              </button>
-              <button className="bt" onClick={cancelUsernameChange}>
-                No
-              </button>
-            </div>
-          )}
+      <Header title="Cambiar Datos" />
+      <div className="flex">
+        <Link className="linkLi" to="/user">
+          <img src={atras} alt="Atras" width="40px" />
+        </Link>
+        <div className="flex colums boxComponent">
+          <div className="boxArea">
+            <p>Nombre de usuario actual: {user.username}</p>
+            <input
+              type="text"
+              placeholder="Nuevo nombre de usuario"
+              value={newUsername}
+              onChange={(e) => setNewUsername(e.target.value)}
+            />
+            <button className="bt" onClick={handleChangeUsername}>
+              Cambiar Nombre de Usuario
+            </button>
+            {showUsernameChangeConfirm && (
+              <div>
+                <p>
+                  ¿Estás seguro de que deseas cambiar el nombre de usuario de "
+                  {user.username}" a "{newUsername}"?
+                </p>
+                <button className="bt" onClick={confirmUsernameChange}>
+                  Sí
+                </button>
+                <button className="bt" onClick={cancelUsernameChange}>
+                  No
+                </button>
+              </div>
+            )}
+          </div>
+          <div className="boxArea">
+            <p>Cambiar Contraseña</p>
+            <input
+              type="password"
+              placeholder="Nueva contraseña"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Confirmar contraseña"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            <button className="bt" onClick={handleChangePassword}>
+              Cambiar Contraseña
+            </button>
+            {showPasswordChangeConfirm && (
+              <div>
+                <p>¿Estás seguro de que deseas cambiar tu contraseña?</p>
+                <button className="bt" onClick={confirmPasswordChange}>
+                  Sí
+                </button>
+                <button className="bt" onClick={cancelPasswordChange}>
+                  No
+                </button>
+              </div>
+            )}
+          </div>
+          {message && <p className="message">{message}</p>}
         </div>
-        <div className="boxArea">
-          <p>Cambiar Contraseña</p>
-          <input
-            type="password"
-            placeholder="Nueva contraseña"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Confirmar contraseña"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-          <button className="bt" onClick={handleChangePassword}>
-            Cambiar Contraseña
-          </button>
-          {showPasswordChangeConfirm && (
-            <div>
-              <p>¿Estás seguro de que deseas cambiar tu contraseña?</p>
-              <button className="bt" onClick={confirmPasswordChange}>
-                Sí
-              </button>
-              <button className="bt" onClick={cancelPasswordChange}>
-                No
-              </button>
-            </div>
-          )}
-        </div>
-        {message && <p className="message">{message}</p>}
       </div>
     </div>
   );

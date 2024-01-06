@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import MyAlert from "../MyAlert/MyAlert";
+import Header from "../Header/Header";
+import { Link } from "react-router-dom";
 import "./Jokes.css";
 import emptyStarIcon from "../../images/emptyStarIcon.png";
 import filledStarIcon from "../../images/filledStarIcon.png";
@@ -19,13 +19,6 @@ export default function Jokes() {
   const { user, updateUser } = useUserContext();
   const loadingRef = useRef(null);
   const [averageScore] = useState(0);
-  const [alertState, setAlertState] = useState({
-    isOpen: false,
-    message: "",
-    onConfirm: () => {},
-    onCancel: () => {},
-  });
-  const navigate = useNavigate();
 
   // Función para cargar chistes desde el servidor
   const fetchJokes = async (page, filter) => {
@@ -87,15 +80,7 @@ export default function Jokes() {
   const handleLike = async (jokeId) => {
     try {
       if (!user) {
-        setAlertState({
-          isOpen: true,
-          message: "Debes iniciar sesión para agregar a favoritos",
-          onConfirm: () => {
-            setAlertState({ isOpen: false });
-            navigate("/login");
-          },
-          onCancel: () => setAlertState({ isOpen: false }),
-        });
+        alert("Debes iniciar sesión para agregar a favoritos");
         return;
       }
 
@@ -121,28 +106,24 @@ export default function Jokes() {
         updateUser({ ...user, favoriteJokes: data.favoriteJokes });
       } else {
         const data = await response.json();
-        setAlertState({
-          isOpen: true,
-          message: data.error,
-          onConfirm: () => setAlertState({ isOpen: false }),
-          onCancel: () => setAlertState({ isOpen: false }),
-        });
+        alert(data.error);
       }
     } catch (error) {
       console.error("Error al agregar/quitar de favoritos:", error);
-      setAlertState({
-        isOpen: true,
-        message:
-          "Error al agregar/quitar de favoritos. Inténtalo de nuevo más tarde.",
-        onConfirm: () => setAlertState({ isOpen: false }),
-        onCancel: () => setAlertState({ isOpen: false }),
-      });
+      alert(
+        "Error al agregar/quitar de favoritos. Inténtalo de nuevo más tarde."
+      );
     }
   };
 
   // Función para manejar el botón de "Estrella" en un chiste (Eliminar de favoritos)
   const handleUnlike = async (jokeId) => {
     try {
+      if (!user) {
+        alert("Debes iniciar sesión para quitar de favoritos");
+        return;
+      }
+
       const response = await fetch(`${apiUrl}/jokes/${jokeId}/favorite`, {
         method: "DELETE", // Usar DELETE para eliminar de favoritos
         headers: {
@@ -209,61 +190,65 @@ export default function Jokes() {
   };
 
   return (
-    <div className="jokesContent boxComponent">
-      <JokesFilters onFilterChange={handleFilterChange} />
-      <div className="">
-        <div className="boxJokes">
-          <ul className="ul">
-            {chistes.map((chiste) => (
-              <li className="boxArea" key={chiste._id}>
-                <div className="author">
-                  <p>{chiste.author}</p>
-                  <div className="uploadTime">
-                    <h6>{formatTimeDifference(chiste.createdAt)}</h6>
-                  </div>
-                </div>
-                <div className="flexJoke">
-                  <div className="chisteText">{chiste.text}</div>
-                  <div className="boxAudioStart">
-                    <AudioButton text={chiste.text} />
-                    {user && user.favoriteJokes.includes(chiste._id) ? (
-                      <img
-                        className="imgStar"
-                        src={filledStarIcon}
-                        onClick={() => handleUnlike(chiste._id)}
-                        alt="Favorito"
-                        title="Eliminar de favoritos"
-                      />
-                    ) : (
-                      <img
-                        className="imgStar"
-                        src={emptyStarIcon}
-                        onClick={() => handleLike(chiste._id)}
-                        alt="No favorito"
-                        title="Añadir a favoritos"
-                      />
-                    )}
-                  </div>
-                </div>
-                <Score
-                  chiste={chiste}
-                  user={user}
-                  averageScore={averageScore}
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div ref={loadingRef} className="loading">
-          {currentPage < totalPages && <p>Cargando más chistes...</p>}
+    <div className="pading">
+      <Header title="Chistes" />
+      <div className="flexBox">
+        <div className="jokesContent boxComponent">
+          <JokesFilters onFilterChange={handleFilterChange} />
+          <div className="">
+            <div className="boxJokes">
+              <ul className="ul">
+                {chistes.map((chiste) => (
+                  <li className="boxArea" key={chiste._id}>
+                    <div className="author">
+                      <p>{chiste.author}</p>
+                      <div className="uploadTime">
+                        <h6>{formatTimeDifference(chiste.createdAt)}</h6>
+                      </div>
+                    </div>
+                    <div className="flexJoke">
+                      <div className="chisteText">{chiste.text}</div>
+                      <div className="boxAudioStart">
+                        <AudioButton text={chiste.text} />
+                        {user && user.favoriteJokes.includes(chiste._id) ? (
+                          <img
+                            className="imgStar"
+                            src={filledStarIcon}
+                            onClick={() => handleUnlike(chiste._id)}
+                            alt="Favorito"
+                            title="Eliminar de favoritos"
+                          />
+                        ) : (
+                          <img
+                            className="imgStar"
+                            src={emptyStarIcon}
+                            onClick={() => handleLike(chiste._id)}
+                            alt="No favorito"
+                            title="Añadir a favoritos"
+                          />
+                        )}
+                      </div>
+                    </div>
+                    <Score
+                      chiste={chiste}
+                      user={user}
+                      averageScore={averageScore}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div ref={loadingRef} className="loading">
+              {currentPage < totalPages && <p>Cargando más chistes...</p>}
+            </div>
+          </div>
+          <div>
+            <Link to="/jokes/create">
+              <img className="floatingIcon btAddJoke" src={addJoke} alt="" />
+            </Link>
+          </div>
         </div>
       </div>
-      <div>
-        <Link to="/jokes/create">
-          <img className="floatingIcon btAddJoke" src={addJoke} alt="" />
-        </Link>
-      </div>
-      <MyAlert {...alertState} />
     </div>
   );
 }

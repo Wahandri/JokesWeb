@@ -7,7 +7,7 @@
 }
 
 .login-card {
-    background-color:  #97C257;
+    background-color:  #80cb70;
 
     color: aliceblue;
     display: flex;
@@ -18,7 +18,7 @@
     height: 80%;
     border-radius: 10px;
     margin-top: 70px;
-    box-shadow: 30px 20px #73726E;
+    box-shadow: 30px 20px #7b7974fd;
 }
 
 .form-login {

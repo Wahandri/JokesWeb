@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useUserContext } from "../../UserContext";
 import "./OwnJokes.css";
+import Header from "../Header/Header";
 import AudioButton from "../AudioButton/AudioButton";
 import { Link } from "react-router-dom";
 import atras from "../../images/atras.png";
@@ -130,80 +131,83 @@ export default function YourJokes() {
 
   return (
     <div className="pading">
-      <Link className="linkLi" to="/user">
-        <img src={atras} alt="Atras" width="40px" />
-      </Link>
-      <div className="baseUser boxComponent flex">
-        <div className="tusChistes flex">
-          {yourJokes.length > 0 && (
-            <ul>
-              {yourJokes.map((chiste) => (
-                <li className="boxArea" key={chiste._id}>
-                  {editing && chiste._id === editedJokeId ? (
-                    <div className="">
-                      <div className="boxComponent">
-                        <textarea
-                          rows="3"
-                          value={editedJoke}
-                          onChange={(e) => setEditedJoke(e.target.value)}
-                        />
-                        <AudioButton text={editedJoke} />
+      <Header title="Tus Chistes Propios" />
+      <div className="flexRow">
+        <Link className="linkLi" to="/user">
+          <img src={atras} alt="Atras" width="40px" />
+        </Link>
+        <div className="baseUser boxComponent flex">
+          <div className="tusChistes flex">
+            {yourJokes.length > 0 && (
+              <ul>
+                {yourJokes.map((chiste) => (
+                  <li className="boxArea" key={chiste._id}>
+                    {editing && chiste._id === editedJokeId ? (
+                      <div className="">
+                        <div className="boxComponent">
+                          <textarea
+                            rows="3"
+                            value={editedJoke}
+                            onChange={(e) => setEditedJoke(e.target.value)}
+                          />
+                          <AudioButton text={editedJoke} />
+                        </div>
+                        <div className="ownBox2">
+                          <img
+                            src={btOk}
+                            className="btnDelete"
+                            onClick={saveChanges}
+                            title="Guardar Cambios"
+                            alt=""
+                          />
+                          <img
+                            src={btDelete}
+                            className="btnDelete"
+                            onClick={cancelEdit}
+                            title="Cancelar"
+                            alt=""
+                          />
+                        </div>
+                        {messageVisible && <p className="message">{message}</p>}
                       </div>
-                      <div className="ownBox2">
-                        <img
-                          src={btOk}
-                          className="btnDelete"
-                          onClick={saveChanges}
-                          title="Guardar Cambios"
-                          alt=""
-                        />
-                        <img
-                          src={btDelete}
-                          className="btnDelete"
-                          onClick={cancelEdit}
-                          title="Cancelar"
-                          alt=""
-                        />
-                      </div>
-                      {messageVisible && <p className="message">{message}</p>}
-                    </div>
-                  ) : (
-                    <div className="ownBox">
-                      {chiste.text}
-                      <MediaIcon averageScore={chiste.score} />
-                      <div className="btnsFavorite">
-                        <AudioButton text={chiste.text} />
-                        <img
-                          className="btnDelete"
-                          src={btDelete}
-                          alt="Eliminar chiste"
-                          title="Eliminar chiste"
-                          onClick={() => deleteJoke(chiste._id)}
-                        />
+                    ) : (
+                      <div className="ownBox">
+                        {chiste.text}
+                        <MediaIcon averageScore={chiste.score} />
+                        <div className="btnsFavorite">
+                          <AudioButton text={chiste.text} />
+                          <img
+                            className="btnDelete"
+                            src={btDelete}
+                            alt="Eliminar chiste"
+                            title="Eliminar chiste"
+                            onClick={() => deleteJoke(chiste._id)}
+                          />
 
-                        <img
-                          className="btnDelete"
-                          src={editar}
-                          title="Editar Chiste"
-                          alt=""
-                          onClick={() => {
-                            setEditing(true);
-                            setEditedJoke(chiste.text);
-                            setEditedJokeId(chiste._id);
-                            setMessage("");
-                          }}
-                        />
+                          <img
+                            className="btnDelete"
+                            src={editar}
+                            title="Editar Chiste"
+                            alt=""
+                            onClick={() => {
+                              setEditing(true);
+                              setEditedJoke(chiste.text);
+                              setEditedJokeId(chiste._id);
+                              setMessage("");
+                            }}
+                          />
+                        </div>
                       </div>
-                    </div>
-                  )}
-                  {message && !messageVisible && (
-                    <p className="message">{message}</p>
-                  )}
-                </li>
-              ))}
-            </ul>
-          )}
-          {yourJokes.length === 0 && <h4>No hay chistes propios.</h4>}
+                    )}
+                    {message && !messageVisible && (
+                      <p className="message">{message}</p>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
+            {yourJokes.length === 0 && <h4>No hay chistes propios.</h4>}
+          </div>
         </div>
       </div>
     </div>

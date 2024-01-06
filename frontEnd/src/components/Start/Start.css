@@ -1,12 +1,5 @@
-.boxStart {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .indexBox {
-  background-color: #73726E;
+  background-color: #7b7974fd;
   display: grid;
   gap: 1rem;
   grid-template-columns: 50% 50%;
@@ -15,19 +8,25 @@
   border-radius: 15px;
   align-items: center;
   color: aliceblue;
-  width: 500px;
 }
 
 .loginCard {
-  background-color: #97C257;
+  background-color: #80cb70;
   height: 90%;
   border-radius: 10px;
   padding-left: 20%;
   box-shadow: -2px 2px 5px rgb(52, 54, 51);
 }
 
+.logoContainer {
+  display: flex;
+  justify-content: center;
+}
 
-
+.imgContainer {
+  position: relative;
+  max-width: 200px; /* Ajusta el ancho máximo según tus necesidades */
+}
 
 .img {
   width: 100px;
@@ -44,7 +43,6 @@
   white-space: nowrap;
   opacity: 0;
   transition: opacity 0.5s ease; 
-  
 }
 
 .imgContainer:hover .developerText {

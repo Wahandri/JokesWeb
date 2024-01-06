@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import atras from "../../images/atras.png";
 import "./FavoriteJokes.css";
 import { useUserContext } from "../../UserContext";
+import Header from "../Header/Header";
 import filledStarIcon from "../../images/deleteFavorite.png";
 import AudioButton from "../AudioButton/AudioButton";
 
@@ -52,33 +53,36 @@ export default function FavoritesJokes() {
 
   return (
     <div className="pading">
-      <Link className="" to="/user">
-        <img src={atras} alt="Atras" width="40px" />
-      </Link>
-      <div className="baseUser boxComponent flex">
-        <div className="tusChistes flex">
-          {favoriteJokes.length > 0 && (
-            <ul>
-              {favoriteJokes.map((chiste) => (
-                <li className="boxArea jokesUser" key={chiste._id}>
-                  {chiste.text}
-                  <div className="btsUser">
-                    <AudioButton text={chiste.text} />
-                    <img
-                      className="imgStar"
-                      src={filledStarIcon}
-                      alt="Quitar de favoritos"
-                      title="Quitar de favoritos"
-                      onClick={() => handleRemoveFromFavorites(chiste._id)}
-                    />
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
-          {favoriteJokes.length === 0 && (
-            <h4>No tienes chistes en favoritos.</h4>
-          )}
+      <Header title="Chistes Favoritos" />
+      <div className="flexRow">
+        <Link className="" to="/user">
+          <img src={atras} alt="Atras" width="40px" />
+        </Link>
+        <div className="baseUser boxComponent flex">
+          <div className="tusChistes flex">
+            {favoriteJokes.length > 0 && (
+              <ul>
+                {favoriteJokes.map((chiste) => (
+                  <li className="boxArea jokesUser" key={chiste._id}>
+                    {chiste.text}
+                    <div className="btsUser">
+                      <AudioButton text={chiste.text} />
+                      <img
+                        className="imgStar"
+                        src={filledStarIcon}
+                        alt="Quitar de favoritos"
+                        title="Quitar de favoritos"
+                        onClick={() => handleRemoveFromFavorites(chiste._id)}
+                      />
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {favoriteJokes.length === 0 && (
+              <h4>No tienes chistes en favoritos.</h4>
+            )}
+          </div>
         </div>
       </div>
     </div>

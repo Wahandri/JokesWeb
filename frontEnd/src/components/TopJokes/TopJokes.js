@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Header from "../Header/Header";
 import AudioButton from "../AudioButton/AudioButton";
 import "./TopJokes.css";
 import top1 from "../../images/top1.png";
@@ -27,25 +28,28 @@ export default function TopJokes() {
   }, []);
 
   return (
-    <div className="boxTop10 pading">
-      <div className="boxComponent">
-        <ul className="ul">
-          {topJokes.map((joke, index) => (
-            <li className="boxArea" key={joke._id}>
-              {index === 0 ? (
-                <img className="medalla" src={top1} alt="Top 1" />
-              ) : index === 1 ? (
-                <img className="medalla" src={top2} alt="Top 2" />
-              ) : index === 2 ? (
-                <img className="medalla" src={top3} alt="Top 3" />
-              ) : (
-                <span className="position">{index + 1}. </span>
-              )}
-              {joke.text}
-              <AudioButton text={joke.text} />
-            </li>
-          ))}
-        </ul>
+    <div className="pading">
+      <Header title="Top 10" />
+      <div className="boxJokes flexRow">
+        <div className="boxComponent">
+          <ul className="ul">
+            {topJokes.map((joke, index) => (
+              <li className="boxArea" key={joke._id}>
+                {index === 0 ? (
+                  <img className="medalla" src={top1} alt="Top 1" />
+                ) : index === 1 ? (
+                  <img className="medalla" src={top2} alt="Top 2" />
+                ) : index === 2 ? (
+                  <img className="medalla" src={top3} alt="Top 3" />
+                ) : (
+                  <span className="position">{index + 1}. </span>
+                )}
+                {joke.text}
+                <AudioButton text={joke.text} />
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
