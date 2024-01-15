@@ -31,8 +31,8 @@
 
   
   text-decoration: underline;
-  text-decoration-color: #6ba95d; /* Cambiar el color del subrayado */
-  text-decoration-thickness: 1px; /* Cambiar el grosor del subrayado */
+  text-decoration-color: #6ba95d; 
+  text-decoration-thickness: 1px; 
   text-decoration-style:double; /* Cambiar el estilo del subrayado */
   
   
@@ -149,18 +149,7 @@
   margin-left: 10px;
 }
 
-.imgAudio {
-    position: relative;
-    height: 25px;
-    cursor:pointer;
-    /* margin-left: 20px; */
-    cursor: pointer;
-    margin-right: 50%;
-  }
-  
-  .imgAudio:hover {
-    animation: vibrate 0.1s 1 linear;
-  }
+
   
   @keyframes vibrate {
     0% {

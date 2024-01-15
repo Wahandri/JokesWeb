@@ -1,8 +1,17 @@
+.boxStart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .indexBox {
-  background-color: #7b7974fd;
+  background-color: #7D7974;
   display: grid;
+  box-shadow: -2px 2px 5px rgb(52, 54, 51);
   gap: 1rem;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 1fr 1fr;
   margin-left: 15%;
   margin-right: 15%;
   border-radius: 15px;
@@ -10,9 +19,11 @@
   color: aliceblue;
 }
 
+
+
 .loginCard {
-  background-color: #80cb70;
-  height: 90%;
+  background-color: #9BC355;
+  /* height: 90%; */
   border-radius: 10px;
   padding-left: 20%;
   box-shadow: -2px 2px 5px rgb(52, 54, 51);

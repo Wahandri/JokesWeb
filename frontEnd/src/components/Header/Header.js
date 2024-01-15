@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import exit2 from "../../images/exit2.png";
+
 import "./Header.css";
-import logotipo from "./logotipo.png";
-// import payaso2 from "./payaso2.png";
+import logo from "../../images/logotipo.png";
+import exit from "../../images/exit.png";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+
+import menu from "../../images/menu.png";
 
 export default function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
   const [confirmLogout, setConfirmLogout] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleLogout = () => {
     // Eliminando el token del localStorage
@@ -17,68 +20,85 @@ export default function Header() {
     navigate("/");
   };
 
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
   const isActive = (path) => {
     return location.pathname === path;
   };
 
   return (
-    <div className="baseHeader">
-      <div className="header">
-        <div className="imgContainer">
-          <img className="img" src={logotipo} alt="" />
+    <div className="contentHeader">
+      <div className={`boxHeader ${menuOpen ? "menuOpen" : ""}`}>
+        <Link to="/jokes" onClick={closeMenu} className="imgLogo">
+          <img className="imgLogo" src={logo} title="Inicio" alt="" />
+        </Link>
+        <div className="menuButton" onClick={toggleMenu}>
+          <img src={menu} title="Menu" width="35px" alt="menu" />
         </div>
-
-        <Link
-          className={`linkLi ${isActive("/jokes") ? "active" : ""}`}
-          to="/jokes"
-        >
-          CHISTES
-        </Link>
-        <Link
-          className={`linkLi ${isActive("/jokes/create") ? "active" : ""}`}
-          to="/jokes/create"
-        >
-          AÑADIR CHISTE
-        </Link>
-        <Link
-          className={`linkLi ${isActive("/top") ? "active" : ""}`}
-          to="/top"
-        >
-          TOP 10
-        </Link>
-        <Link
-          className={`linkLi ${isActive("/user") ? "active" : ""}`}
-          to="/user"
-        >
-          PERFIL
-        </Link>
-
-        {/* <Link to="/user">
-          <img className="img2" src={payaso2} alt="Perfil" />
-        </Link> */}
-
-        <div className="boxBtnExit" onClick={() => setConfirmLogout(true)}>
-          <img className="btnExit" src={exit2} alt="" />
-        </div>
-      </div>
-      {confirmLogout && (
-        <div className="overlay" onClick={() => setConfirmLogout(false)}>
-          <div className="logoutConfirm" onClick={(e) => e.stopPropagation()}>
-            <p>¿Estás seguro de que quieres cerrar sesión?</p>
-            <div className="flexRow">
-              <button className="myBtn linkLi" onClick={handleLogout}>
-                Aceptar
-              </button>
-              <button
-                className="myBtn linkLi"
-                onClick={() => setConfirmLogout(false)}
-              >
-                Cancelar
-              </button>
-            </div>
+        <ul className="navBar">
+          <Link
+            onClick={closeMenu}
+            className={`linkLi ${isActive("/jokes") ? "active" : ""}`}
+            to="/jokes"
+          >
+            Inicio
+          </Link>
+          <hr className="line" />
+          <Link
+            onClick={closeMenu}
+            className={`linkLi ${isActive("/jokes/create") ? "active" : ""}`}
+            to="/jokes/create"
+          >
+            Añadir
+          </Link>
+          <hr className="line" />
+          <Link
+            onClick={closeMenu}
+            className={`linkLi ${isActive("/user") ? "active" : ""}`}
+            to="/user"
+          >
+            Perfil
+          </Link>
+          <hr className="line" />
+          <Link
+            onClick={closeMenu}
+            className={`linkLi ${isActive("/top") ? "active" : ""}`}
+            to="/top"
+          >
+            Top
+          </Link>
+        </ul>
+        <div className="socialNetworkIcons">
+          <div className="boxBtnExit" onClick={() => setConfirmLogout(true)}>
+            <img className="btnExit" src={exit} alt="" />
           </div>
         </div>
-      )}
+        {confirmLogout && (
+          <div className="overlay" onClick={() => setConfirmLogout(false)}>
+            <div className="logoutConfirm" onClick={(e) => e.stopPropagation()}>
+              <p>¿Estás seguro de que quieres cerrar sesión?</p>
+              <div className="flexBtw">
+                <button className="linkLi" onClick={handleLogout}>
+                  Aceptar
+                </button>
+                <button
+                  className="linkLi"
+                  onClick={() => setConfirmLogout(false)}
+                >
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+      <div className="empyHeader"> </div>
     </div>
   );
 }

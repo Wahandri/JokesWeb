@@ -13,15 +13,12 @@ export default function Start() {
   };
 
   return (
-    <div className="base">
+    <div className="boxStart">
       <div className="logoContainer">
-        <div className="imgContainer">
-          <img className="img" src={logotipo} alt="" />
-          <span className="developerText">Desarrollado por Wahandri</span>
-        </div>
+        <img className="img" src={logotipo} alt="" />
       </div>
       <div className="indexBox">
-        <div className="jokeCard">
+        <div className="jokeCardStart">
           <JokeCard />
         </div>
         <div className="loginCard">

@@ -2,6 +2,8 @@
     width: 30px;
     cursor: pointer;
 
+} .btnDelete:hover {
+    animation: vibrate 0.2s 3 linear;
 }
 
 .btnsFavorite {

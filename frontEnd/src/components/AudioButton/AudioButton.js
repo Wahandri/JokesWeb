@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import iconAudio from "../../images/btAudio.png";
+import "./AudioButton.css";
 
 const AudioButton = ({ text }) => {
   const [isReading, setIsReading] = useState(false);
@@ -23,7 +24,7 @@ const AudioButton = ({ text }) => {
     <img
       title="Escuchar"
       alt=""
-      className="btnDelete"
+      className="btnAudio"
       src={iconAudio}
       onClick={leerChiste}
     />

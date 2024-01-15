@@ -1,4 +1,5 @@
 import React from "react";
+import "./PrivateLayout.css";
 import { Route, Routes, Navigate } from "react-router-dom";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
@@ -20,7 +21,7 @@ function PrivateLayout() {
   };
 
   return (
-    <>
+    <div className="boxPrivateLayout">
       <Header />
       <Routes>
         <Route path="/jokes" element={<PrivateRoute element={<Jokes />} />} />
@@ -48,7 +49,7 @@ function PrivateLayout() {
         <Route path="/top" element={<PrivateRoute element={<TopJokes />} />} />
       </Routes>
       <Footer />
-    </>
+    </div>
   );
 }
 
