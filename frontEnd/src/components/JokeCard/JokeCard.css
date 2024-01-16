@@ -53,13 +53,13 @@
 .randomJoke {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  /* width: 450px; */
-  /* height: 450px; */
+  height: 350px;
   border-radius: 10px;
-  background-color: #9BC355;
+  
   box-shadow: -2px 2px 10px rgb(41, 84, 42);
+  color: black;
 }
 
 .h4Title {

@@ -27,8 +27,8 @@ const JokeCard = () => {
   }, []);
 
   return (
-    <div className="jokeCard">
-      <div className="randomJoke">
+    <div className="jokeCard randomJoke">
+      <div>
         <h2 className="h2">Chiste aleatorio</h2>
         <hr className="hr"></hr>
         <h4 className="h4" lang="es">

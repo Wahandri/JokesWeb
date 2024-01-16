@@ -1,15 +1,16 @@
 Body {
-    background-image: url(./images/fondo.png);
-    background-size: 20%;
-    /* background-color: #f3eff5; */
-    height: 100vh;
+    /* background-image: url(./images/fondo.png);
+    background-size: 20%; */
+    background-color: #0FD9B1;
     font-weight: bold;
-    max-width: 100vw;
     margin: 5px;
 }
 
-
-  
+.flexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .flexRow {
     display: flex;
@@ -30,22 +31,13 @@ Body {
     padding: 20px;
 }
 
-.boxArea {
-    background-color: #80cb70;
-    border: 3px solid #6ba95d;
-    border-radius: 20px;
-    display: flex;
-    color: aliceblue;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-    box-shadow: 10px 10px #7b7974fd, 10px 10px #7b7974fd;
-    margin: 12px;
-    padding: 10px;
-}
+
 
 /* Boton  */
+
+.btnSmallSize {
+    width: 0px;
+}
 
 .btnReload {
     position: relative;
@@ -117,3 +109,11 @@ Body {
 .color3 {color: #f3eff5 };
 .color4 {color: #454955 };
 .color5 {color: #0d0a0b };
+
+
+/* -------------------- */
+.color1 { color: #4d433d };
+.color2 { color: #525c5a };
+.color3 { color: #56877d };
+.color4 { color: #8ccc81 };
+.color5 { color: #bade57 };

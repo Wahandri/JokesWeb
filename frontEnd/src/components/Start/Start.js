@@ -18,9 +18,9 @@ export default function Start() {
         <img className="img" src={logotipo} alt="" />
       </div>
       <div className="indexBox">
-        <div className="jokeCardStart">
+        {/* <div className="jokeCardStart">
           <JokeCard />
-        </div>
+        </div> */}
         <div className="loginCard">
           <Login onLogin={handleSuccessfulLogin} />
         </div>

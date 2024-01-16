@@ -7,14 +7,11 @@
 }
 
 .indexBox {
-  background-color: #7D7974;
-  display: grid;
-  box-shadow: -2px 2px 5px rgb(52, 54, 51);
-  gap: 1rem;
-  grid-template-columns: 1fr 1fr;
-  margin-left: 15%;
-  margin-right: 15%;
+  display: flex;
+  /* box-shadow: -2px 2px 5px rgb(52, 54, 51); */
   border-radius: 15px;
+  height: 500px;
+  justify-content: center;
   align-items: center;
   color: aliceblue;
 }
@@ -22,10 +19,12 @@
 
 
 .loginCard {
-  background-color: #9BC355;
-  /* height: 90%; */
+  background-image: url(../../images/fondo.png);
+  background-size: 25%;
+  height: 350px;
+  color: black;
+  width: 350px;
   border-radius: 10px;
-  padding-left: 20%;
   box-shadow: -2px 2px 5px rgb(52, 54, 51);
 }
 
