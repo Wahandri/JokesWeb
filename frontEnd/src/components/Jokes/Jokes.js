@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./Jokes.css";
 import emptyStarIcon from "../../images/emptyStarIcon.png";
-import filledStarIcon from "../../images/filledStarIcon.png";
+import filledStarIcon from "../../images/estrella.png";
 import addJoke from "../../images/addJoke.png";
 import AudioButton from "../AudioButton/AudioButton";
 import { useUserContext } from "../../UserContext";

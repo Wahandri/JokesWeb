@@ -1,6 +1,5 @@
-import React from "react";
-import "./PrivateLayout.css";
-import { Route, Routes, Navigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Footer from "../Footer/Footer";
 import { useUserContext } from "../../UserContext";
 import User from "../../components/User/User";
@@ -11,14 +10,52 @@ import CreateJoke from "../../components/CreateJoke/CreateJoke";
 import DeleteUser from "../../components/DeleteUser/DeleteUser";
 
 function PrivateLayout() {
-  const PrivateRoute = ({ element, path }) => {
-    const { user } = useUserContext();
+  const { user } = useUserContext();
+  const [showLoginDialog, setShowLoginDialog] = useState(false);
+  const [redirectTo, setRedirectTo] = useState(null);
+  const navigate = useNavigate();
 
-    return user ? element : <Navigate to="/" />;
+  useEffect(() => {
+    if (redirectTo) {
+      navigate(redirectTo);
+    }
+  }, [redirectTo, navigate]);
+
+  const handleLoginRedirect = (path) => {
+    setRedirectTo(path);
+    setShowLoginDialog(true);
+  };
+
+  const handleLoginConfirmed = () => {
+    setShowLoginDialog(false);
+    navigate("/login", { state: { from: redirectTo } });
+  };
+
+  const handleLoginCancelled = () => {
+    setShowLoginDialog(false);
+    setRedirectTo(null);
+  };
+
+  const PrivateRoute = ({ element, path }) => {
+    if (user) {
+      return element;
+    } else {
+      handleLoginRedirect(path);
+      return null; // Aquí podrías renderizar un componente de carga o nada
+    }
   };
 
   return (
     <div className="boxPrivateLayout">
+      {showLoginDialog && (
+        <div>
+          {/* Tu componente de cuadro de diálogo de confirmación aquí */}
+          <p>¿Quieres hacer login?</p>
+          <button onClick={handleLoginConfirmed}>Sí</button>
+          <button onClick={handleLoginCancelled}>Cancelar</button>
+        </div>
+      )}
+
       <Routes>
         <Route
           path="/jokes/create"
@@ -41,6 +78,7 @@ function PrivateLayout() {
           path="/user/delete"
           element={<PrivateRoute element={<DeleteUser />} />}
         />
+        {/* Añade aquí más rutas privadas según sea necesario */}
       </Routes>
       <Footer />
     </div>

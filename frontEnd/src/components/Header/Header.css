@@ -6,6 +6,16 @@
 
 .empyHeader {
     height: 130px;
+    background-color: #ffffff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+}
+
+.spaceHeader {
+    height: 150px;
 }
 
 .boxHeader {
@@ -20,12 +30,17 @@
     justify-content:space-between;
     align-items: center;
     height: 130px;
-    /* background-color: #f3eff5; */
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
-    border: 1px solid #7F7B75;
     border-radius: 15px;
     margin-left: 9px;
     margin-right: 9px;
+    border-radius: 20px;
+    background: linear-gradient(
+        170deg,
+        rgba(58, 56, 56, 0.623) 0%,
+        rgb(31, 31, 31) 100%
+    );
+    box-shadow: 0 25px 15px rgba(0, 0, 0, 0.35);
 }
 
 .logoutConfirm {
@@ -63,10 +78,19 @@
     
 }
 
+.rotacion {
+    transition: transform 0.8s ease;
+  }
+  
+  .contenedor-rotacion:hover .rotacion {
+    transform: rotate(180deg);
+  }
+
 .imgLogo {
     margin-left: 20px;
     display: block;
     width: 110px;
+    
     
 } .imgLogoSimona:hover {
     transform: scale(1.3);
@@ -87,7 +111,6 @@
 
 }
 
-
 .menuOpen .navBar {
     height: 400px;
     overflow: visible;
@@ -98,30 +121,31 @@
 }
 
 .linkLi {
-    display: inline-block;
-  padding: 10px 20px;
-  font-size: 16px;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  border: 2px solid #0ca788; 
-  border-radius: 5px; 
-  background-color: #0FD9B1; 
-  color: #fff; 
-  transition: background-color 0.3s, color 0.3s;
+    padding: 1.3em 3em;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: #ffffff;
+    background-color: #A8C961;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
 } .linkLi:hover {
-    background-color: #0dad8d;
-  color: #fff;
+    background-color: #ffffff;
+    box-shadow: 0px 15px 20px #a8c96148;
+    color: #000000;
+    transform: translateY(-10px);
 } .linkLi.active {
-    color: #fff; 
-    background-color: #0FD9B1;
-    border: 2px solid #0fd9b12d; 
-    box-shadow: 0px 0px 10px #0FD9B1;
-} .linkLi.active:hover {
-    color: #fff; 
-    background-color: #4dd7bc;
-    border: 2px solid #0FD9B1; 
-}
+    background-color: #ffffff;
+    box-shadow: 0px 15px 20px #a8c96148;
+    color: #000000;
+    transform: translateY(-10px);
+} 
+
 
 .btnExit {
     width: 50px;

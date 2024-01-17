@@ -35,8 +35,12 @@ export default function Header() {
   return (
     <div className="contentHeader">
       <div className={`boxHeader ${menuOpen ? "menuOpen" : ""}`}>
-        <Link to="/jokes" onClick={closeMenu} className="imgLogo">
-          <img className="imgLogo" src={logo} title="Inicio" alt="" />
+        <Link
+          to="/jokes"
+          onClick={closeMenu}
+          className="imgLogo contenedor-rotacion"
+        >
+          <img className="imgLogo rotacion" src={logo} title="Inicio" alt="" />
         </Link>
         <div className="menuButton" onClick={toggleMenu}>
           <img src={menu} title="Menu" width="35px" alt="menu" />
@@ -99,6 +103,7 @@ export default function Header() {
         )}
       </div>
       <div className="empyHeader"> </div>
+      <div className="spaceHeader"> </div>
     </div>
   );
 }

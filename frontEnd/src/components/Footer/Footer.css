@@ -37,6 +37,10 @@
 .rotacion {
   transition: transform 0.5s ease;
 }
+
+.contenedor-rotacion:hover .rotacion {
+  transform: rotate(180deg);
+}
   
 .texto p {
   margin: 0; /* Asegurarse de que no haya margen dentro del párrafo */
@@ -46,10 +50,6 @@
   
 .texto .texto-hover {
   opacity: 0;
-}
-  
-.contenedor-rotacion:hover .rotacion {
-  transform: rotate(180deg);
 }
   
 .contenedor-rotacion:hover .texto .texto-original {
